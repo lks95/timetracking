@@ -19,11 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a5766c72-1ade-44d7-bfbf-00ecccfe0e7d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="a5766c72-1ade-44d7-bfbf-00ecccfe0e7d" name="Default Changelist" comment="test" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -60,8 +56,16 @@
       <option name="presentableId" value="Default" />
       <updated>1588061609910</updated>
       <workItem from="1588061611413" duration="68000" />
-      <workItem from="1588062541013" duration="650000" />
+      <workItem from="1588062541013" duration="775000" />
     </task>
+    <task id="LOCAL-00001" summary="test">
+      <created>1588063255322</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1588063255322</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -78,7 +82,15 @@
       </map>
     </option>
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="test" />
+    <option name="LAST_COMMIT_MESSAGE" value="test" />
+  </component>
   <component name="WindowStateProjectService">
+    <state x="651" y="577" key="#Notifications" timestamp="1588063317753">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="651" y="577" key="#Notifications/0.0.2560.1400@0.0.2560.1400" timestamp="1588063317753" />
     <state x="1520" y="387" key="FileChooserDialogImpl" timestamp="1588062796020">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
