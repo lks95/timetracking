@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "hdm-gitlab:mwa/mwa-ss20/lisbon.git"
+    "url": "https://gitlab.mi.hdm-stuttgart.de/mwa/mwa-ss20/lisbon.git"
   },
   "author": "",
   "license": "ISC"
