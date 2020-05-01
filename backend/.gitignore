@@ -1,0 +1,18 @@
+.idea/
+node_modules/
+build/
+logs/
+out/
+*.iml
+
+
+# Angular
+tmp/
+dist/
+app/**/*.js
+app/**/*.js.map
+
+.env
+.env.test
+
+.DS_Store/
