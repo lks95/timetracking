@@ -1,9 +1,9 @@
 {
-  "name": "lisbon",
+  "name": "lisbon-backend",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
   "scripts": {
+    "start": "node ./bin/www",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -11,5 +11,12 @@
     "url": "https://gitlab.mi.hdm-stuttgart.de/mwa/mwa-ss20/lisbon.git"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "debug": "^4.1.1",
+    "express": "^4.17.1",
+    "morgan": "^1.10.0",
+    "http-errors": "^1.7.3",
+    "dotenv": "^8.2.0"
+  }
 }
