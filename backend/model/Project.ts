@@ -2,7 +2,7 @@ import Task from './Task';
 import Record from './Record';
 
 export default class Project {
-  private id: string;
+  private id?: string;
 
   private name: string;
 
@@ -10,11 +10,11 @@ export default class Project {
 
   private completed: boolean;
 
-  private readonly tasks: Task[];
+  private readonly tasks: Task[] = [];
 
-  private readonly records: Record[];
+  private readonly records: Record[] = [];
 
-  constructor(name, color) {
+  constructor(name: string, color: string) {
     this.name = name;
     this.color = color;
     this.completed = false;
