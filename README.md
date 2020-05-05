@@ -7,7 +7,7 @@ backend and Angular CLI for the backend.
 
 ### Deadlines
 * Midterm Presentation Session: May 18-22, 2020
-Final Presentation Session: June 19, 2020
+* Final Presentation Session: June 19, 2020
 
 ### Branching Model
 We are working on the `dev` branch and push only stable releases to the `master`
