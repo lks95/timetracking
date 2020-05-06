@@ -1,7 +1,9 @@
 import * as express from 'express';
-import * as createError from 'http-errors';
+import * as swaggerUi from 'swagger-ui-express';
 import * as logger from 'morgan';
+import * as YAML from 'yamljs';
 
+const apiDoc = YAML.load('./docs/api/v1/definition.yml');
 
 class App {
   // TODO Import routers like below
@@ -21,6 +23,8 @@ class App {
     // TODO Update routers
     // app.use('/', indexRouter);
     // app.use('/users', usersRouter);
+
+    this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(apiDoc));
   }
 }
 

@@ -1,0 +1,28 @@
+openapi: 3.0.0
+info:
+  title: Lisbon Time Tracking App API Documentation
+  description: This API Endpoint documentation provides all the necessary information required for consuming the API
+    endpoint of this project.
+  version: 1.0.0
+servers:
+  - url: /
+    description: 'Application API endpoint'
+paths:
+  /projects:
+    get:
+      tags:
+        - projects
+      summary: 'Endpoint for loading a list of projects'
+      responses:
+        '200':
+          description: 'If the user was successfully registered and an email for completing registration was send.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  projects:
+                    type: array
+                    items:
+                      type: string
+  # TODO Update and extend this API definition
