@@ -13,16 +13,103 @@ paths:
       tags:
         - projects
       summary: 'Endpoint for loading a list of projects'
+      parameters:
+        - in: query
+          name: onlyNames
+          schema:
+            type: boolean
+            default: false
+            required: false
+          description: 'If true response contains only project names and ids'
+        - in: query
+          name: page
+          schema:
+            type: integer
+            default: 1
+            required: false
+          description: 'Page of the result query'
       responses:
         '200':
           description: 'If the user was successfully registered and an email for completing registration was send.'
           content:
-            application/json:
+            appliction/json:
               schema:
                 type: object
                 properties:
                   projects:
                     type: array
                     items:
-                      type: string
+                      $ref: '#components/schemas/SimpleProject'
+    post:
+      summary: 'Register new project'
+      requestBody:
+        description: All neccessary information for registering projects.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectRegistrationRequest'
+      responses:
+        '200':
+          description: 'If the project could be created successfully.'
+          content:
+            appliction/json:
+              schema:
+                $ref: '#components/schemas/ExtendedProject'
+        '400':
+          description: 'If the request was malformed, e.g. required information not provided.'
   # TODO Update and extend this API definition
+
+components:
+  schemas:
+    SimpleProject:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 'project-971na07sdnbap'
+        name:
+          type: string
+          example: 'My very first project'
+        color:
+          type: string
+          example: '#ffffff'
+        completed:
+          type: boolean
+          nullable: true
+    ExtendedProject:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 'project-971na07sdnbap'
+        name:
+          type: string
+          example: 'My very first project'
+        color:
+          type: string
+          example: '#ffffff'
+        completed:
+          type: boolean
+          nullable: true
+        tasks:
+          type: array
+          items:
+            $ref: '#components/schemas/SimpleTask'
+    SimpleTask:
+      type: object
+      properties:
+        id:
+          type: string
+
+    ProjectRegistrationRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          required: true
+        color:
+          type: string
+          example: '#ffffff'
+          default: '#ffffff'
+          required: false
