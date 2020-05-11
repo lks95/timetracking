@@ -44,3 +44,16 @@ export default class Project {
     return this.tasks;
   }
 }
+
+//let mongoose = require ('mongoose')
+//let validator = require ('validator')
+
+//let projectSchema = new mongoose.Schema({
+//project: {
+//type: String,
+//required: true,
+//unique: false,
+//}
+//})
+
+//module.exports = mongoose.model('Project', projectSchema)
