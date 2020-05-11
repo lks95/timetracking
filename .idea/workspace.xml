@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </select>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="a5766c72-1ade-44d7-bfbf-00ecccfe0e7d" name="Default Changelist" comment="apiendpoints documentation -&gt; task id, start, stop" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="tsconfig.json" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="3-document-api-endpoints-christos" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1bIk10MzR5uaa3mHcskPBqxxOEp" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="Git.Branch.Popup.ShowAllRemotes" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="ts.external.directory.path" value="C:\Users\lukas\Desktop\Mobile Web Applications\mwa20_project\backend\node_modules\typescript\lib" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\lukas\Desktop\mwa20\backend" />
+    </key>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a5766c72-1ade-44d7-bfbf-00ecccfe0e7d" name="Default Changelist" comment="test" />
+      <created>1588326777394</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1588326777394</updated>
+      <workItem from="1588326785791" duration="1112000" />
+      <workItem from="1588925549695" duration="4511000" />
+      <workItem from="1589192620796" duration="6196000" />
+      <workItem from="1589201363048" duration="7589000" />
+      <workItem from="1589213369981" duration="190000" />
+    </task>
+    <task id="LOCAL-00001" summary="databasescheme/not completed yet">
+      <created>1589199557744</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1589199557744</updated>
+    </task>
+    <task id="LOCAL-00002" summary="databaseschema">
+      <created>1589203351065</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1589203351065</updated>
+    </task>
+    <task id="LOCAL-00003" summary="apiendpoints documentation -&gt; task id, start, stop">
+      <created>1589209667493</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1589209667493</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="databasescheme/not completed yet" />
+    <MESSAGE value="databaseschema/notcompletedyet" />
+    <MESSAGE value="databaseschema" />
+    <MESSAGE value="apiendpoints documentation -&gt; task id, start, stop" />
+    <option name="LAST_COMMIT_MESSAGE" value="apiendpoints documentation -&gt; task id, start, stop" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="1805" y="567" key="#Notifications" timestamp="1589199631264">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="1805" y="567" key="#Notifications/0.0.2560.1400@0.0.2560.1400" timestamp="1589199631264" />
+    <state x="1374" y="358" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1589197700431">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="1374" y="358" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1589197700431" />
+    <state x="615" y="604" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1588327284440">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="615" y="604" key="#com.intellij.fileTypes.FileTypeChooser/0.0.2560.1400@0.0.2560.1400" timestamp="1588327284440" />
+    <state x="1373" y="100" width="1094" height="1207" key="DiffContextDialog" timestamp="1589210592855">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="1373" y="100" width="1094" height="1207" key="DiffContextDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1589210592855" />
+    <state x="621" y="557" key="FileChooserDialogImpl" timestamp="1588327355504">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="621" y="557" key="FileChooserDialogImpl/0.0.2560.1400@0.0.2560.1400" timestamp="1588327355504" />
+    <state width="653" height="231" key="GridCell.Tab.0.bottom" timestamp="1589213588658">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="653" height="231" key="GridCell.Tab.0.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1589213588658" />
+    <state width="653" height="231" key="GridCell.Tab.0.center" timestamp="1589213588658">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="653" height="231" key="GridCell.Tab.0.center/0.0.2560.1400@0.0.2560.1400" timestamp="1589213588658" />
+    <state width="653" height="231" key="GridCell.Tab.0.left" timestamp="1589213588658">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="653" height="231" key="GridCell.Tab.0.left/0.0.2560.1400@0.0.2560.1400" timestamp="1589213588658" />
+    <state width="653" height="231" key="GridCell.Tab.0.right" timestamp="1589213588658">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="653" height="231" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1589213588658" />
+    <state x="518" y="522" key="Vcs.Push.Dialog.v2" timestamp="1589209691358">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="518" y="522" key="Vcs.Push.Dialog.v2/0.0.2560.1400@0.0.2560.1400" timestamp="1589209691358" />
+    <state x="-6" y="1" width="2572" height="1405" key="dock-window-1" timestamp="1589213589063">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="-667" y="218" width="1972" height="1407" key="dock-window-1/0.0.1920.1040@0.0.1920.1040" timestamp="1589211412908" />
+    <state x="-6" y="1" width="2572" height="1405" key="dock-window-1/0.0.2560.1400@0.0.2560.1400" timestamp="1589213589063" />
+    <state x="1664" y="416" key="git4idea.branch.GitSmartOperationDialog" timestamp="1589193538675">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="1664" y="416" key="git4idea.branch.GitSmartOperationDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1589193538675" />
+  </component>
+</project>
