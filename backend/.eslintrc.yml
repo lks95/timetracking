@@ -18,3 +18,8 @@ settings:
     node:
       paths: ["src", "src/log", "src/model"]
       extensions: [".ts"]
+overrides:
+  - files:
+    - 'tests/**/*.test.ts'
+    rules:
+      no-unused-expressions: off

@@ -6,6 +6,10 @@ out/
 *.iml
 
 
+# Test coverage (nyc)
+coverage/
+.nyc_output/
+
 # Angular
 tmp/
 dist/
