@@ -10,7 +10,7 @@ class App {
   // const indexRouter = require('./routes/index');
   // const usersRouter = require('./routes/users');
 
-  public app: express;
+  public app: express.Application;
 
   constructor() {
     this.app = express();
