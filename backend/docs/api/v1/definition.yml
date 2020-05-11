@@ -13,24 +13,9 @@ paths:
       tags:
         - projects
       summary: 'Endpoint for loading a list of projects'
-      parameters:
-        - in: query
-          name: onlyNames
-          schema:
-            type: boolean
-            default: false
-            required: false
-          description: 'If true response contains only project names and ids'
-        - in: query
-          name: page
-          schema:
-            type: integer
-            default: 1
-            required: false
-          description: 'Page of the result query'
       responses:
         '200':
-          description: 'If the user was successfully registered and an email for completing registration was send.'
+          description: 'If the list of project was successfully transmitted.'
           content:
             appliction/json:
               schema:
@@ -43,21 +28,111 @@ paths:
     post:
       summary: 'Register new project'
       requestBody:
-        description: All neccessary information for registering projects.
+        description: 'All necessary information for registering projects.'
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/ProjectRegistrationRequest'
       responses:
-        '200':
-          description: 'If the project could be created successfully.'
+        '201':
+          description: 'If the project has been created successfully.'
           content:
-            appliction/json:
+            application/json:
               schema:
                 $ref: '#components/schemas/ExtendedProject'
         '400':
           description: 'If the request was malformed, e.g. required information not provided.'
+
+  /projects/{id}:
+    patch:
+      summary: 'Update project information'
+      parameters:
+        - in: path
+          name: projectId
+          schema:
+            type: string
+          required: true
+          description: 'ID of the project to update'
+      requestBody:
+        description: 'All information of the updated project.'
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectUpdateRequest'
+      responses:
+        '200':
+          description: 'If information has been updated successfully'
+            content:
+              application/json:
+                schema:
+                  $ref: '#components/schemas/SimpleProject'
+        '400':
+          description: 'If updated information was malformed, e.g. required information not provided.'
+    delete:
+      summary: 'Delete entire project'
+      parameters:
+        - in: path
+          name: projectId
+          schema:
+            type: string
+          required: true
+          description: 'ID of the project to delete'
+      responses:
+        '204':
+          description: 'If project has been deleted successfully'
+
+  /projects/{id}/tasks:
+    get:
+      summary: 'Endpoint for loading a list of tasks of a specific project'
+      parameters:
+        - in: path
+          name: projectId
+          schema:
+            type: string
+          required: true
+          description: 'ID of the project'
+      responses:
+        '200':
+          description: 'If the list of tasks was successfully transmitted.'
+            content:
+              appliction/json:
+                schema:
+                  type: object
+                  properties:
+                    projects:
+                      type: array
+                      items:
+                        $ref: '#components/schemas/ExtendedTask'
+    post:
+      summary: 'Register task for a specific project'
+      parameters:
+        - in: path
+          name: projectId
+          schema:
+            type: string
+          required: true
+          description: 'ID of the project'
+      requestBody:
+        description: 'All neccessary information for registering tasks.'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskRegistrationRequest'
+      responses:
+        '201':
+          description: 'If the task has been created successfully.'
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/ExtendedTask'
+        '400':
+          description: 'If the request was malformed, e.g. required information not provided.'
+
+
+
   # TODO Update and extend this API definition
 
 components:
@@ -101,15 +176,55 @@ components:
       properties:
         id:
           type: string
-
+          example: 'task-971na07sdnbap'
+    ExtendedTask:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 'task-971na07sdnbap'
+        description:
+          type: string
+          example: 'My Task'
+        records:
+          type: array
+          items:
+            $ref: '#components/schemas/SimpleRecord'
+    SimpleRecord:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 'record-971na07sdnbap'
+        duration:
+          type: float
     ProjectRegistrationRequest:
       type: object
       properties:
         name:
           type: string
+          example: 'My Project'
           required: true
         color:
           type: string
           example: '#ffffff'
           default: '#ffffff'
           required: false
+    ProjectUpdateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          example: 'My New Project'
+          required: true
+        color:
+          type: string
+          example: '#ffffff'
+          required: true
+    TaskRegistrationRequest:
+      type: object
+      properties:
+        description:
+          type: string
+          example: 'My Task'
+          required: true
