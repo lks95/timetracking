@@ -74,18 +74,18 @@ paths:
           description: 'ID of the project to update'
       requestBody:
         description: 'The information of the project to update.'
-          required: true
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ProjectUpdateRequest'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectUpdateRequest'
       responses:
         '200':
           description: 'If the project has been updated successfully.'
-            content:
-              application/json:
-                schema:
-                  $ref: '#components/schemas/SimpleProject'
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/SimpleProject'
         '400':
           description: 'If the project could not be updated. This might be the case if no information were provided.'
         '404':
@@ -386,10 +386,10 @@ components:
           example: '#ffffff'
           required: false
 
-      TaskRegistrationRequest:
-        type: object
-        properties:
-          description:
-            type: string
-            example: 'My Task'
-            required: true
+    TaskRegistrationRequest:
+      type: object
+      properties:
+        description:
+          type: string
+          example: 'My Task'
+          required: true
