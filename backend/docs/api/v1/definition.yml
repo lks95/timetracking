@@ -78,7 +78,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ProjectUpdateRequest'
+              $ref: '#components/schemas/ProjectUpdateRequest'
       responses:
         '200':
           description: 'If the project has been updated successfully.'
@@ -143,7 +143,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/TaskRegistrationRequest'
+              $ref: '#components/schemas/TaskRegistrationRequest'
       responses:
         '200':
           description: 'If the task has been created successfully.'
@@ -253,142 +253,64 @@ paths:
               schema:
                 $ref: '#components/schemas/Record'
 
-/projects/{id}/tasks/{task-id}:
+  /tasks/{id}:
     get:
-      tags:
-        - tasks
-        summary: 'Endpoint for loading a list of tasks'
-        parameters:
-          - in: query
-            name: onlyNames
-            schema:
-              type: boolean
-              default: false
-              required: false
-            description: 'If true response contains task id and task name'
+      summary: 'Endpoint for loading details of a task'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            required: true
+          description: 'The id of the task to fetch'
       responses:
         '200':
-          description: 'Task was sucessfully built'
+          description: 'If the task could be fetched successfully.'
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  tasks:
-                    type: array
-    post:
-      summary: 'New Task added'
+                $ref: '#components/schemas/ExtendedTask'
+    patch:
+      summary: 'Endpoint for updating the given task'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            required: true
+          description: 'The id of the task to update'
       requestBody:
+        description: 'The information of the task to update.'
         required: true
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                taskname:
-                  type: string
-                taskid:
-                  type: string
-      '201':
-        description: 'Created'
-      '400':
-        description: 'Bad Request'
-
-    patch:
-      tags:
-        - tasks
-      summary: 'Exisiting Task updated'
-      parameters:
-        - name: onlyNames
-          in: path
-          required: true
-          type: string
+              $ref: '#components/schemas/TaskUpdateRequest'
       responses:
         '200':
-          description: 'Sucessful response'
+          description: 'If the task successfully updated.'
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/ExtendedTask'
         '400':
-          description: 'Bad Request'
-
+          description: 'If the request body for updating the task was malformed.'
+        '404':
+          description: 'If the task with the given project and task id could not be found.'
     delete:
-      tags:
-        - tasks
-      summary: 'Delete existing Task'
+      summary: 'Endpoint to delete a task'
       parameters:
         - name: id
           in: path
-          description: ID of Task to delete
+          description: 'ID of Task to delete'
+          schema:
+            type: string
           required: true
-          type: string
       responses:
         '204':
-          description: task deleted
-          default:
-            description: unexpected error
-
-/projects/{id}/start:
-      get:
-        tags:
-          - tasks
-          summary: 'Get Start time from Task'
-          parameters:
-            - name: Date
-              in: path
-              description: Starting Date of Task
-              required: true
-              type: string
-          responses:
-            '200':
-              description: 'sucessfull response'
-            '400':
-              description: 'bad request'
-
-      post:
-        tags:
-          - tasks
-          summary: 'Post Start time from Task'
-          parameters:
-            -name: Date
-            in: path
-            required: true
-            type: string
-          responses:
-            '200':
-              description: 'sucessfull response'
-            '400':
-              description: 'bad request'
-
-
-/projects/{id}/stop:
-  get:
-    tags:
-      - tasks
-      summary: 'Get Stop time from Task'
-      parameters:
-        - name: Date
-          in: path
-          required: true
-          type: string
-          responses:
-            '200':
-              description: 'sucessfull response'
-            '400':
-              description: 'bad request'
-
-  post:
-    tags:
-      - tasks
-      summary: 'Post Stop time from Task'
-      parameters:
-        - name: Date
-          in: path
-          required: true
-          type: string
-          responses:
-            '200':
-              description: 'sucessfull response'
-            '400':
-              description: 'bad request'
-
+          description: 'If the task was successfully deleted.'
+        '404':
+          description: 'If the task was not found.'
 
 components:
   schemas:
@@ -522,31 +444,10 @@ components:
           type: string
           example: '#ffffff'
           required: false
-
-    #projects/id/tasks/{task-id}
-    TaskRegistrationRequest:
-      type: object
-      properties:
-        taskid:
-          type: string
-          example: 'task-1234'
-        taskname:
-          type: string
-          example: 'aufgabe2ab'
-
-    #/projects/{id}/start
-    TaskStart:
-      type: Date
-      properties:
-        type: boolean
-        example: 'false'
-
-    #/projects/{id}/start
-    TaskStop:
-      type: Date
-      properties:
-        type: boolean
-        example: 'false'
+        completed:
+          type: boolean
+          example: true
+          required: false
 
     TaskRegistrationRequest:
       type: object
@@ -555,3 +456,15 @@ components:
           type: string
           example: 'My Task'
           required: true
+
+    TaskUpdateRequest:
+      type: object
+      properties:
+        description:
+          type: string
+          example: 'My Task'
+          required: false
+        completed:
+          type: boolean
+          example: true
+          required: false
