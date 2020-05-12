@@ -35,21 +35,37 @@ paths:
             schema:
               $ref: '#/components/schemas/ProjectRegistrationRequest'
       responses:
-        '201':
+        '200':
           description: 'If the project has been created successfully.'
           content:
             application/json:
               schema:
                 $ref: '#components/schemas/ExtendedProject'
         '400':
-          description: 'If the request was malformed, e.g. required information not provided.'
+          description: 'Project could not be created, because required information are missing or malformed.'
 
   /projects/{id}:
+    get:
+      summary: 'Endpoint for loading information of specific project'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: 'ID of the project to get'
+      responses:
+        '200':
+          description: 'If the information of the project was successfully transmitted.'
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/ExtendedProject'
     patch:
       summary: 'Update project information'
       parameters:
         - in: path
-          name: projectId
+          name: id
           schema:
             type: string
           required: true
@@ -69,12 +85,13 @@ paths:
                 schema:
                   $ref: '#components/schemas/SimpleProject'
         '400':
-          description: 'If updated information was malformed, e.g. required information not provided.'
+          description: 'Project information could not be updated, because information are malformed.'
     delete:
       summary: 'Delete entire project'
+      description: 'Delete project and all related tasks and records'
       parameters:
         - in: path
-          name: projectId
+          name: id
           schema:
             type: string
           required: true
@@ -88,7 +105,7 @@ paths:
       summary: 'Endpoint for loading a list of tasks of a specific project'
       parameters:
         - in: path
-          name: projectId
+          name: id
           schema:
             type: string
           required: true
@@ -101,7 +118,7 @@ paths:
                 schema:
                   type: object
                   properties:
-                    projects:
+                    tasks:
                       type: array
                       items:
                         $ref: '#components/schemas/ExtendedTask'
@@ -109,27 +126,27 @@ paths:
       summary: 'Register task for a specific project'
       parameters:
         - in: path
-          name: projectId
+          name: id
           schema:
             type: string
           required: true
           description: 'ID of the project'
       requestBody:
-        description: 'All neccessary information for registering tasks.'
+        description: 'All necessary information for registering tasks.'
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/TaskRegistrationRequest'
       responses:
-        '201':
+        '200':
           description: 'If the task has been created successfully.'
           content:
             application/json:
               schema:
                 $ref: '#components/schemas/ExtendedTask'
         '400':
-          description: 'If the request was malformed, e.g. required information not provided.'
+          description: 'Task could not be created, because required information are missing or malformed.'
 
 
 
