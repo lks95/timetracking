@@ -7,7 +7,7 @@ const server = require('../src/index');
 
 import chaiHttp = require('chai-http');
 
-const should = chai.should();
+chai.should();
 chai.use(chaiHttp);
 
 const TIMEOUT_TIME = 2000;
@@ -16,6 +16,7 @@ const TIMEOUT_TIME = 2000;
 describe('OK', () => {
   it('should be OK', () => {
     const result = 'OK';
+    result.should.be.a('string');
     expect(result).to.equal('OK');
   });
 
