@@ -80,3 +80,6 @@ function onError(error) {
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
+
+// For testing
+module.exports = server;

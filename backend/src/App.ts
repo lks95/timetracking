@@ -4,12 +4,11 @@ import * as logger from 'morgan';
 import * as YAML from 'yamljs';
 
 const apiDoc = YAML.load('./docs/api/v1/definition.yml');
+const projectsRouter = require('./routes/projects');
+const tasksRouter = require('./routes/tasks');
+const recordsRouter = require('./routes/records');
 
 class App {
-  // TODO Import routers like below
-  // const indexRouter = require('./routes/index');
-  // const usersRouter = require('./routes/users');
-
   public app: express.Application;
 
   constructor() {
@@ -20,9 +19,9 @@ class App {
       extended: false,
     }));
 
-    // TODO Update routers
-    // app.use('/', indexRouter);
-    // app.use('/users', usersRouter);
+    this.app.use('/projects', projectsRouter);
+    this.app.use('/tasks', tasksRouter);
+    this.app.use('/records', recordsRouter);
 
     this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(apiDoc));
   }
