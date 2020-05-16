@@ -1,18 +1,7 @@
 import { Schema, Document, model } from 'mongoose';
-import { IProject, Project } from './project';
-import { IRecord, Record } from './record';
-
-export interface ITask extends Document {
-  id: string;
-
-  project: IProject;
-
-  description: string;
-
-  completed: boolean;
-
-  readonly records: IRecord[];
-}
+import Project from './project';
+import Record from './record';
+import ITask from '../../model/Task';
 
 const TaskSchema = new Schema(
   {
@@ -56,4 +45,4 @@ TaskSchema.pre('remove', (next) => {
 
 // TODO Add further middleware if necessary
 
-export const Task = model<ITask>('task', TaskSchema);
+export default model<ITask>('task', TaskSchema);

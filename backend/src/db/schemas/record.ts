@@ -1,18 +1,7 @@
-import { Schema, Document, model } from 'mongoose';
-import { IProject, Project } from './project';
-import { ITask, Task } from './task';
-
-export interface IRecord extends Document {
-  _id: string;
-
-  startTime: Date;
-
-  project: IProject;
-
-  endTime?: Date;
-
-  task?: Task;
-}
+import { Schema, model } from 'mongoose';
+import Project from './project';
+import Task from './task';
+import IRecord from '../../model/Record';
 
 const RecordSchema = new Schema(
   {
@@ -55,4 +44,4 @@ RecordSchema.pre('remove', (next) => {
 
 // TODO Add further middleware if necessary
 
-export const Record = model<IRecord>('record', RecordSchema);
+export default model<IRecord>('record', RecordSchema);

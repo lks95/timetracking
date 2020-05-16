@@ -1,21 +1,7 @@
-import { Schema, Document, model } from 'mongoose';
-import { ITask, Task } from './task';
-import { IRecord, Record } from './record';
-
-
-export interface IProject extends Document {
-  id?: string;
-
-  name: string;
-
-  color: string;
-
-  completed: boolean;
-
-  tasks: ITask[];
-
-  records: IRecord[];
-}
+import { Schema, model } from 'mongoose';
+import Task from './task';
+import Record from './record';
+import IProject from '../../model/Project';
 
 const ProjectSchema = new Schema(
   {
@@ -66,4 +52,4 @@ ProjectSchema.pre('remove', (next) => {
 
 // TODO Add further middleware if necessary
 
-export const Project = model<IProject>('project', ProjectSchema);
+export default model<IProject>('project', ProjectSchema);
