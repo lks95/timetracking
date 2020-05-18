@@ -1,9 +1,10 @@
 import { expect } from 'chai';
 import * as chai from 'chai';
 import 'mocha';
-import Project from '../src/model/Project';
+import Project from '../src/db/schemas/project';
+import IProject from '../src/model/Project';
 
-const server = require('../src/index');
+const server = require('../src/server');
 
 import chaiHttp = require('chai-http');
 
@@ -11,6 +12,8 @@ chai.should();
 chai.use(chaiHttp);
 
 const TIMEOUT_TIME = 2000;
+
+// TODO Define before and after for database clean up and initialization
 
 
 describe('OK', () => {
@@ -103,258 +106,265 @@ describe('/POST /projects', () => {
 /*
  * Test the /GET /projects/{id} route
  */
-describe('/GET /projects/{id}', () => {
-  const project = new Project('Projektname', '#ffffff');
+describe('/GET /projects/{id}', async () => {
+  await Project.create({ name: 'Projektname', color: '#ffffff' }).then((result: IProject) => {
+    const project = result;
 
-  it('it should not GET a project given the invalid id', (done) => {
-    chai.request(server)
-      .get('/projects/INVALID_ID')
-      .end((err, res) => {
-        if (res.status === 500 && process.env.ENV === 'dev') {
-          console.log('Test ignored.');
+    it('it should not GET a project given the invalid id', (done) => {
+      chai.request(server)
+        .get('/projects/INVALID_ID')
+        .end((err, res) => {
+          if (res.status === 500 && process.env.ENV === 'dev') {
+            console.log('Test ignored.');
+            done();
+            return;
+          }
+          res.should.have.status(404);
           done();
-          return;
-        }
-        res.should.have.status(404);
-        done();
-      });
-  }).timeout(TIMEOUT_TIME);
+        });
+    }).timeout(TIMEOUT_TIME);
 
-
-  it('it should GET a project given the valid id', (done) => {
-    chai.request(server)
-      .get(`/projects/${project.getId()}`)
-      .end((err, res) => {
-        if (res.status === 500 && process.env.ENV === 'dev') {
-          console.log('Test ignored.');
+    it('it should GET a project given the valid id', (done) => {
+      chai.request(server)
+        .get(`/projects/${project.id}`)
+        .end((err, res) => {
+          if (res.status === 500 && process.env.ENV === 'dev') {
+            console.log('Test ignored.');
+            done();
+            return;
+          }
+          res.should.have.status(200);
+          res.body.should.be.an.object;
+          res.body.should.have.property('id');
+          res.body.should.have.property('id').should.equal(project.id);
+          res.body.should.have.property('name');
+          res.body.should.have.property('color');
+          res.body.should.have.property('completed');
+          res.body.should.have.property('tasks');
+          res.body.should.have.property('tasks').should.be.a('array');
+          // tasks.should.have.property('id');
+          // tasks.should.have.property('description');
           done();
-          return;
-        }
-        res.should.have.status(200);
-        res.body.should.be.an.object;
-        res.body.should.have.property('id');
-        res.body.should.have.property('id').should.equal(project.getId());
-        res.body.should.have.property('name');
-        res.body.should.have.property('color');
-        res.body.should.have.property('completed');
-        res.body.should.have.property('tasks');
-        res.body.should.have.property('tasks').should.be.a('array');
-        // tasks.should.have.property('id');
-        // tasks.should.have.property('description');
-        done();
-      });
-  }).timeout(TIMEOUT_TIME);
+        });
+    }).timeout(TIMEOUT_TIME);
+  });
 });
-
 /*
  * Test the /PATCH /projects/{id} route
  */
-describe('/PATCH /projects/{id}', () => {
-  const project = new Project('Projektname', '#ffffff');
+describe('/PATCH /projects/{id}', async () => {
+  await Project.create({ name: 'Projektname', color: '#ffffff' }).then((result: IProject) => {
+    const project = result;
 
-  const validPatch = {
-    name: 'Patched name',
-  };
+    const validPatch = {
+      name: 'Patched name',
+    };
 
-  const invalidPatch = {
-    name: '',
-  };
+    const invalidPatch = {
+      name: '',
+    };
 
-  it('it should not PATCH a project given the invalid id', (done) => {
-    chai.request(server)
-      .patch('/projects/INVALID_ID')
-      .send({ validPatch })
-      .end((err, res) => {
-        if (res.status === 500 && process.env.ENV === 'dev') {
-          console.log('Test ignored.');
+    it('it should not PATCH a project given the invalid id', (done) => {
+      chai.request(server)
+        .patch('/projects/INVALID_ID')
+        .send({ validPatch })
+        .end((err, res) => {
+          if (res.status === 500 && process.env.ENV === 'dev') {
+            console.log('Test ignored.');
+            done();
+            return;
+          }
+          res.should.have.status(404);
           done();
-          return;
-        }
-        res.should.have.status(404);
-        done();
-      });
-  }).timeout(TIMEOUT_TIME);
+        });
+    }).timeout(TIMEOUT_TIME);
 
-
-  it('it should PATCH a project given the valid id', (done) => {
-    chai.request(server)
-      .patch(`/projects/${project.getId()}`)
-      .send({ validPatch })
-      .end((err, res) => {
-        if (res.status === 500 && process.env.ENV === 'dev') {
-          console.log('Test ignored.');
+    it('it should PATCH a project given the valid id', (done) => {
+      chai.request(server)
+        .patch(`/projects/${project.id}`)
+        .send({ validPatch })
+        .end((err, res) => {
+          if (res.status === 500 && process.env.ENV === 'dev') {
+            console.log('Test ignored.');
+            done();
+            return;
+          }
+          res.should.have.status(200);
+          res.body.should.be.an.object;
+          res.body.should.have.property('id');
+          res.body.should.have.property('name');
+          res.body.should.have.property('color');
+          res.body.should.have.property('completed');
+          res.body.should.have.property('id').should.equal(project.id);
           done();
-          return;
-        }
-        res.should.have.status(200);
-        res.body.should.be.an.object;
-        res.body.should.have.property('id');
-        res.body.should.have.property('name');
-        res.body.should.have.property('color');
-        res.body.should.have.property('completed');
-        res.body.should.have.property('id').should.equal(project.getId());
-        done();
-      });
-  }).timeout(TIMEOUT_TIME);
+        });
+    }).timeout(TIMEOUT_TIME);
 
-  it('it should not PATCH a project given an invalid patch', (done) => {
-    chai.request(server)
-      .patch(`/projects/${project.getId()}`)
-      .send({ invalidPatch })
-      .end((err, res) => {
-        if (res.status === 500 && process.env.ENV === 'dev') {
-          console.log('Test ignored.');
+    it('it should not PATCH a project given an invalid patch', (done) => {
+      chai.request(server)
+        .patch(`/projects/${project.id}`)
+        .send({ invalidPatch })
+        .end((err, res) => {
+          if (res.status === 500 && process.env.ENV === 'dev') {
+            console.log('Test ignored.');
+            done();
+            return;
+          }
+          res.should.have.status(400);
           done();
-          return;
-        }
-        res.should.have.status(400);
-        done();
-      });
+        });
+    }).timeout(TIMEOUT_TIME);
   });
-}).timeout(TIMEOUT_TIME);
+});
 
 /*
  * Test the /DELETE /projects/{id} route
  */
-describe('/DELETE /projects/{id}', () => {
-  const project = new Project('Projektname', '#ffffff');
+describe('/DELETE /projects/{id}', async () => {
+  await Project.create({ name: 'Projektname', color: '#ffffff' }).then((result: IProject) => {
+    const project = result;
 
-  it('it should not DELETE a project given the invalid id', (done) => {
-    chai.request(server)
-      .delete('/projects/INVALID_ID')
-      .end((err, res) => {
-        if (res.status === 500 && process.env.ENV === 'dev') {
-          console.log('Test ignored.');
+    it('it should not DELETE a project given the invalid id', (done) => {
+      chai.request(server)
+        .delete('/projects/INVALID_ID')
+        .end((err, res) => {
+          if (res.status === 500 && process.env.ENV === 'dev') {
+            console.log('Test ignored.');
+            done();
+            return;
+          }
+          res.should.have.status(404);
           done();
-          return;
-        }
-        res.should.have.status(404);
-        done();
-      });
-  }).timeout(TIMEOUT_TIME);
+        });
+    }).timeout(TIMEOUT_TIME);
 
-  it('it should DELETE a project given the valid id', (done) => {
-    chai.request(server)
-      .delete(`/projects/${project.getId()}`)
-      .end((err, res) => {
-        if (res.status === 500 && process.env.ENV === 'dev') {
-          console.log('Test ignored.');
+    it('it should DELETE a project given the valid id', (done) => {
+      chai.request(server)
+        .delete(`/projects/${project.id}`)
+        .end((err, res) => {
+          if (res.status === 500 && process.env.ENV === 'dev') {
+            console.log('Test ignored.');
+            done();
+            return;
+          }
+          res.should.have.status(200);
           done();
-          return;
-        }
-        res.should.have.status(200);
-        done();
-      });
-  }).timeout(TIMEOUT_TIME);
+        });
+    }).timeout(TIMEOUT_TIME);
+  });
 });
 
 
 /*
  * Test the /GET /projects/{id}/tasks route
  */
-describe('/GET /projects/{id}/tasks', () => {
-  const project = new Project('Projektname', '#ffffff');
+describe('/GET /projects/{id}/tasks', async () => {
+  await Project.create({ name: 'Projektname', color: '#ffffff' }).then((result: IProject) => {
+    const project = result;
 
-  it('it should not GET tasks of a project given the invalid id', (done) => {
-    chai.request(server)
-      .get('/projects/INVALID_ID/tasks')
-      .end((err, res) => {
-        if (res.status === 500 && process.env.ENV === 'dev') {
-          console.log('Test ignored.');
+    it('it should not GET tasks of a project given the invalid id', (done) => {
+      chai.request(server)
+        .get('/projects/INVALID_ID/tasks')
+        .end((err, res) => {
+          if (res.status === 500 && process.env.ENV === 'dev') {
+            console.log('Test ignored.');
+            done();
+            return;
+          }
+          res.should.have.status(404);
           done();
-          return;
-        }
-        res.should.have.status(404);
-        done();
-      });
-  }).timeout(TIMEOUT_TIME);
+        });
+    }).timeout(TIMEOUT_TIME);
 
-  it('it should GET tasks of a project given the valid id', (done) => {
-    chai.request(server)
-      .get(`/projects/${project.getId()}/tasks`)
-      .end((err, res) => {
-        if (res.status === 500 && process.env.ENV === 'dev') {
-          console.log('Test ignored.');
+    it('it should GET tasks of a project given the valid id', (done) => {
+      chai.request(server)
+        .get(`/projects/${project.id}/tasks`)
+        .end((err, res) => {
+          if (res.status === 500 && process.env.ENV === 'dev') {
+            console.log('Test ignored.');
+            done();
+            return;
+          }
+          res.should.have.status(200);
+          res.body.should.be.an.object;
+          res.body.should.have.property('id');
+          res.body.should.have.property('description');
+          res.body.should.have.property('records');
+          res.body.should.have.property('records').should.be.a('array');
+          // record.should...
+
           done();
-          return;
-        }
-        res.should.have.status(200);
-        res.body.should.be.an.object;
-        res.body.should.have.property('id');
-        res.body.should.have.property('description');
-        res.body.should.have.property('records');
-        res.body.should.have.property('records').should.be.a('array');
-        // record.should...
-
-        done();
-      });
-  }).timeout(TIMEOUT_TIME);
+        });
+    }).timeout(TIMEOUT_TIME);
+  });
 });
 
 
 /*
  * Test the /POST /projects/{id}/tasks route
  */
-describe('/POST /projects/{id}/tasks', () => {
-  const project = new Project('Projektname', '#ffffff');
+describe('/POST /projects/{id}/tasks', async () => {
+  await Project.create({ name: 'Projektname', color: '#ffffff' }).then((result: IProject) => {
+    const project = result;
 
-  const validPost = {
-    name: 'Patched name',
-  };
+    const validPost = {
+      name: 'Patched name',
+    };
 
-  const invalidPost = {
-    name: '',
-  };
+    const invalidPost = {
+      name: '',
+    };
 
-  it('it should CREATE a task of a project with a valid ID', (done) => {
-    chai.request(server)
-      .post(`/projects/${project.getId()}/tasks`)
-      .send({ validPost })
-      .end((err, res) => {
-        if (res.status === 500 && process.env.ENV === 'dev') {
-          console.log('Test ignored.');
+    it('it should CREATE a task of a project with a valid ID', (done) => {
+      chai.request(server)
+        .post(`/projects/${project.id}/tasks`)
+        .send({ validPost })
+        .end((err, res) => {
+          if (res.status === 500 && process.env.ENV === 'dev') {
+            console.log('Test ignored.');
+            done();
+            return;
+          }
+          res.should.have.status(200);
+          res.body.should.be.an.object;
+          res.body.should.have.property('id');
+          res.body.should.have.property('name');
+          res.body.should.have.property('color');
+          res.body.should.have.property('completed');
+          res.body.should.have.property('tasks').should.be.a('array');
+
           done();
-          return;
-        }
-        res.should.have.status(200);
-        res.body.should.be.an.object;
-        res.body.should.have.property('id');
-        res.body.should.have.property('name');
-        res.body.should.have.property('color');
-        res.body.should.have.property('completed');
-        res.body.should.have.property('tasks').should.be.a('array');
+        });
+    }).timeout(TIMEOUT_TIME);
 
-        done();
-      });
-  }).timeout(TIMEOUT_TIME);
-
-  it('it should not CREATE a task of a project with an invalid ID', (done) => {
-    chai.request(server)
-      .post(`/projects/${project.getId()}/tasks`)
-      .send({ validPost })
-      .end((err, res) => {
-        if (res.status === 500 && process.env.ENV === 'dev') {
-          console.log('Test ignored.');
+    it('it should not CREATE a task of a project with an invalid ID', (done) => {
+      chai.request(server)
+        .post(`/projects/${project.id}/tasks`)
+        .send({ validPost })
+        .end((err, res) => {
+          if (res.status === 500 && process.env.ENV === 'dev') {
+            console.log('Test ignored.');
+            done();
+            return;
+          }
+          res.should.have.status(404);
           done();
-          return;
-        }
-        res.should.have.status(404);
-        done();
-      });
-  }).timeout(TIMEOUT_TIME);
+        });
+    }).timeout(TIMEOUT_TIME);
 
-  it('it should not POST a task given an invalid post', (done) => {
-    chai.request(server)
-      .post(`/projects/${project.getId()}/tasks`)
-      .send({ invalidPost })
-      .end((err, res) => {
-        if (res.status === 500 && process.env.ENV === 'dev') {
-          console.log('Test ignored.');
+    it('it should not POST a task given an invalid post', (done) => {
+      chai.request(server)
+        .post(`/projects/${project.id}/tasks`)
+        .send({ invalidPost })
+        .end((err, res) => {
+          if (res.status === 500 && process.env.ENV === 'dev') {
+            console.log('Test ignored.');
+            done();
+            return;
+          }
+          res.should.have.status(400);
           done();
-          return;
-        }
-        res.should.have.status(400);
-        done();
-      });
-  }).timeout(TIMEOUT_TIME);
+        });
+    }).timeout(TIMEOUT_TIME);
+  });
 });

@@ -3,7 +3,7 @@ import * as chai from 'chai';
 import 'mocha';
 import Project from '../src/model/Project';
 
-const server = require('../src/index');
+const server = require('../src/server');
 
 import chaiHttp = require('chai-http');
 

@@ -5,7 +5,7 @@ import Project from '../src/model/Project';
 import Task from '../src/model/Task';
 import Record from '../src/model/Record';
 
-const server = require('../src/index');
+const server = require('../src/server');
 
 import chaiHttp = require('chai-http');
 

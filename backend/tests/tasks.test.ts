@@ -4,7 +4,7 @@ import 'mocha';
 import Project from '../src/model/Project';
 import Task from '../src/model/Task';
 
-const server = require('../src/index');
+const server = require('../src/server');
 
 import chaiHttp = require('chai-http');
 
