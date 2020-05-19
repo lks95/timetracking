@@ -32,7 +32,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(apiDoc));
 // TODO Add further routes here
 
 // Connect to database and handle errors
-mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true, dbName: process.env.DATABASE_NAME || 'test' })
+mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true, dbName: process.env.DATABASE_NAME || 'test', useFindAndModify: false })
   .catch((reason) => {
     switch (reason.name) {
       case 'MongoNetworkError':
