@@ -27,4 +27,9 @@ router.get('/:id', (req, res) => {
   res.status(500).send();
 });
 
+router.patch('/:id', (request, response) => {
+  // TODO Implement me
+  response.status(500).send();
+});
+
 module.exports = router;
