@@ -1,12 +1,11 @@
-import { Document } from 'mongoose';
-import ITask from './Task';
-import IRecord from './Record';
+import { Document, Types } from 'mongoose';
+
 
 export default interface IProject extends Document {
-  id: string;
+  _id: string;
   name: string;
   color: string;
   completed: boolean;
-  tasks: ITask[];
-  records: IRecord[];
+  tasks: Types.ObjectId[];
+  records: Types.ObjectId[];
 }

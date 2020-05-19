@@ -1,11 +1,9 @@
-import { Document } from 'mongoose';
-import IProject from './Project';
-import IRecord from './Record';
+import { Document, Schema, Types } from 'mongoose';
 
 export default interface ITask extends Document {
   _id: string;
-  project: IProject;
+  project: Types.ObjectId;
   description: string;
   completed: boolean;
-  readonly records: IRecord[];
+  readonly records: Types.ObjectId[];
 }
