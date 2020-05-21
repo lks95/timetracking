@@ -107,3 +107,7 @@ describe('/POST /projects/{id}/tasks', () => {
     res.should.have.status(400);
   });
 });
+
+// TODO Add tests for /tasks/{id}#GET
+// TODO Add tests for /tasks/{id}#PATCH
+// TODO Add tests for /tasks/{id}#DELETE
