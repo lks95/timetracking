@@ -1,6 +1,4 @@
 import { Schema, model } from 'mongoose';
-import Project from './project';
-import Task from './task';
 import IRecord from '../../model/Record';
 
 const RecordSchema = new Schema(
@@ -16,12 +14,12 @@ const RecordSchema = new Schema(
     },
     project: {
       type: Schema.Types.ObjectId,
-      ref: Project,
+      ref: 'project',
       required: true,
     },
     task: {
       type: Schema.Types.ObjectId,
-      ref: Task,
+      ref: 'task',
       required: false,
     },
   },

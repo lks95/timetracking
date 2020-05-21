@@ -12,6 +12,7 @@ parserOptions:
 rules:
   no-unused-vars: "warn"
   no-console: "off"
+  no-underscore-dangle: "off"
   semi: [warn, always]
   import/extensions: [error, ignorePackages, { js: never, ts: never, jsx: never, tsx: never }]
 settings:

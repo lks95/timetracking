@@ -1,11 +1,10 @@
-import { Document } from 'mongoose';
-import IProject from './Project';
-import ITask from './Task';
+import { Document, Types } from 'mongoose';
+
 
 export default interface IRecord extends Document {
   _id: string;
   startTime: Date;
-  project: IProject;
+  project: Types.ObjectId;
   endTime?: Date;
-  task?: ITask;
+  task?: Types.ObjectId;
 }
