@@ -1,5 +1,7 @@
 import { Schema, Types, model } from 'mongoose';
 import IRecord from '../../model/Record';
+import Project from './project';
+import Task from './task';
 
 const RecordSchema = new Schema(
   {
@@ -25,21 +27,38 @@ const RecordSchema = new Schema(
   },
 );
 
-RecordSchema.pre('save', (next) => {
-  // TODO Validate record before saving
+RecordSchema.post('save', async (record: IRecord, next) => {
+  // Create reference in task or project when created
+  if (record.task) {
+    const task = await Task.findById(record.task);
+    (task.records as Types.ObjectId[]).push(new Types.ObjectId(record._id));
+    await task.save();
+  } else {
+    const project = await Project.findById(record.project);
+    (project.records as Types.ObjectId[]).push(new Types.ObjectId(record._id));
+    await project.save();
+  }
   next();
 });
 
-RecordSchema.pre('updateOne', (next) => {
-  // TODO Validate record before update
-  next();
+RecordSchema.post('updateOne', (updatedRecord: IRecord) => {
+  // TODO If updated and task or project is finished, update the summary time of the parent
 });
 
-RecordSchema.pre('remove', (next) => {
-  // TODO Validate record before removal
-  next();
+RecordSchema.post('findOneAndRemove', async (removedRecord: IRecord) => {
+  // Remove record from project or task too
+  if (removedRecord.task) {
+    console.log(await Task.findById(removedRecord.task));
+    await Task.update(
+      { _id: removedRecord.task as string },
+      { $pull: { records: removedRecord._id } },
+    );
+  } else {
+    await Project.update(
+      { _id: removedRecord.project as string },
+      { $pull: { records: removedRecord._id } },
+    );
+  }
 });
-
-// TODO Add further middleware if necessary
 
 export default model<IRecord>('record', RecordSchema);
