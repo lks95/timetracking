@@ -40,7 +40,7 @@ const checkResponseStatus = async (url, requestBody, status) => {
 before(async () => {
   project = await Project.create({ name: 'My Very Testing Project Name', color: '#00ffff' });
   task = await Task.create({ description: 'My Very Testing Task Name', project: project._id });
-  project.tasks.push(new ObjectId(task._id));
+  project.tasks.push(task._id);
   await project.save();
 });
 
@@ -65,7 +65,6 @@ describe('/POST /records/start request body validation', () => {
       project: 'someInvalidId',
     };
     const invalidPost2 = {
-      project: 'someInvalidId',
       task: 'someOtherInvalidId',
     };
 
@@ -78,7 +77,6 @@ describe('/POST /records/start request body validation', () => {
       projectId: project._id,
     };
     const invalidPost2 = {
-      projectId: project._id,
       taskId: task._id,
     };
 
@@ -102,8 +100,9 @@ describe('/POST /records/start record creation', () => {
 
     // Check the response
     res.should.have.status(200);
-    res.body.should.be.an.object;
-    res.body.should.have.keys('_id', 'startTime', 'project');
+    res.body.should.have.property('_id');
+    res.body.should.have.property('startTime');
+    res.body.should.have.property('project');
     assert.notExists(res.body.task);
     assert.notExists(res.body.endTime);
 
@@ -111,8 +110,10 @@ describe('/POST /records/start record creation', () => {
     const record = await Record.findById(res.body._id);
     assert.exists(record);
     assert.notExists(record.endTime);
-    record.should.have.keys('_id', 'startTime', 'project');
-    record.project.should.be('string');
+
+    record.should.have.property('_id');
+    record.should.have.property('startTime');
+    record.should.have.property('project');
     assert.notExists(record.task);
 
     // Remove entry from database
@@ -125,7 +126,6 @@ describe('/POST /records/start record creation', () => {
     };
 
     const validPost2 = {
-      project: project._id,
       task: task._id,
     };
 
@@ -189,12 +189,18 @@ describe('/POST /records/start /records/{id}/stop record start and stop', () => 
     } else {
       // Check the response
       res.should.have.status(200);
-      res.body.should.be.an.object;
-      res.body.should.have.keys('_id', 'startTime', 'endTime', 'project');
+
+      res.body.should.have.property('_id');
+      res.body.should.have.property('startTime');
+      res.body.should.have.property('endTime');
+      res.body.should.have.property('project');
 
       // Check the database entry
-      record.should.have.keys('_id', 'startTime', 'endTime', 'project');
-      record.project.should.be('string');
+
+      record.should.have.property('_id');
+      record.should.have.property('startTime');
+      record.should.have.property('endTime');
+      record.should.have.property('project');
       assert.notExists(record.task);
     }
 
@@ -212,26 +218,24 @@ describe('/GET /records/running', () => {
       console.log('Test ignored.');
       return;
     }
+    const rec = res.body;
 
     res = await sendGetRequest('/records/running');
-
     if (res.status === 500 && process.env.ENV === 'dev') {
       console.log('Test ignored.');
       return;
     }
-
     // Check the response
     res.should.have.status(200);
     const records = res.body;
     records.should.be.an('array');
-    records.size.should.be.greaterThan(0);
+    records.length.should.be.greaterThan(0);
 
     records.forEach((record) => {
       record.should.not.have.key('endTime');
     });
-
     // Remove entry from database
-    await Record.findByIdAndRemove(records[0]._id);
+    await Record.findByIdAndRemove(rec._id);
   });
 });
 
@@ -262,8 +266,9 @@ describe('/GET /records/{id}', () => {
 
     // Check the response
     resGet.should.have.status(200);
-    resGet.body.should.be.equal(res.body);
-    resGet.body.should.have.keys('_id', 'startTime', 'endTime');
+    resGet.body.should.have.property('_id');
+    resGet.body.should.have.property('startTime');
+    resGet.body.should.have.property('endTime');
 
     // Remove entry from database
     await Record.findByIdAndRemove(resGet.body._id);
