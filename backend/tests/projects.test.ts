@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import * as chai from 'chai';
 import 'mocha';
 import Project from '../src/db/schemas/project';
+import Task from '../src/db/schemas/task';
 
 const server = require('../src/server');
 
@@ -11,9 +12,19 @@ chai.should();
 chai.use(chaiHttp);
 
 let project;
+let task;
 
 before(async () => {
   project = await Project.create({ name: 'Before Project for later use', color: '#ffffff' });
+  task = await Task.create({ description: 'My custom task', project: project._id });
+});
+
+after(async () => {
+  try {
+    await Project.findByIdAndRemove(project._id);
+  } catch (error) {
+    console.log('Error while cleaning up project. Project might be already removed.');
+  }
 });
 
 describe('/GET /projects', () => {
@@ -26,12 +37,11 @@ describe('/GET /projects', () => {
     }
 
     res.should.have.status(200);
-    res.body.should.be.an.object;
-    res.body.should.have.property('projects');
-    res.body.should.have.property('projects').should.be.a('array');
-    const p = res.body.projects[0];
-    p.should.be.an.object;
-    p.should.have.keys('id', 'name', 'color');
+    res.body.should.be.a('array');
+    const p = res.body[0];
+    p.should.have.property('_id');
+    p.should.have.property('name');
+    p.should.have.property('color');
   });
 });
 
@@ -51,7 +61,7 @@ describe('/POST /projects', () => {
   it('it should CREATE a project with valid request body', async () => {
     const res = await chai.request(server)
       .post('/projects')
-      .send({ validPost });
+      .send(validPost);
 
     if (res.status === 500 && process.env.ENV === 'dev') {
       console.log('Test ignored.');
@@ -59,10 +69,15 @@ describe('/POST /projects', () => {
     }
 
     res.should.have.status(200);
-    res.body.should.be.an.object;
-    res.body.should.have.keys('id', 'name', 'color', 'completed', 'tasks');
-    res.body.should.have.property('tasks').should.be.a('array');
-    res.body.should.have.property('tasks').should.be.empty;
+    res.body.should.have.property('_id');
+    res.body.should.have.property('name');
+    res.body.should.have.property('color');
+    res.body.should.have.property('completed');
+    res.body.should.have.property('tasks');
+    res.body.tasks.should.be.a('array');
+    res.body.tasks.should.be.empty;
+
+    await Project.findByIdAndRemove(res.body._id);
   });
 
   it('it should not CREATE a project with invalid request body', async () => {
@@ -92,7 +107,7 @@ describe('/GET /projects/{id}', () => {
       return;
     }
 
-    res.should.have.status(404);
+    res.should.have.status(400);
   });
 
   it('it should GET a project given the valid id', async () => {
@@ -105,12 +120,14 @@ describe('/GET /projects/{id}', () => {
     }
 
     res.should.have.status(200);
-    res.body.should.be.an.object;
-    res.body.should.have.keys('id', 'name', 'color', 'tasks');
-    res.body.should.have.property('id').should.equal(project.id);
-    res.body.should.have.property('tasks').should.be.a('array');
-    const task = res.body.tasks[0];
-    task.should.have.keys('id', 'description');
+    res.body.should.have.property('_id');
+    res.body.should.have.property('name');
+    res.body.should.have.property('color');
+    res.body.should.have.property('tasks');
+    res.body.name.should.equal(project.name);
+    res.body.tasks.length.should.equal(1);
+    res.body.tasks[0].should.have.property('_id');
+    res.body.tasks[0].should.have.property('description');
   });
 });
 
@@ -136,13 +153,13 @@ describe('/PATCH /projects/{id}', () => {
       return;
     }
 
-    res.should.have.status(404);
+    res.should.have.status(400);
   });
 
   it('it should PATCH a project given the valid id', async () => {
     const res = await chai.request(server)
       .patch(`/projects/${project.id}`)
-      .send({ validPatch });
+      .send(validPatch);
 
     if (res.status === 500 && process.env.ENV === 'dev') {
       console.log('Test ignored.');
@@ -150,15 +167,16 @@ describe('/PATCH /projects/{id}', () => {
     }
 
     res.should.have.status(200);
-    res.body.should.be.an.object;
-    res.body.should.have.keys('id', 'name', 'color');
-    res.body.should.have.property('id').should.equal(project.id);
+    res.body.should.have.property('_id');
+    res.body.should.have.property('name');
+    res.body.should.have.property('color');
+    res.body.name.should.equal(validPatch.name);
   });
 
   it('it should not PATCH a project given an invalid patch', async () => {
     const res = await chai.request(server)
       .patch(`/projects/${project.id}`)
-      .send({ invalidPatch });
+      .send(invalidPatch);
 
     if (res.status === 500 && process.env.ENV === 'dev') {
       console.log('Test ignored.');
@@ -182,7 +200,7 @@ describe('/DELETE /projects/{id}', () => {
       return;
     }
 
-    res.should.have.status(404);
+    res.should.have.status(400);
   });
 
   it('it should DELETE a project given the valid id', async () => {
@@ -194,6 +212,6 @@ describe('/DELETE /projects/{id}', () => {
       return;
     }
 
-    res.should.have.status(200);
+    res.should.have.status(204);
   });
 });

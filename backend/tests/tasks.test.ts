@@ -19,8 +19,6 @@ before(async () => {
 
   // Add a task to it
   task = await Task.create({ project: project._id, description: 'A task description', completed: 'false' });
-  project.tasks.push(task);
-  await project.save();
 });
 
 after(async () => {
@@ -41,7 +39,7 @@ describe('/GET /projects/{id}/tasks', () => {
       return;
     }
 
-    res.should.have.status(404);
+    res.should.have.status(400);
   });
 
   it('it should GET tasks of a project given the valid id', async () => {
@@ -54,10 +52,14 @@ describe('/GET /projects/{id}/tasks', () => {
     }
 
     res.should.have.status(200);
-    res.body.should.be.an.object;
-    res.body.should.have.keys('id', 'description', 'records');
-    res.body.should.have.property('records').should.be.a('array');
-    // TODO Check the task if it is the right one
+    res.body.should.be.an('array');
+    res.body.length.should.equal(1);
+
+    const t = res.body[0];
+    t.should.have.property('_id');
+    t.should.have.property('description');
+    t.should.have.property('records');
+    t.records.should.be.a('array');
   });
 });
 
@@ -77,7 +79,7 @@ describe('/POST /projects/{id}/tasks', () => {
   it('it should CREATE a task of a project with a valid ID', async () => {
     const res = await chai.request(server)
       .post(`/projects/${project.id}/tasks`)
-      .send({ validPost });
+      .send(validPost);
 
     if (res.status === 500 && process.env.ENV === 'dev') {
       console.log('Test ignored.');
@@ -85,15 +87,16 @@ describe('/POST /projects/{id}/tasks', () => {
     }
 
     res.should.have.status(200);
-    res.body.should.be.an.object;
-    res.body.should.have.keys('id', 'name', 'color', 'tasks');
-    res.body.should.have.property('tasks').should.be.a('array');
+    res.body.should.have.property('_id');
+    res.body.should.have.property('description');
+    res.body.should.have.property('records');
+    res.body.records.should.be.a('array');
   });
 
   it('it should not CREATE a task of a project with an invalid ID', async () => {
     const res = await chai.request(server)
-      .post(`/projects/${project.id}/tasks`)
-      .send({ validPost });
+      .post('/projects/INVALID_ID/tasks')
+      .send(validPost);
 
     if (res.status === 500 && process.env.ENV === 'dev') {
       console.log('Test ignored.');
@@ -105,7 +108,7 @@ describe('/POST /projects/{id}/tasks', () => {
   it('it should not POST a task given an invalid request body', async () => {
     const res = await chai.request(server)
       .post(`/projects/${project.id}/tasks`)
-      .send({ invalidPost });
+      .send(invalidPost);
 
     if (res.status === 500 && process.env.ENV === 'dev') {
       console.log('Test ignored.');
@@ -127,7 +130,7 @@ describe('/GET /tasks/{id}', () => {
       return;
     }
 
-    res.should.have.status(404);
+    res.should.have.status(400);
   });
 
   it('it should GET a task with a valid id', async () => {
@@ -140,10 +143,12 @@ describe('/GET /tasks/{id}', () => {
     }
 
     res.should.have.status(200);
-    res.body.should.be.an.object;
-    res.body.should.have.keys('_id', 'project', 'description', 'completed');
-    res.body.should.have.property('_id').should.equal(task.id);
-    res.body.should.have.pro;
+    res.body.should.have.property('_id');
+    res.body.should.have.property('description');
+    res.body.should.have.property('project');
+    res.body.should.have.property('records');
+    res.body.should.have.property('completed');
+    res.body.records.should.be.a('array');
   });
 });
 
@@ -161,20 +166,20 @@ describe('/PATCH /tasks/{task-id}', () => {
   it('should not PATCH a task with an invalid id and valid request body', async () => {
     const res = await chai.request(server)
       .patch('/tasks/INVALID_ID')
-      .send({ validPatch });
+      .send(validPatch);
 
     if (res.status === 500 && process.env.ENV === 'dev') {
       console.log('Test ignored.');
       return;
     }
 
-    res.should.have.status(404);
+    res.should.have.status(400);
   });
 
   it('should PATCH a project with a task which is given a valid id', async () => {
     const res = await chai.request(server)
-      .patch(`/tasks/${task.id}`)
-      .send({ validPatch });
+      .patch(`/tasks/${task._id}`)
+      .send(validPatch);
 
     if (res.status === 500 && process.env.ENV === 'dev') {
       console.log('Test ignored.');
@@ -182,16 +187,17 @@ describe('/PATCH /tasks/{task-id}', () => {
     }
 
     res.should.have.status(200);
-    res.body.should.be.an.object;
-    res.body.should.have.keys('_id', 'project', 'description', 'completed');
-    res.body.should.have.property('id').should.equal(task.id);
+    res.body.should.have.property('_id');
+    res.body.should.have.property('description');
+    res.body.should.have.property('completed');
+    res.body.description.should.equal(validPatch.description);
     // TODO Check if the patch applied correctly
   });
 
   it('should NOT PATCH a task with a valid id and an invalid request body', async () => {
     const res = await chai.request(server)
-      .patch(`/projects/{id}/tasks/${task.id}`)
-      .send({ invalidPatch });
+      .patch(`/tasks/${task._id}`)
+      .send(invalidPatch);
 
     if (res.status === 500 && process.env.ENV === 'dev') {
       console.log('Test ignored.');
@@ -203,10 +209,10 @@ describe('/PATCH /tasks/{task-id}', () => {
 });
 
 // Test the DELETE from /projects/{id}/tasks/{task-id}
-describe('/DELETE /projects/{id}/tasks/{task-id}', () => {
+describe('/DELETE /tasks/{task-id}', () => {
   it('should NOT DELETE a project with a task which is given the invalid id', async () => {
     const res = await chai.request(server)
-      .delete('/projects/{id}/tasks/INVALID_ID');
+      .delete('/tasks/INVALID_ID');
 
     if (res.status === 500 && process.env.ENV === 'dev') {
       console.log('Test ignored.');
@@ -225,9 +231,20 @@ describe('/DELETE /projects/{id}/tasks/{task-id}', () => {
     }
 
     // TODO Check if status code is correct
-    res.should.have.status(200);
+    res.should.have.status(204);
 
     // TODO Check if task was removed from database
     // TODO Check if task was removed from projects tasks
+  });
+
+  it('should not DELETE a deleted task with a valid id', async () => {
+    const res = await chai.request(server)
+      .delete(`/tasks/${task._id}`);
+
+    if (res.status === 500 && process.env.ENV === 'dev') {
+      console.log('Test ignored.');
+      return;
+    }
+    res.should.have.status(404);
   });
 });

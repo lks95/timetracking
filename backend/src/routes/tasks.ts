@@ -49,15 +49,11 @@ router.patch('/:id', async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
   try {
-    const task = await Task.findByIdAndRemove(req.params.id);
-
-    if (!task) {
-      res.status(404).send('Task not found.');
-    }
+    await Task.findByIdAndRemove(req.params.id);
 
     res.status(204).send();
   } catch (err) {
-    res.status(400).send('Invalid task id');
+    res.status(404).send('Task not found.');
   }
 });
 
