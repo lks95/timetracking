@@ -1,4 +1,4 @@
-import { Schema, model } from 'mongoose';
+import { Schema, Types, model } from 'mongoose';
 import IProject from '../../model/Project';
 
 const ProjectSchema = new Schema(
@@ -18,14 +18,14 @@ const ProjectSchema = new Schema(
     },
     tasks: {
       type: [{
-        type: Schema.Types.ObjectId,
+        type: Types.ObjectId,
         ref: 'task',
       }],
       default: [],
     },
     records: {
       type: [{
-        type: Schema.Types.ObjectId,
+        type: Types.ObjectId,
         ref: 'record',
       }],
       default: [],

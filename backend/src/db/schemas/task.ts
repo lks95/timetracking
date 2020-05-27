@@ -1,4 +1,4 @@
-import { Schema, Document, model } from 'mongoose';
+import { Schema, Types, model } from 'mongoose';
 import ITask from '../../model/Task';
 
 const TaskSchema = new Schema(
@@ -8,7 +8,7 @@ const TaskSchema = new Schema(
       required: true,
     },
     project: {
-      type: Schema.Types.ObjectId,
+      type: Types.ObjectId,
       ref: 'project',
       required: true,
     },
@@ -18,7 +18,7 @@ const TaskSchema = new Schema(
     },
     records: {
       type: [{
-        type: Schema.Types.ObjectId,
+        type: Types.ObjectId,
         ref: 'record',
       }],
       default: [],
