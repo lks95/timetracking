@@ -1,5 +1,7 @@
 import { Schema, model } from 'mongoose';
 import IProject from '../../model/Project';
+import Task from './task';
+import Record from './record';
 
 const ProjectSchema = new Schema(
   {
@@ -43,9 +45,9 @@ ProjectSchema.pre('updateOne', (next) => {
   next();
 });
 
-ProjectSchema.pre('remove', (next) => {
-  // TODO Validate project before removal
-  next();
+ProjectSchema.post('findOneAndRemove', async (project: IProject) => {
+  await Task.remove({ project: project._id });
+  await Record.remove({ project: project._id });
 });
 
 // TODO Add further middleware if necessary
