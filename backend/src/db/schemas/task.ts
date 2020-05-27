@@ -1,5 +1,7 @@
-import { Schema, Document, model } from 'mongoose';
+import { Schema, Types, model } from 'mongoose';
 import ITask from '../../model/Task';
+import Project from './project';
+import Record from './record';
 
 const TaskSchema = new Schema(
   {
@@ -8,7 +10,7 @@ const TaskSchema = new Schema(
       required: true,
     },
     project: {
-      type: Schema.Types.ObjectId,
+      type: Types.ObjectId,
       ref: 'project',
       required: true,
     },
@@ -18,7 +20,7 @@ const TaskSchema = new Schema(
     },
     records: {
       type: [{
-        type: Schema.Types.ObjectId,
+        type: Types.ObjectId,
         ref: 'record',
       }],
       default: [],
@@ -26,21 +28,13 @@ const TaskSchema = new Schema(
   },
 );
 
-TaskSchema.pre('save', (next) => {
-  // TODO Validate task before saving
-  next();
+TaskSchema.post('save', async (task: ITask) => {
+  await Project.findByIdAndUpdate(task.project, { $push: { tasks: new Types.ObjectId(task._id) } });
 });
 
-TaskSchema.pre('updateOne', (next) => {
-  // TODO Validate task before update
-  next();
+TaskSchema.post('findOneAndRemove', async (task: ITask) => {
+  await Project.findByIdAndUpdate(task.project, { $pull: { tasks: new Types.ObjectId(task._id) } });
+  await Record.remove({ task: task._id });
 });
-
-TaskSchema.pre('remove', (next) => {
-  // TODO Validate task before removal
-  next();
-});
-
-// TODO Add further middleware if necessary
 
 export default model<ITask>('task', TaskSchema);

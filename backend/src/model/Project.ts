@@ -1,4 +1,6 @@
 import { Document, Types } from 'mongoose';
+import ITask from './Task';
+import IRecord from './Record';
 
 
 export default interface IProject extends Document {
@@ -6,6 +8,6 @@ export default interface IProject extends Document {
   name: string;
   color: string;
   completed: boolean;
-  tasks: Types.ObjectId[];
-  records: Types.ObjectId[];
+  tasks: Types.ObjectId[] | ITask[];
+  records: Types.ObjectId[] | IRecord[];
 }
