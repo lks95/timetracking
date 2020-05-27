@@ -1,5 +1,6 @@
 import { Schema, Types, model } from 'mongoose';
 import ITask from '../../model/Task';
+import Project from './project';
 
 const TaskSchema = new Schema(
   {
@@ -29,6 +30,10 @@ const TaskSchema = new Schema(
 TaskSchema.pre('save', (next) => {
   // TODO Validate task before saving
   next();
+});
+
+TaskSchema.post('save', async (task: ITask) => {
+  await Project.findByIdAndUpdate(task.project, { $push: { tasks: new Types.ObjectId(task._id) } });
 });
 
 TaskSchema.pre('updateOne', (next) => {

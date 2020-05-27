@@ -1,128 +1,154 @@
 import * as express from 'express';
 import Project from '../db/schemas/project';
 import Task from '../db/schemas/task';
-import Record from '../db/schemas/record';
 
 const router = express.Router();
 
 router.get('/:id', async (req, res) => {
   // let project;
-  let projectTasksAndRecords;
+  let project;
   try {
-    // project = await Project.findById(req.params.id);
-    projectTasksAndRecords = await Project.findById(req.params.id).populate('tasks').populate('records');
-    res.status(200).send(projectTasksAndRecords);
+    project = await Project.findById(req.params.id)
+      .populate('tasks', '_id description completed')
+      .populate('records', '_id startTime endTime');
+
+    if (!project) {
+      res.status(404).send('Project not found');
+      return;
+    }
+
+    res.status(200).send(project);
   } catch (err) {
-    res.status(404).send('Project id invalid.');
+    res.status(400).send('Invalid project id');
   }
 });
 
 router.patch('/:id', async (req, res) => {
-  const { id } = req.params;
-  try {
-    await Project.findById(id);
-  } catch (err) {
-    res.status(404).send('Project id invalid.');
+  let error;
+  let project;
+
+  if (!req.body.name && !req.body.color && !req.body.completed) {
+    res.status(400).send('Request body invalid');
     return;
   }
 
-  if (req.body.name.equals('')) {
-    res.status(400).send('Project name was not specified.');
-    return;
+  try {
+    project = await Project.findById(req.params.id, '_id name color completed');
+  } catch (err) {
+    error = err;
+    res.status(400).send('Invalid project id');
   }
 
-  let update;
-  const options = { new: true };
-  if (req.body.color.equals('')) {
-    update = { name: req.body.name };
-  } else {
-    update = { name: req.body.name, color: req.body.color };
+  if (error) return;
+
+  if (!project) {
+    res.status(404).send('Project not found');
   }
-  try {
-    const updatedProject = await Project.findByIdAndUpdate(id, update, options);
-    res.status(200).send(updatedProject);
-  } catch (err) {
-    console.log(err);
-  }
+
+  project.name = req.body.name ? req.body.name : project.name;
+  project.color = req.body.color ? req.body.color : project.color;
+  project.completed = req.body.completed ? req.body.completed : project.completed;
+
+  const updated = await project.save();
+  res.status(200).send(updated);
 });
 
 router.delete('/:id', async (req, res) => {
   const { id } = req.params;
   try {
-    await Project.findByIdAndDelete(id);
-    await Task.deleteMany({ project: id });
-    await Record.deleteMany({ project: id });
-    res.status(204).send('Project and all related tasks and records were successfully removed.');
+    const project = await Project.findByIdAndRemove(id);
+
+    if (!project) {
+      res.status(404).send('Project not found.');
+    }
+
+    res.status(204).send();
   } catch (err) {
-    res.status(404).send('Project was not found.');
+    res.status(400).send('Invalid project id');
   }
 });
 
 router.get('/:id/tasks', async (req, res) => {
-  const { id } = req.params;
   try {
-    await Project.findById(id);
-  } catch (err) {
-    res.status(404).send('Project id invalid.');
-    return;
-  }
-  try {
-    const tasks = await Task.find({ project: id }).populate('records');
+    const project = await Project.findById(req.params.id);
+
+    if (!project) {
+      res.status(404).send('Project not found');
+      return;
+    }
+
+    const tasks = await Task.find({ project: req.params.id }).populate('records');
     res.status(200).send(tasks);
   } catch (err) {
-    console.log(err);
+    res.status(400).send('Invalid project id');
   }
 });
 
 router.post('/:id/tasks', async (req, res) => {
   const { id } = req.params;
   let project;
+
   try {
     project = await Project.findById(id);
   } catch (err) {
-    res.status(404).send('Project id invalid.');
+    res.status(404).send('Invalid project id');
     return;
   }
-  if (req.body.description == null) {
-    res.status(400).send('Request body was invalid.');
+
+  if (!project) {
+    res.status(404).send('Project not found');
     return;
   }
+
+  if (project.completed) {
+    res.status(400).send('You cannot create a task for a completed project');
+    return;
+  }
+
+  if (!req.body.description) {
+    res.status(400).send('Invalid request body');
+    return;
+  }
+
   try {
-    const task = await Task.create({ description: req.body.description });
-    project.tasks.push(task._id);
-    await project.save();
+    const task = await Task.create({ description: req.body.description, project: project._id });
     res.status(200).send(task);
   } catch (err) {
-    console.log(err);
+    res.status(500).send('Internal server error');
+    console.error(err);
   }
 });
 
 router.get('/', async (req, res) => {
-  const args = 'name color completed';
   try {
-    const projects = await Project.find({}, args);
+    const projects = await Project.find({}, 'name color completed');
     res.status(200).send(projects);
   } catch (err) {
-    console.log(err);
+    res.status(500).send('Internal server error');
+    console.error(err);
   }
 });
 
 router.post('/', async (req, res) => {
-  if (req.body.name.equals('')) {
-    res.status(400).send('Request Body was invalid.');
+  if (!req.body.name) {
+    res.status(400).send('Invalid request body');
     return;
   }
-  let projectcolor;
-  if (req.body.color.equals('')) {
-    projectcolor = '#ffffff';
-  } else {
-    projectcolor = req.body.color;
+
+  const existingProject = await Project.findOne({ name: req.body.name });
+
+  if (existingProject) {
+    res.status(400).send('Project with this name already exists.');
   }
+
+  // TODO Auto generate the color instead of using default white color
+  const projectColor = req.body.color || '#ffffff';
   try {
-    const project = await Project.create({ name: req.body.name, color: projectcolor });
+    const project = await Project.create({ name: req.body.name, color: projectColor });
     res.status(200).send(project);
   } catch (err) {
-    console.log(err);
+    res.status(500).send('Internal server error');
+    console.error(err);
   }
 });
 
