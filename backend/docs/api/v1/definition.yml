@@ -19,12 +19,10 @@ paths:
           content:
             appliction/json:
               schema:
-                type: object
-                properties:
-                  projects:
-                    type: array
-                    items:
-                      $ref: '#components/schemas/SimpleProject'
+                type: array
+                  items:
+                    $ref: '#components/schemas/SimpleProject'
+
     post:
       summary: 'Register new project'
       requestBody:
