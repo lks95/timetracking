@@ -35,21 +35,9 @@ const ProjectSchema = new Schema(
   },
 );
 
-ProjectSchema.pre('save', (next) => {
-  // TODO Validate project before saving
-  next();
-});
-
-ProjectSchema.pre('updateOne', (next) => {
-  // TODO Validate project before update
-  next();
-});
-
 ProjectSchema.post('findOneAndRemove', async (project: IProject) => {
   await Task.remove({ project: project._id });
   await Record.remove({ project: project._id });
 });
-
-// TODO Add further middleware if necessary
 
 export default model<IProject>('project', ProjectSchema);

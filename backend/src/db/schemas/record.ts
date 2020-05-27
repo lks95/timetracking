@@ -41,10 +41,6 @@ RecordSchema.post('save', async (record: IRecord, next) => {
   next();
 });
 
-RecordSchema.post('updateOne', (updatedRecord: IRecord) => {
-  // TODO If updated and task or project is finished, update the summary time of the parent
-});
-
 RecordSchema.post('findOneAndRemove', async (removedRecord: IRecord) => {
   // Remove record from project or task too
   if (removedRecord.task) {

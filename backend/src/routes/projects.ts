@@ -5,10 +5,8 @@ import Task from '../db/schemas/task';
 const router = express.Router();
 
 router.get('/:id', async (req, res) => {
-  // let project;
-  let project;
   try {
-    project = await Project.findById(req.params.id)
+    const project = await Project.findById(req.params.id)
       .populate('tasks', '_id description completed')
       .populate('records', '_id startTime endTime');
 
@@ -54,9 +52,8 @@ router.patch('/:id', async (req, res) => {
 });
 
 router.delete('/:id', async (req, res) => {
-  const { id } = req.params;
   try {
-    const project = await Project.findByIdAndRemove(id);
+    const project = await Project.findByIdAndRemove(req.params.id);
 
     if (!project) {
       res.status(404).send('Project not found.');
