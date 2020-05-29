@@ -13,17 +13,20 @@ header .headerProjectName {
   left: 15px;
 }
 
+.play-button {
+  transform: scale(1.5);
+}
+
 .play{
   height: 60px;
   width: 60px;
-  background-color: #aaa;
-  color: white;
   border-radius: 50%;
   position: absolute;
   margin-left: -30px;
   top: 120px;
   left: 50%;
   right: 50%;
+  font-size: 56px;
 }
 
 .play.enabled {

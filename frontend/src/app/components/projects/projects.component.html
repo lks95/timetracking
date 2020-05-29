@@ -1,15 +1,26 @@
 <header [style.background]="setBackgroundColorHeader()">
   <div><mat-icon class="add">add</mat-icon></div>
-  <div *ngIf="selectedProject" [style.display]="displayDone"><mat-icon class="doneUndone">check_circle</mat-icon></div>
-  <div *ngIf="selectedProject" [style.display]="displayUndone"><mat-icon class="doneUndone">swap_vert</mat-icon></div>
+  <div *ngIf="this.selectedProject && !this.playButtonPressed"><mat-icon class="doneUndone">{{getCompletionIcon()}}</mat-icon></div>
+  <!-- <div *ngIf="selectedProject" [style.visibility]="displayUndone"><mat-icon class="doneUndone">swap_vert</mat-icon></div> -->
   <div *ngIf="playButtonPressed" class="recordsDisplay"><p>{{recordDisplay}}</p></div>
   <p class="headerProjectName" *ngIf="selectedProject">{{selectedProject.name}}</p>
-  <div class="play"
-       [class.enabled]="enablePlayButton"
+
+  <button #playButton [disabled]="!this.selectedProject || this.selectedProject.completed" mat-fab color="accent"
+          class="play"
+
+          (click)="play()"
+          aria-label="Example icon button with a delete icon">
+    <mat-icon class="play-button">{{this.playButtonPressed?'stop':'play_arrow'}}</mat-icon>
+  </button>
+<!--
+  <div class="play" #playButton
+       [class.enabled]="this.selectedProject && !this.selectedProject.completed"
        [class.stop]="playButtonPressed"
        (click)="play()">
     <span class="symbol">{{symbolButton}}</span>
   </div>
+
+  -->
 </header>
 <table>
   <colgroup>

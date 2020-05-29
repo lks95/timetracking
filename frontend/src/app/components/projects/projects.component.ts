@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import { Project } from '../../models/project';
 import { ProjectService } from '../../services/project.service';
 
@@ -9,12 +9,14 @@ import { ProjectService } from '../../services/project.service';
 })
 export class ProjectsComponent implements OnInit {
 
+  @ViewChild('playButton') playButton;
+
   projects: Project[];
   selectedProject: Project;
   symbolButton = '▶';
-  enablePlayButton = false;
+  // enablePlayButton = isPlayButtonEnabled();
   playButtonPressed = false;
-  recordDisplay = '00:00:23'
+  recordDisplay = '00:00:23';
   displayDone = 'display';
   displayUndone = 'none';
 
@@ -26,22 +28,10 @@ export class ProjectsComponent implements OnInit {
   }
 
   onSelect(project: Project): void {
-    if(!this.playButtonPressed) {
-      if (this.selectedProject == project) {
-        this.selectedProject = null;
-        this.enablePlayButton = false;
-      } else {
-        this.selectedProject = project;
-        if (!this.selectedProject.completed) {
-          this.enablePlayButton = true;
-          this.displayDone = 'display';
-          this.displayUndone = 'none';
-        } else {
-          this.enablePlayButton = false;
-          this.displayDone = 'none';
-          this.displayUndone = 'display';
-        }
-      }
+    if (!this.playButtonPressed && this.selectedProject === project) {
+      this.selectedProject = null;
+    } else if (!this.playButtonPressed) {
+      this.selectedProject = project;
     }
   }
 
@@ -51,46 +41,56 @@ export class ProjectsComponent implements OnInit {
   }
 
   getProjectsNotCompleted(): Project[] {
-    let projectsNotCompleted = new Array();
-    for (let i = 0; i < this.projects.length; i++) {
-      if (this.projects[i].completed == false) {
-        projectsNotCompleted.push(this.projects[i]);
+    const projectsNotCompleted = [];
+    this.projects.forEach((project) => {
+      if (!project.completed) {
+        projectsNotCompleted.push(project);
       }
-    }
+    });
     return projectsNotCompleted;
   }
 
   getProjectsCompleted(): Project[] {
-    let projectsCompleted = new Array();
-    for (let i = 0; i < this.projects.length; i++) {
-      if (this.projects[i].completed == true) {
-        projectsCompleted.push(this.projects[i]);
+    const projectsCompleted = [];
+    this.projects.forEach((project) => {
+      if (project.completed === true) {
+        projectsCompleted.push(project);
       }
-    }
+    });
     return projectsCompleted;
   }
 
-  getBackgroundColor(project: Project): String {
+  getBackgroundColor(project: Project): string {
     if (project === this.selectedProject) {
       return project.color;
     }
   }
 
   setBackgroundColorHeader(){
-    if(this.selectedProject && !this.selectedProject.completed){
+    if (this.selectedProject && !this.selectedProject.completed){
       return this.selectedProject.color;
     }
   }
 
   play(){
-    if(!this.playButtonPressed && this.enablePlayButton && this.selectedProject){
+    if (!this.playButtonPressed && !this.playButton.disabled && this.selectedProject){
       this.playButtonPressed = true;
-      this.symbolButton = '■'
+      this.symbolButton = '■';
     } else if (this.playButtonPressed) {
       this.playButtonPressed = false;
       this.selectedProject = null;
-      this.enablePlayButton = false;
-      this.symbolButton = '▶'
+      this.symbolButton = '▶';
     }
+  }
+
+  openProjectCreationDialog(): void {
+    // TODO
+  }
+
+  getCompletionIcon(): string {
+    if (this.selectedProject.completed) {
+      return 'swap_vert';
+    }
+    return 'check_circle';
   }
 }
