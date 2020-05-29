@@ -1,0 +1,35 @@
+<header [style.background]="setBackgroundColorHeader()">
+  <div><mat-icon class="add">add</mat-icon></div>
+  <div *ngIf="selectedProject" [style.display]="displayDone"><mat-icon class="doneUndone">check_circle</mat-icon></div>
+  <div *ngIf="selectedProject" [style.display]="displayUndone"><mat-icon class="doneUndone">swap_vert</mat-icon></div>
+  <div *ngIf="playButtonPressed" class="recordsDisplay"><p>{{recordDisplay}}</p></div>
+  <p class="headerProjectName" *ngIf="selectedProject">{{selectedProject.name}}</p>
+  <div class="play"
+       [class.enabled]="enablePlayButton"
+       [class.stop]="playButtonPressed"
+       (click)="play()">
+    <span class="symbol">{{symbolButton}}</span>
+  </div>
+</header>
+<table>
+  <colgroup>
+    <col style="width:20%">
+    <col style="width:65%">
+    <col style="width:15%">
+  </colgroup>
+  <tr *ngFor="let project of getProjectsNotCompleted()"
+      [class.selected]="project === selectedProject"
+      [style.background]="getBackgroundColor(project)">
+    <td><div class="projectColorBox" [style.background-color]="project.color"></div></td>
+    <td (click)="onSelect(project)">{{project.name}}</td>
+    <td><mat-icon class="arrow">keyboard_arrow_right</mat-icon></td>
+  </tr>
+  <tr class="captionCompleted"><td colspan="3">Abgeschlossene Projekte</td></tr>
+  <tr class="completed" *ngFor="let project of getProjectsCompleted()"
+      [class.selected]="project === selectedProject">
+    <td><div class="projectColorBox completedBox"></div></td>
+    <td (click)="onSelect(project)">{{project.name}}</td>
+    <td><mat-icon class="arrow">keyboard_arrow_right</mat-icon></td>
+  </tr>
+</table>
+
