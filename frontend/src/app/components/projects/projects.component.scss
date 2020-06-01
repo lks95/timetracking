@@ -1,136 +1,141 @@
-header {
-  width: 100%;
-  height: 150px;
-  background-color: lightseagreen;
-  color: white;
-  position: relative;
+/* Mobile CSS*/
+@media screen and (min-width: 0px) {
+
+  /* Header-Bereich*/
+
+  header {
+    width: 100%;
+    height: 150px;
+    background-color: lightseagreen;
+    color: white;
+    position: relative;
+
+    .headerProjectName {
+      font-size: 16px;
+      position: absolute;
+      top: 80px;
+      left: 15px;
+    }
+  }
+
+  .play {
+    position: absolute;
+    margin-left: -30px;
+    top: 120px;
+    left: 50%;
+    right: 50%;
+    background-color: orange;
+  }
+
+  .play-button {
+    transform: scale(1.5);
+  }
+
+  .mat-fab[disabled] {
+    background-color: rgba(200, 200, 200, 0.75);
+    color: rgba(60, 60, 60, 0.25);
+  }
+
+  .add {
+    float: right;
+    position: absolute;
+    top: 5px;
+    right: 10px;
+  }
+
+  .add-button {
+    transform: scale(1.2);
+  }
+
+  .completion {
+    float: right;
+    position: absolute;
+    top: 130px;
+    right: 40px;
+    transform: scale(0.9);
+    background-color: lightseagreen;
+  }
+
+  .recordsDisplay {
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+    padding-top: 35px;
+    font-size: 35px;
+    font-weight: lighter;
+  }
+
+  /*Projekteliste*/
+
+  table {
+    margin: 50px auto 0 auto;
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  td {
+    padding: 10px 5px;
+    border-bottom: 2px solid #fff;
+  }
+
+  p.projectName {
+    cursor: pointer;
+    display: inline-block;
+    margin: 0;
+  }
+
+  .arrow {
+    margin-right: 10px;
+    color: #aaa;
+  }
+
+  tr.selected .arrow {
+    color: #fff;
+  }
+
+  .captionCompleted {
+    background-color: #aaa;
+    color: #fff;
+    text-align: center;
+  }
+
+  .projectColorBox {
+    margin: auto;
+    width: 8px;
+    height: 8px;
+  }
+
+  .completedBox {
+    background-color: #aaa;
+  }
+
+  .completed {
+    color: #aaa;
+  }
+
+  .selected {
+    color: #fff;
+
+    .projectColorBox {
+      border: 1px solid white;
+    }
+  }
+
 }
 
-header .headerProjectName {
-  font-size: 16px;
-  position: absolute;
-  top: 80px;
-  left: 15px;
+/*Desktop-CSS*/
+@media screen and (min-width: 641px){
+  header div {
+    position: relative;
+    width: 70%;
+    margin: 0 auto;
+  }
+  table {
+    width: 70%;
+  }
+
+  tr:hover:not(.captionCompleted) {
+    filter: brightness(90%)
+  }
 }
 
-.play-button {
-  transform: scale(1.5);
-}
-
-.play{
-  height: 60px;
-  width: 60px;
-  border-radius: 50%;
-  position: absolute;
-  margin-left: -30px;
-  top: 120px;
-  left: 50%;
-  right: 50%;
-  font-size: 56px;
-}
-
-.play.enabled {
-  background-color: orange;
-  color: white;
-}
-
-.play.enabled.stop {
-  background-color: red;
-}
-
-.symbol{
-  font-size: 30px;
-  vertical-align: middle;
-  line-height: 60px;
-  padding-left: 20px;
-  display: inline-block;
-}
-
-.stop .symbol {
-  font-size: 36px;
-  vertical-align: middle;
-  line-height: 53px;
-  padding-left: 19px;
-  display: inline-block;
-}
-
-div mat-icon.add{
-  font-size: 30px;
-  color: white;
-  float: right;
-  position: absolute;
-  top: 10px;
-  right: 15px;
-}
-
-div mat-icon.doneUndone {
-  font-size: 30px;
-  float: right;
-  position: absolute;
-  top: 110px;
-  right: 20px;
-}
-
-div mat-icon.undone {
-  display: none;
-}
-
-.recordsDisplay {
-  width: 50%;
-  margin: 0 auto;
-  text-align: center;
-  padding-top: 35px;
-  font-size: 35px;
-  font-weight: lighter;
-}
-
-mat-icon.arrow{
-  padding-top: 5px;
-  font-size: 20px;
-  text-align: right;
-  color: #aaa;
-}
-
-table {
-  margin: 50px auto 0 auto;
-  width: 100%;
-  border-collapse: collapse;
-}
-
-td {
-  padding: 10px 5px;
-  border-bottom: 2px solid #fff;
- }
-
-.captionCompleted {
-  background-color: #aaa;
-  color: #fff;
-  text-align: center;
-}
-
-
-.completed td {
-  background-color: #d0d0d0;
-}
-
-.projectColorBox {
-  margin: auto;
-  width: 8px;
-  height: 8px;
-}
-
-.selected .projectColorBox {
-  border: 1px solid white;
-}
-
-.completedBox {
-  background-color: #aaa;
-}
-
-.completed {
-  color: #aaa;
-}
-
-.selected {
-  color: #fff;
-}

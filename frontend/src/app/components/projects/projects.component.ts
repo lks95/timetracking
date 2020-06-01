@@ -13,12 +13,8 @@ export class ProjectsComponent implements OnInit {
 
   projects: Project[];
   selectedProject: Project;
-  symbolButton = '▶';
-  // enablePlayButton = isPlayButtonEnabled();
   playButtonPressed = false;
   recordDisplay = '00:00:23';
-  displayDone = 'display';
-  displayUndone = 'none';
 
   constructor(private projectService: ProjectService) {
   }
@@ -60,26 +56,13 @@ export class ProjectsComponent implements OnInit {
     return projectsCompleted;
   }
 
-  getBackgroundColor(project: Project): string {
-    if (project === this.selectedProject) {
-      return project.color;
-    }
-  }
-
-  setBackgroundColorHeader(){
-    if (this.selectedProject && !this.selectedProject.completed){
-      return this.selectedProject.color;
-    }
-  }
-
   play(){
-    if (!this.playButtonPressed && !this.playButton.disabled && this.selectedProject){
+    //TODO: Record starten oder stoppen
+    if (!this.playButtonPressed && !this.playButton.disabled){
       this.playButtonPressed = true;
-      this.symbolButton = '■';
     } else if (this.playButtonPressed) {
       this.playButtonPressed = false;
       this.selectedProject = null;
-      this.symbolButton = '▶';
     }
   }
 
@@ -87,10 +70,21 @@ export class ProjectsComponent implements OnInit {
     // TODO
   }
 
-  getCompletionIcon(): string {
-    if (this.selectedProject.completed) {
-      return 'swap_vert';
+  setCompletion(): void {
+    if(this.selectedProject.completed){
+      this.setProjectNotCompleted();
+    } else {
+      this.setProjectCompleted()
     }
-    return 'check_circle';
   }
+  setProjectCompleted(): void {
+    this.selectedProject.completed = true;
+    // TODO
+  }
+
+  setProjectNotCompleted(): void {
+    this.selectedProject.completed = false;
+    // TODO
+  }
+
 }
