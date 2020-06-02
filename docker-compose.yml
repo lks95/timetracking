@@ -1,0 +1,22 @@
+version: '3.0'
+
+services:
+ backend:
+  build: backend
+  command: node build/server.js   
+  ports:
+  - "3000:3000"
+  links:
+  - database
+  environment:
+    - DATABASE_URL=mongodb://database:27017
+
+ database:
+  image: mongo
+  ports:
+  - "27017:27017"
+
+#frontend:
+#  build: frontend
+#  ports:
+#  - "4200:4200"
