@@ -1,7 +1,7 @@
 import { Project } from '../models/project';
 
 export const PROJECTS: Project[] = [
-  { id: 11, name: 'First Project', color: '#ed2b4f', completed: false },
+  { id: 11, name: 'First Project', color: '#ed2b4f', completed: false, tasks: [21,22,23,24,25,26,27,28] },
   { id: 12, name: 'Second Project', color: '#eda92b', completed: true},
   { id: 13, name: 'Third Project', color: '#e0dc5a', completed: false },
   { id: 14, name: 'Fourth Project', color: '#87c944', completed: false },

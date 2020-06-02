@@ -1,7 +1,7 @@
 <header [style.background]="(this.selectedProject && !this.selectedProject.completed)?
           this.selectedProject.color:(this.selectedProject && this.selectedProject.completed)?'#bbb':''">
   <div>
-  <button mat-icon-button class="add" (click)="openProjectCreationDialog()">
+  <button *ngIf="!playButtonPressed" mat-icon-button class="add" (click)="openProjectCreationDialog()">
     <mat-icon class="add-button">add</mat-icon>
   </button>
   <button mat-mini-fab class="completion" color="primary"
@@ -18,6 +18,9 @@
   </button>
   </div>
 </header>
+<button mat-icon-button class="addFirst" *ngIf="(getProjectsNotCompleted().length === 0 && getProjectsCompleted().length === 0)">
+  <mat-icon class="addFirst-button">playlist_add</mat-icon>
+</button>
 <table>
   <colgroup>
     <col style="width:20%">
@@ -37,7 +40,7 @@
       </a>
     </td>
   </tr>
-  <tr class="captionCompleted"><td colspan="3">Abgeschlossene Projekte</td></tr>
+  <tr *ngIf="getProjectsCompleted().length > 0" class="captionCompleted"><td colspan="3">Abgeschlossene Projekte</td></tr>
   <tr class="completed" *ngFor="let project of getProjectsCompleted()"
       [class.selected]="project === selectedProject"
       [style.background]="(project === this.selectedProject)?'#bbb':'#d0d0d0'">

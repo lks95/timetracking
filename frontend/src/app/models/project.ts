@@ -2,5 +2,7 @@ export interface Project {
   id: number;
   name: string;
   color: string;
-  completed: boolean;
+  completed?: boolean;
+  tasks?: number[];
+  records?: number[];
 }
