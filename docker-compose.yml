@@ -6,8 +6,9 @@ services:
   command: node build/server.js   
   ports:
   - "3000:3000"
-  links:
-  - database
+  networks:
+  - backend
+  - frontend
   environment:
     - DATABASE_URL=mongodb://database:27017
 
@@ -15,8 +16,18 @@ services:
   image: mongo
   ports:
   - "27017:27017"
+  networks:
+  - backend
 
-#frontend:
-#  build: frontend
-#  ports:
-#  - "4200:4200"
+ frontend:
+  build: frontend
+  ports:
+  - "80:80"
+  networks:
+  - frontend
+  depends_on:
+  - backend
+  
+networks:
+  backend:
+  frontend:
