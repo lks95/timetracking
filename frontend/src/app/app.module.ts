@@ -10,6 +10,9 @@ import { ProjectComponent } from './components/project/project.component';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatDividerModule} from '@angular/material/divider'
+
+import { DatePipe} from '@angular/common'
 
 
 @NgModule({
@@ -24,9 +27,10 @@ import {MatTabsModule} from '@angular/material/tabs';
     AppRoutingModule,
     MatIconModule,
     MatButtonModule,
-    MatTabsModule
+    MatTabsModule,
+    MatDividerModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

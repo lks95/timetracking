@@ -26,6 +26,7 @@ export class ProjectComponent implements OnInit {
   project: Project;
   playButtonPressed = false;
   recordDisplay = '00:00:23';
+  displayedColumns = ['date', 'startTime', 'endTime'];
 
   constructor(
     private taskService: TaskService,
@@ -110,6 +111,10 @@ export class ProjectComponent implements OnInit {
   }
 
   openTaskCreationDialog(): void {
+    // TODO
+  }
+
+  openRecordCreationDialog(): void {
     // TODO
   }
 
