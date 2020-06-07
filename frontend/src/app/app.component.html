@@ -1,11 +1,11 @@
 <header [style.background]="(this.selectedProject && !this.selectedProject.completed)?
           this.selectedProject.color:(this.selectedProject && this.selectedProject.completed)?'#bbb':''">
   <div>
-    <button *ngIf="this.router.url !== '/projects'" mat-icon-button class="back-button" (click)="onBackPressed()">
+    <button *ngIf="!isInstanceOfProjects()" mat-icon-button class="back-button" (click)="onBackPressed()">
       <mat-icon class="scaled-icon">keyboard_arrow_left</mat-icon>
     </button>
-    <button *ngIf="!playButtonPressed" mat-icon-button class="element-button" (click)="openProjectCreationDialog()">
-      <mat-icon class="scaled-icon">{{this.router.url === '/projects' ? 'add' : 'edit'}}</mat-icon>
+    <button *ngIf="!playButtonPressed" mat-icon-button class="element-button" (click)="onElementAction()">
+      <mat-icon class="scaled-icon">{{isInstanceOfProjects() ? 'add' : 'edit'}}</mat-icon>
     </button>
 
     <div *ngIf="playButtonPressed" class="recordsDisplay"><p>{{recordDisplay}}</p></div>

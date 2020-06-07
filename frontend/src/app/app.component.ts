@@ -4,6 +4,8 @@ import {Project} from './models/project';
 import {Task} from './models/task';
 import {MatDialog} from '@angular/material/dialog';
 import {Router} from '@angular/router';
+import {ProjectsComponent} from './components/projects/projects.component';
+import {ProjectComponent} from './components/project/project.component';
 
 
 @Component({
@@ -15,16 +17,17 @@ export class AppComponent {
 
   @ViewChild('playButton') playButton;
 
-  constructor(
-    public dialog: MatDialog,
-    public router: Router
-  ) {}
-
   playButtonPressed = false;
   title = 'frontend';
   selectedProject: Project = null;
   selectedTask: Task = null;
   recordDisplay = '00:00:23';
+  componentRef: any;
+
+  constructor(
+    public dialog: MatDialog,
+    public router: Router
+  ) {}
 
   play() {
     // TODO: Record starten oder stoppen
@@ -37,15 +40,15 @@ export class AppComponent {
   }
 
   onActivate(componentReference) {
-    console.log(componentReference);
-    componentReference.selectedProject = this.selectedProject;
-    if (componentReference.projectEmitter) {
-      componentReference.projectEmitter.subscribe((project) => {
+    this.componentRef = componentReference;
+    this.componentRef.selectedProject = this.selectedProject;
+    if (this.componentRef instanceof ProjectsComponent) {
+      this.componentRef.projectEmitter.subscribe((project) => {
         // TODO Handle project selection from projects component
         this.selectedProject = project;
       });
     }
-    if (componentReference.taskEmitter) {
+    if (this.componentRef instanceof ProjectComponent) {
       componentReference.taskEmitter.subscribe((task) => {
         // TODO Handle task selection from tasks component
         this.selectedTask = task;
@@ -53,19 +56,21 @@ export class AppComponent {
     }
   }
 
-  openProjectCreationDialog(): void {
-    const dialogRef = this.dialog.open(CreateProjectDialog, {
-      minHeight: '256px',
-      maxHeight: '100%',
-      minWidth: '512px',
-      maxWidth: '100%',
-      // data: {name: this.name, animal: this.animal}
-    });
+  onElementAction(): void {
+    if (this.isInstanceOfProjects()) {
+      const dialogRef = this.dialog.open(CreateProjectDialog, {
+        minHeight: '256px',
+        maxHeight: '100%',
+        minWidth: '512px',
+        maxWidth: '100%',
+        // data: {name: this.name, animal: this.animal}
+      });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      // this.animal = result;
-    });
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('The dialog was closed');
+        // this.animal = result;
+      });
+    } else {}
   }
 
   setCompletion(): void {
@@ -94,5 +99,9 @@ export class AppComponent {
     // TODO Implement me
     this.router.navigate(['../']);
     // TODO Remove project selection / task selection whenever necessary
+  }
+
+  isInstanceOfProjects(): boolean {
+    return this.componentRef instanceof ProjectsComponent;
   }
 }
