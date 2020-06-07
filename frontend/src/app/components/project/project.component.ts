@@ -1,10 +1,10 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import { Task } from '../../models/task';
-import { Project } from "../../models/project";
-import { Record } from "../../models/record";
+import { Project } from '../../models/project';
+import { Record } from '../../models/record';
 import { TaskService } from '../../services/task.service';
-import { ProjectService } from "../../services/project.service";
-import { RecordService } from "../../services/record.service";
+import { ProjectService } from '../../services/project.service';
+import { RecordService } from '../../services/record.service';
 
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
@@ -17,6 +17,7 @@ import { Location } from '@angular/common';
 export class ProjectComponent implements OnInit {
 
   @ViewChild('playButton') playButton;
+  @Output() taskEmitter: EventEmitter<Task> = new EventEmitter();
 
   tasks: Task[];
   tasksOfProject = [];
@@ -47,6 +48,9 @@ export class ProjectComponent implements OnInit {
       this.selectedTask = null;
     } else if (!this.playButtonPressed) {
       this.selectedTask = task;
+      console.log('Task selected');
+      this.taskEmitter.emit(task);
+      console.log('Task emitter sent.');
     }
   }
 
@@ -97,7 +101,7 @@ export class ProjectComponent implements OnInit {
   }
 
   play(){
-    //TODO: Record starten oder stoppen
+    // TODO: Record starten oder stoppen
     if (!this.playButtonPressed && !this.playButton.disabled){
       this.playButtonPressed = true;
     } else if (this.playButtonPressed) {
@@ -123,10 +127,10 @@ export class ProjectComponent implements OnInit {
   }
 
   setCompletion(): void {
-    if(this.selectedTask.completed){
+    if (this.selectedTask.completed){
       this.setTaskNotCompleted();
     } else {
-      this.setTaskCompleted()
+      this.setTaskCompleted();
     }
   }
   setTaskCompleted(): void {

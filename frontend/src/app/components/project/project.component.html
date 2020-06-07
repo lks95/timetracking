@@ -9,7 +9,7 @@
     <button mat-mini-fab class="completion" color="primary"
             *ngIf="this.selectedTask && !this.playButtonPressed"
             (click)="setCompletion()">
-      <mat-icon class="completion-button">{{this.selectedTask.completed?'swap_vert':'done'}}</mat-icon>
+      <mat-icon class="completion-button">{{this.selectedTask.completed ? 'swap_vert' : 'done'}}</mat-icon>
     </button>
     <div *ngIf="playButtonPressed" class="recordsDisplay"><p>{{recordDisplay}}</p></div>
     <p class="headerProjectName">{{project.name}}</p>
@@ -17,7 +17,7 @@
     <button mat-fab #playButton [disabled]="!this.selectedTask || this.selectedTask.completed"
             class="play"
             (click)="play()">
-      <mat-icon class="play-button">{{this.playButtonPressed?'stop':'play_arrow'}}</mat-icon>
+      <mat-icon class="play-button">{{this.playButtonPressed ? 'stop' : 'play_arrow'}}</mat-icon>
     </button>
   </div>
 </header>
@@ -50,7 +50,9 @@
           </a>
         </td>
       </tr>
-      <tr *ngIf="getTasksCompleted().length > 0" class="captionCompleted"><td colspan="3">Abgeschlossene Aufgaben</td></tr>
+      <tr *ngIf="getTasksCompleted().length > 0" class="captionCompleted">
+        <td colspan="3">Abgeschlossene Aufgaben</td>
+      </tr>
       <tr class="completed" *ngFor="let task of getTasksCompleted()"
           [class.selected]="task === selectedTask"
           [style.background]="(task === this.selectedTask)?'#bbb':'#d0d0d0'">
@@ -67,7 +69,8 @@
     </table>
     <button *ngIf="getTasksCompleted().length > 0 || getTasksNotCompleted().length > 0"
             [disabled]="playButtonPressed"
-            (click)="openTaskCreationDialog()" mat-flat-button class="new-taskOrRecord">Neue Aufgabe</button>
+            (click)="openTaskCreationDialog()" mat-flat-button class="new-taskOrRecord">Neue Aufgabe
+    </button>
   </mat-tab>
   <mat-tab label="Records">
     <button mat-icon-button class="addFirst"
@@ -76,7 +79,7 @@
       <mat-icon class="addFirst-button">playlist_add</mat-icon>
     </button>
     <table *ngIf="this.recordsOfProject.length > 0"
-      class="recordList">
+           class="recordList">
       <colgroup>
         <col style="width:30%">
         <col style="width:30%">
@@ -101,7 +104,8 @@
     </table>
     <button *ngIf="this.recordsOfProject.length > 0"
             [disabled]="playButtonPressed"
-            (click)="openRecordCreationDialog()" mat-flat-button class="new-taskOrRecord">Neuer Record</button>
+            (click)="openRecordCreationDialog()" mat-flat-button class="new-taskOrRecord">Neuer Record
+    </button>
   </mat-tab>
 </mat-tab-group>
 
@@ -135,7 +139,9 @@
           </a>
         </td>
       </tr>
-      <tr *ngIf="getTasksCompleted().length > 0" class="captionCompleted"><td colspan="3">Abgeschlossene Aufgaben</td></tr>
+      <tr *ngIf="getTasksCompleted().length > 0" class="captionCompleted">
+        <td colspan="3">Abgeschlossene Aufgaben</td>
+      </tr>
       <tr class="completed" *ngFor="let task of getTasksCompleted()"
           [class.selected]="task === selectedTask"
           [style.background]="(task === this.selectedTask)?'#bbb':'#d0d0d0'">
@@ -152,7 +158,8 @@
     </table>
     <button *ngIf="getTasksCompleted().length > 0 || getTasksNotCompleted().length > 0"
             [disabled]="playButtonPressed"
-            (click)="openTaskCreationDialog()" mat-flat-button class="new-taskOrRecord">Neue Aufgabe</button>
+            (click)="openTaskCreationDialog()" mat-flat-button class="new-taskOrRecord">Neue Aufgabe
+    </button>
   </div>
   <div class="record-container">
     <p class="captionContainer">Records</p>
@@ -188,7 +195,8 @@
     </table>
     <button *ngIf="this.recordsOfProject.length > 0"
             [disabled]="playButtonPressed"
-            (click)="openRecordCreationDialog()" mat-flat-button class="new-taskOrRecord">Neuer Record</button>
+            (click)="openRecordCreationDialog()" mat-flat-button class="new-taskOrRecord">Neuer Record
+    </button>
   </div>
 </div>
 

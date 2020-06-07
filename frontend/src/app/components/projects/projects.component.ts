@@ -1,7 +1,6 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import { Project } from '../../models/project';
 import { ProjectService } from '../../services/project.service';
-import {CreateProjectDialog} from '../dialogs/create-project/create-project.dialog';
 import {MatDialog} from '@angular/material/dialog';
 
 @Component({
@@ -12,15 +11,14 @@ import {MatDialog} from '@angular/material/dialog';
 export class ProjectsComponent implements OnInit {
 
   @ViewChild('playButton') playButton;
+  @Output() projectEmitter: EventEmitter<Project> = new EventEmitter();
 
   projects: Project[];
   selectedProject: Project;
   playButtonPressed = false;
-  recordDisplay = '00:00:23';
 
   constructor(
-    private projectService: ProjectService,
-    public dialog: MatDialog
+    private projectService: ProjectService
   ) {}
 
   ngOnInit() {
@@ -32,6 +30,8 @@ export class ProjectsComponent implements OnInit {
       this.selectedProject = null;
     } else if (!this.playButtonPressed) {
       this.selectedProject = project;
+      this.projectEmitter.emit(project);
+      console.log('Project emitter sent.');
     }
   }
 
@@ -59,47 +59,4 @@ export class ProjectsComponent implements OnInit {
     });
     return projectsCompleted;
   }
-
-  play(){
-    // TODO: Record starten oder stoppen
-    if (!this.playButtonPressed && !this.playButton.disabled){
-      this.playButtonPressed = true;
-    } else if (this.playButtonPressed) {
-      this.playButtonPressed = false;
-      this.selectedProject = null;
-    }
-  }
-
-  openProjectCreationDialog(): void {
-      const dialogRef = this.dialog.open(CreateProjectDialog, {
-        minHeight: '300px',
-        maxHeight: '100%',
-        minWidth: '500px',
-        maxWidth: '100%',
-        // data: {name: this.name, animal: this.animal}
-      });
-
-      dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed');
-        // this.animal = result;
-      });
-  }
-
-  setCompletion(): void {
-    if(this.selectedProject.completed){
-      this.setProjectNotCompleted();
-    } else {
-      this.setProjectCompleted()
-    }
-  }
-  setProjectCompleted(): void {
-    this.selectedProject.completed = true;
-    // TODO
-  }
-
-  setProjectNotCompleted(): void {
-    this.selectedProject.completed = false;
-    // TODO
-  }
-
 }
