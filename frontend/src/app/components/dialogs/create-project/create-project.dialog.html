@@ -1,0 +1,28 @@
+<h2>Neues Projekt</h2>
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="projectForm">
+    <mat-form-field>
+      <mat-label>Projektname</mat-label>
+      <input matInput placeholder="Mein Beispielprojekt" formControlName="projectName" required>
+    </mat-form-field>
+
+    <mat-grid-list cols="4" rowHeight="1:1" gutterSize="10px">
+      <mat-grid-tile *ngFor="let color of colors">
+        <button mat-button class="color-button"
+                (click)="selectedColor == color ? selectedColor = null : selectedColor = color"
+                [ngStyle]="{'background-color': color}"
+                [ngClass]="{'color-button': selectedColor != color, 'color-button-pressed': selectedColor == color}"></button>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </form>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Abbrechen</button>
+  <!-- TODO Add disable logic for save button -->
+  <button mat-flat-button [ngStyle]="{'background-color': selectedColor ? selectedColor : ''}" color="primary"
+          [mat-dialog-close]="true"
+          (click)="createProject()"
+          [disabled]="!projectForm.valid">Erstellen
+  </button>
+</mat-dialog-actions>

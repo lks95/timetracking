@@ -1,7 +1,8 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import { Project } from '../../models/project';
 import { ProjectService } from '../../services/project.service';
-import { Router } from '@angular/router'
+import {CreateProjectDialog} from '../dialogs/create-project/create-project.dialog';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-projects',
@@ -17,8 +18,10 @@ export class ProjectsComponent implements OnInit {
   playButtonPressed = false;
   recordDisplay = '00:00:23';
 
-  constructor(private projectService: ProjectService) {
-  }
+  constructor(
+    private projectService: ProjectService,
+    public dialog: MatDialog
+  ) {}
 
   ngOnInit() {
     this.getProjects();
@@ -58,7 +61,7 @@ export class ProjectsComponent implements OnInit {
   }
 
   play(){
-    //TODO: Record starten oder stoppen
+    // TODO: Record starten oder stoppen
     if (!this.playButtonPressed && !this.playButton.disabled){
       this.playButtonPressed = true;
     } else if (this.playButtonPressed) {
@@ -68,7 +71,18 @@ export class ProjectsComponent implements OnInit {
   }
 
   openProjectCreationDialog(): void {
-    // TODO
+      const dialogRef = this.dialog.open(CreateProjectDialog, {
+        minHeight: '300px',
+        maxHeight: '100%',
+        minWidth: '500px',
+        maxWidth: '100%',
+        // data: {name: this.name, animal: this.animal}
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('The dialog was closed');
+        // this.animal = result;
+      });
   }
 
   setCompletion(): void {

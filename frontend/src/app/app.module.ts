@@ -6,9 +6,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { ProjectsComponent } from './components/projects/projects.component';
 import { ProjectComponent } from './components/project/project.component';
-import {CreateProjectComponent} from './components/create-project/create-project.component';
+import {CreateProjectDialog} from './components/dialogs/create-project/create-project.dialog';
 
 import {MatIconModule} from '@angular/material/icon';
+import {MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatDividerModule} from '@angular/material/divider'
@@ -19,6 +20,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {CommonModule} from '@angular/common';
 
 import { DatePipe} from '@angular/common';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 
 @NgModule({
@@ -26,7 +28,7 @@ import { DatePipe} from '@angular/common';
     AppComponent,
     ProjectsComponent,
     ProjectComponent,
-    CreateProjectComponent,
+    CreateProjectDialog,
   ],
   imports: [
     BrowserModule,
@@ -36,11 +38,13 @@ import { DatePipe} from '@angular/common';
     MatButtonModule,
     MatTabsModule,
     MatDividerModule,
+    MatDialogModule,
     ReactiveFormsModule,
     MatInputModule,
     MatSelectModule,
     MatCheckboxModule,
-    CommonModule
+    CommonModule,
+    MatGridListModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]
