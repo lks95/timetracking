@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {CreateProjectDialog} from './components/dialogs/create-project/create-project.dialog';
 import {Project} from './models/project';
 import {Task} from './models/task';
@@ -38,27 +38,26 @@ export class AppComponent {
 
   onActivate(componentReference) {
     console.log(componentReference);
+    componentReference.selectedProject = this.selectedProject;
     if (componentReference.projectEmitter) {
       componentReference.projectEmitter.subscribe((project) => {
         // TODO Handle project selection from projects component
         this.selectedProject = project;
-        console.log('Project event received.');
       });
     }
     if (componentReference.taskEmitter) {
       componentReference.taskEmitter.subscribe((task) => {
         // TODO Handle task selection from tasks component
         this.selectedTask = task;
-        console.log('Task event received.');
       });
     }
   }
 
   openProjectCreationDialog(): void {
     const dialogRef = this.dialog.open(CreateProjectDialog, {
-      minHeight: '300px',
+      minHeight: '256px',
       maxHeight: '100%',
-      minWidth: '500px',
+      minWidth: '512px',
       maxWidth: '100%',
       // data: {name: this.name, animal: this.animal}
     });

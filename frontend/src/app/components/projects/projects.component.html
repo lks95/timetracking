@@ -1,4 +1,5 @@
-<button mat-icon-button class="addFirst" *ngIf="(getProjectsNotCompleted().length === 0 && getProjectsCompleted().length === 0)">
+<button mat-icon-button class="addFirst"
+        *ngIf="(getProjectsNotCompleted().length === 0 && getProjectsCompleted().length === 0)">
   <mat-icon class="addFirst-button">playlist_add</mat-icon>
 </button>
 <table>
@@ -10,26 +11,31 @@
   <tr *ngFor="let project of getProjectsNotCompleted()"
       [class.selected]="project === selectedProject"
       [style.background]="(project === this.selectedProject)?selectedProject.color:'#e8e8e8'">
-    <td><div class="projectColorBox" [style.background-color]="project.color"></div></td>
+    <td>
+      <div class="projectColorBox" [style.background-color]="project.color"></div>
+    </td>
     <td (click)="onSelect(project)"><p class="projectName">{{project.name}}</p></td>
     <td>
-      <button mat-icon-button [routerLink]="'/projects/' + project.id" (click)="onSelect(project)" class="arrow">
+      <button mat-icon-button class="arrow"
+              (click)="openDetails(project, $event)">
         <mat-icon class="arrow-button">keyboard_arrow_right</mat-icon>
       </button>
     </td>
   </tr>
-  <tr *ngIf="getProjectsCompleted().length > 0" class="captionCompleted"><td colspan="3">Abgeschlossene Projekte</td></tr>
+  <tr *ngIf="getProjectsCompleted().length > 0" class="captionCompleted">
+    <td colspan="3">Abgeschlossene Projekte</td>
+  </tr>
   <tr class="completed" *ngFor="let project of getProjectsCompleted()"
       [class.selected]="project === selectedProject"
       [style.background]="(project === this.selectedProject)?'#bbb':'#d0d0d0'">
-    <td><div class="projectColorBox completedBox"></div></td>
+    <td>
+      <div class="projectColorBox completedBox"></div>
+    </td>
     <td (click)="onSelect(project)"><p class="projectName">{{project.name}}</p></td>
     <td>
-      <a routerLink="/projects/{{project.id}}">
-        <button mat-icon-button class="arrow">
-            <mat-icon class="arrow-button">keyboard_arrow_right</mat-icon>
-        </button>
-      </a>
+      <button mat-icon-button class="arrow" (click)="openDetails(project, $event)">
+        <mat-icon class="arrow-button">keyboard_arrow_right</mat-icon>
+      </button>
     </td>
   </tr>
 </table>

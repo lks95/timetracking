@@ -46,11 +46,10 @@ export class ProjectComponent implements OnInit {
   onSelect(task: Task): void {
     if (!this.playButtonPressed && this.selectedTask === task) {
       this.selectedTask = null;
+      this.taskEmitter.emit(null);
     } else if (!this.playButtonPressed) {
       this.selectedTask = task;
-      console.log('Task selected');
       this.taskEmitter.emit(task);
-      console.log('Task emitter sent.');
     }
   }
 

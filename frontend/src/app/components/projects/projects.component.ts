@@ -1,7 +1,7 @@
 import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import { Project } from '../../models/project';
 import { ProjectService } from '../../services/project.service';
-import {MatDialog} from '@angular/material/dialog';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-projects',
@@ -18,6 +18,7 @@ export class ProjectsComponent implements OnInit {
   playButtonPressed = false;
 
   constructor(
+    private router: Router,
     private projectService: ProjectService
   ) {}
 
@@ -28,10 +29,10 @@ export class ProjectsComponent implements OnInit {
   onSelect(project: Project): void {
     if (!this.playButtonPressed && this.selectedProject === project) {
       this.selectedProject = null;
+      this.projectEmitter.emit(null);
     } else if (!this.playButtonPressed) {
       this.selectedProject = project;
       this.projectEmitter.emit(project);
-      console.log('Project emitter sent.');
     }
   }
 
@@ -58,5 +59,10 @@ export class ProjectsComponent implements OnInit {
       }
     });
     return projectsCompleted;
+  }
+
+  openDetails(project: Project, event: any): void {
+    this.selectedProject !== project ? this.onSelect(project) : event.stopPropagation();
+    this.router.navigate(['/projects/' + project.id]);
   }
 }
