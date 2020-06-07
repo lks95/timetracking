@@ -42,6 +42,8 @@ export class CreateProjectDialog {
 
   createProject(){
     // TODO Create project
+    // TODO If successfully created close dialog, otherwise show error message
+    this.dialogRef.close();
   }
 }
 
