@@ -19,7 +19,7 @@
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Abbrechen</button>
-  <button mat-flat-button [ngStyle]="{'background-color': selectedColor ? selectedColor : ''}" color="primary"
+  <button mat-flat-button [ngStyle]="{'background-color': selectedColor  && projectForm.valid? selectedColor : ''}" color="primary"
           (click)="createProject()"
           [disabled]="!projectForm.valid">Erstellen
   </button>
