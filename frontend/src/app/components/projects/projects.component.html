@@ -1,0 +1,55 @@
+<header [style.background]="(this.selectedProject && !this.selectedProject.completed)?
+          this.selectedProject.color:(this.selectedProject && this.selectedProject.completed)?'#bbb':''">
+  <div>
+  <button mat-icon-button class="add" (click)="openProjectCreationDialog()">
+    <mat-icon class="add-button">add</mat-icon>
+  </button>
+  <button mat-mini-fab class="completion" color="primary"
+          *ngIf="this.selectedProject && !this.playButtonPressed"
+          (click)="setCompletion()">
+    <mat-icon class="completion-button">{{this.selectedProject.completed?'swap_vert':'done'}}</mat-icon>
+  </button>
+  <div *ngIf="playButtonPressed" class="recordsDisplay"><p>{{recordDisplay}}</p></div>
+  <p class="headerProjectName" *ngIf="selectedProject">{{selectedProject.name}}</p>
+  <button mat-fab #playButton [disabled]="!this.selectedProject || this.selectedProject.completed"
+          class="play"
+          (click)="play()">
+    <mat-icon class="play-button">{{this.playButtonPressed?'stop':'play_arrow'}}</mat-icon>
+  </button>
+  </div>
+</header>
+<table>
+  <colgroup>
+    <col style="width:20%">
+    <col style="width:65%">
+    <col style="width:15%">
+  </colgroup>
+  <tr *ngFor="let project of getProjectsNotCompleted()"
+      [class.selected]="project === selectedProject"
+      [style.background]="(project === this.selectedProject)?selectedProject.color:'#e8e8e8'">
+    <td><div class="projectColorBox" [style.background-color]="project.color"></div></td>
+    <td (click)="onSelect(project)"><p class="projectName">{{project.name}}</p></td>
+    <td>
+      <a routerLink="/projects/{{project.id}}">
+        <button mat-icon-button class="arrow">
+          <mat-icon class="arrow-button">keyboard_arrow_right</mat-icon>
+        </button>
+      </a>
+    </td>
+  </tr>
+  <tr class="captionCompleted"><td colspan="3">Abgeschlossene Projekte</td></tr>
+  <tr class="completed" *ngFor="let project of getProjectsCompleted()"
+      [class.selected]="project === selectedProject"
+      [style.background]="(project === this.selectedProject)?'#bbb':'#d0d0d0'">
+    <td><div class="projectColorBox completedBox"></div></td>
+    <td (click)="onSelect(project)"><p class="projectName">{{project.name}}</p></td>
+    <td>
+      <a routerLink="/projects/{{project.id}}">
+        <button mat-icon-button class="arrow">
+            <mat-icon class="arrow-button">keyboard_arrow_right</mat-icon>
+        </button>
+      </a>
+    </td>
+  </tr>
+</table>
+
