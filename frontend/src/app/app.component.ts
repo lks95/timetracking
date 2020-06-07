@@ -3,6 +3,7 @@ import {CreateProjectDialog} from './components/dialogs/create-project/create-pr
 import {Project} from './models/project';
 import {Task} from './models/task';
 import {MatDialog} from '@angular/material/dialog';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -15,12 +16,14 @@ export class AppComponent {
   @ViewChild('playButton') playButton;
 
   constructor(
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public router: Router
   ) {}
 
   playButtonPressed = false;
   title = 'frontend';
   selectedProject: Project = null;
+  selectedTask: Task = null;
   recordDisplay = '00:00:23';
 
   play() {
@@ -45,6 +48,7 @@ export class AppComponent {
     if (componentReference.taskEmitter) {
       componentReference.taskEmitter.subscribe((task) => {
         // TODO Handle task selection from tasks component
+        this.selectedTask = task;
         console.log('Task event received.');
       });
     }
@@ -85,5 +89,11 @@ export class AppComponent {
 
   public onTaskSelection(task: Task): void {
     // TODO Implmement me
+  }
+
+  public onBackPressed(): void {
+    // TODO Implement me
+    this.router.navigate(['../']);
+    // TODO Remove project selection / task selection whenever necessary
   }
 }

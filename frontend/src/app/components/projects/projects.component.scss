@@ -17,12 +17,12 @@
   }
 
   td {
+    cursor: pointer;
     padding: 10px 5px;
     border-bottom: 2px solid #fff;
   }
 
   p.projectName {
-    cursor: pointer;
     display: inline-block;
     margin: 0;
   }
@@ -44,8 +44,8 @@
 
   .projectColorBox {
     margin: auto;
-    width: 8px;
-    height: 8px;
+    width: 16px;
+    height: 16px;
   }
 
   .completedBox {

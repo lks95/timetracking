@@ -1,19 +1,30 @@
 <header [style.background]="(this.selectedProject && !this.selectedProject.completed)?
           this.selectedProject.color:(this.selectedProject && this.selectedProject.completed)?'#bbb':''">
-  <button *ngIf="!playButtonPressed" mat-icon-button class="add" (click)="openProjectCreationDialog()">
-    <mat-icon class="add-button">add</mat-icon>
-  </button>
-  <button mat-mini-fab class="completion" color="primary"
-          *ngIf="this.selectedProject && !this.playButtonPressed"
-          (click)="setCompletion()">
-    <mat-icon class="completion-button">{{this.selectedProject.completed ? 'swap_vert' : 'done'}}</mat-icon>
-  </button>
-  <div *ngIf="playButtonPressed" class="recordsDisplay"><p>{{recordDisplay}}</p></div>
-  <p class="headerProjectName" *ngIf="selectedProject">{{selectedProject.name}}</p>
-  <button mat-fab #playButton [disabled]="!this.selectedProject || this.selectedProject.completed"
-          class="play"
-          (click)="play()">
-    <mat-icon class="play-button">{{this.playButtonPressed ? 'stop' : 'play_arrow'}}</mat-icon>
-  </button>
+  <div>
+    <button *ngIf="this.router.url !== '/projects'" mat-icon-button class="back-button" (click)="onBackPressed()">
+      <mat-icon class="scaled-icon">keyboard_arrow_left</mat-icon>
+    </button>
+    <button *ngIf="!playButtonPressed" mat-icon-button class="element-button" (click)="openProjectCreationDialog()">
+      <mat-icon class="scaled-icon">{{this.router.url === '/projects' ? 'add' : 'edit'}}</mat-icon>
+    </button>
+
+    <div *ngIf="playButtonPressed" class="recordsDisplay"><p>{{recordDisplay}}</p></div>
+    <p class="project-name" *ngIf="selectedProject">{{selectedProject.name}}</p>
+    <p class="task-name" *ngIf="selectedTask">{{selectedTask.description}}</p>
+  </div>
+
+  <div class="action-bar">
+    <button mat-fab #playButton [disabled]="!this.selectedProject || this.selectedProject.completed"
+            class="play-button"
+            (click)="play()">
+      <mat-icon class="scaled-icon-large">{{this.playButtonPressed ? 'stop' : 'play_arrow'}}</mat-icon>
+    </button>
+    <button mat-mini-fab class="action-button" color="primary"
+            *ngIf="this.selectedProject && !this.playButtonPressed"
+            (click)="setCompletion()">
+      <mat-icon>{{this.selectedProject.completed ? 'swap_vert' : 'done'}}</mat-icon>
+    </button>
+    <!-- TODO Add button for completion of task to allow both actions from project view component -->
+  </div>
 </header>
 <router-outlet (activate)="onActivate($event)"></router-outlet>

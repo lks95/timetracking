@@ -1,28 +1,3 @@
-<header [style.background]="(this.selectedTask && this.selectedTask.completed)?'#bbb':this.project.color">
-  <div>
-    <button mat-icon-button class="back" (click)="goBack()">
-      <mat-icon class="back-button">keyboard_arrow_left</mat-icon>
-    </button>
-    <button *ngIf="!playButtonPressed" mat-icon-button class="edit" (click)="openProjectEditDialog()">
-      <mat-icon class="edit-button">edit</mat-icon>
-    </button>
-    <button mat-mini-fab class="completion" color="primary"
-            *ngIf="this.selectedTask && !this.playButtonPressed"
-            (click)="setCompletion()">
-      <mat-icon class="completion-button">{{this.selectedTask.completed ? 'swap_vert' : 'done'}}</mat-icon>
-    </button>
-    <div *ngIf="playButtonPressed" class="recordsDisplay"><p>{{recordDisplay}}</p></div>
-    <p class="headerProjectName">{{project.name}}</p>
-    <p class="headerTaskDescription" *ngIf="selectedTask">{{selectedTask.description}}</p>
-    <button mat-fab #playButton [disabled]="!this.selectedTask || this.selectedTask.completed"
-            class="play"
-            (click)="play()">
-      <mat-icon class="play-button">{{this.playButtonPressed ? 'stop' : 'play_arrow'}}</mat-icon>
-    </button>
-  </div>
-</header>
-
-<!-- Tabs for Mobile View -->
 <mat-tab-group id="#tabs" mat-align-tabs="center">
   <mat-tab label="Aufgaben">
     <button mat-icon-button class="addFirst"
