@@ -1,0 +1,72 @@
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+
+h2{
+  text-align: left;
+  margin-left: 10%;
+  font-size: 230%;
+  margin-top: 15%;
+}
+
+#valuepc{
+  text-align: left;
+  font-size: 12px;
+  margin-left: 10%;
+}
+
+mat-form-field{
+  text-align: center;
+}
+
+.projectnameinput{
+  width: 37%;
+  margin-bottom: 5%;
+  margin-top: 5%;
+}
+.pickcolorinput{
+  width: 37%;
+}
+
+.projectlabel{
+  float: left;
+}
+
+.colorlabel{
+  float:left;
+}
+
+#inputs{
+  text-align: left;
+  margin-left: 10%;
+  width: 150%;
+}
+
+#container{
+  height: 375px;
+  width: auto;
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+}
+
+.centering-button {
+  margin-top: 40%;
+  -ms-transform: translate(-50%, -50%);
+}
+
+#button {
+  height: 45px;
+  width: 170px;
+}
+
+#iconbutton{
+  display: flex;
+  margin-left: 85%;
+  margin-top: 7%;
+}
+
+#iconsize{
+  font-size: 36px;
+}
+
+
