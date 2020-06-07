@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {MatDialogRef} from '@angular/material/dialog';
+import {ProjectService} from '../../../services/project.service';
+import {Project} from '../../../models/project';
+import {share} from 'rxjs/operators';
 
 interface Color {
   value: string;
@@ -30,8 +33,8 @@ export class CreateProjectDialog {
   projectForm: FormGroup;
 
   constructor(public dialogRef: MatDialogRef<CreateProjectDialog>,
-              private fb: FormBuilder
-              // @Inject(MAT_DIALOG_DATA) public data: DialogData
+              private fb: FormBuilder,
+              private service: ProjectService
   ) {
     this.projectForm = this.fb.group({
       projectName: '',
@@ -40,10 +43,16 @@ export class CreateProjectDialog {
     this.projectForm.valueChanges.subscribe(console.log);
   }
 
-  createProject(){
-    // TODO Create project
-    // TODO If successfully created close dialog, otherwise show error message
-    this.dialogRef.close();
+  createProject() {
+    try {
+      this.service.createProject(this.projectForm.get('projectName').value, this.selectedColor)
+        .subscribe(project => {
+          this.dialogRef.close();
+        });
+    } catch (error) {
+      // TODO Add properly error handling
+      console.log('An error occurred.');
+    }
   }
 }
 

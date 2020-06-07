@@ -13,14 +13,19 @@ export class ProjectsComponent implements OnInit {
   @ViewChild('playButton') playButton;
   @Output() projectEmitter: EventEmitter<Project> = new EventEmitter();
 
-  projects: Project[];
+  projects: Project[] = [];
   selectedProject: Project;
   playButtonPressed = false;
 
   constructor(
     private router: Router,
     private projectService: ProjectService
-  ) {}
+  ) {
+    projectService.onProjectCreation.subscribe(project => {
+      this.projects.push(project);
+      this.sortProjects();
+    });
+  }
 
   ngOnInit() {
     this.getProjects();
@@ -38,7 +43,10 @@ export class ProjectsComponent implements OnInit {
 
   getProjects(): void {
     this.projectService.getProjects()
-      .subscribe(projects => this.projects = projects);
+      .subscribe(projects => {
+        this.projects = projects;
+        this.sortProjects();
+      });
   }
 
   getProjectsNotCompleted(): Project[] {
@@ -64,5 +72,14 @@ export class ProjectsComponent implements OnInit {
   openDetails(project: Project, event: any): void {
     this.selectedProject !== project ? this.onSelect(project) : event.stopPropagation();
     this.router.navigate(['/projects/' + project.id]);
+  }
+
+  /**
+   * Sort projects by name attribute in ascending order
+   */
+  sortProjects(): void {
+    this.projects.sort((a, b) => {
+      return a.name > b.name ? 1 : a.name < b.name ? -1 : 0;
+    });
   }
 }
