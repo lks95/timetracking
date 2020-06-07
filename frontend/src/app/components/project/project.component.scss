@@ -2,11 +2,9 @@
 @media screen and (min-width: 0px) {
 
   /* Header-Bereich*/
-
   header {
     width: 100%;
     height: 150px;
-    background-color: lightseagreen;
     color: white;
     position: relative;
 
@@ -14,6 +12,13 @@
       font-size: 16px;
       position: absolute;
       top: 80px;
+      left: 15px;
+    }
+
+    .headerTaskDescription {
+      font-size: 12px;
+      position: absolute;
+      top: 100px;
       left: 15px;
     }
   }
@@ -36,14 +41,23 @@
     color: rgba(60, 60, 60, 0.25);
   }
 
-  .add {
+  .edit {
     float: right;
     position: absolute;
     top: 5px;
     right: 10px;
   }
 
-  .add-button {
+  .edit-button {
+    transform: scale(0.9);
+  }
+
+  .back{
+    position: absolute;
+    top: 5px;
+  }
+
+  .back-button {
     transform: scale(1.2);
   }
 
@@ -65,8 +79,19 @@
     font-weight: lighter;
   }
 
-  /*Projekteliste*/
+  /*Tabs*/
+  ::ng-deep {
+    .mat-tab-label {
+      margin-top: 30px;
+      width: 50%;
+    }
 
+    .mat-ink-bar {
+      background-color: lightseagreen !important;
+    }
+  }
+
+  /*Taskliste*/
   .addFirst {
     display: block;
     color: #ccc;
@@ -75,9 +100,27 @@
   }
 
   table {
-    margin: 50px auto 0 auto;
     width: 100%;
     border-collapse: collapse;
+    margin: 0 auto;
+  }
+
+  .recordList {
+    margin-top: 10px;
+
+    th {
+      color: #777;
+      font-weight: normal;
+    }
+
+    tr {
+      text-align: center;
+      background-color: #e8e8e8;
+    }
+
+    button.arrow {
+      margin-right: 0;
+    }
   }
 
   td {
@@ -85,7 +128,7 @@
     border-bottom: 2px solid #fff;
   }
 
-  p.projectName {
+  p.taskDescription {
     cursor: pointer;
     display: inline-block;
     margin: 0;
@@ -106,43 +149,71 @@
     text-align: center;
   }
 
-  .projectColorBox {
-    margin: auto;
-    width: 8px;
-    height: 8px;
-  }
-
-  .completedBox {
-    background-color: #aaa;
-  }
-
   .completed {
     color: #aaa;
   }
 
   .selected {
     color: #fff;
-
-    .projectColorBox {
-      border: 1px solid white;
-    }
   }
 
+  .new-taskOrRecord {
+    display: block;
+    background-color: orange;
+    color: white;
+    margin: 40px auto;
+  }
+
+  /*Tab-Container*/
+  div.tab-container {
+    display: none;
+  }
 }
 
 /*Desktop-CSS*/
 @media screen and (min-width: 641px){
   header div {
     position: relative;
-    width: 70%;
+    width: 93%;
     margin: 0 auto;
   }
+
+  mat-tab-group {
+    display: none;
+  }
+
+  div.tab-container {
+    display: flex;
+    width: 100%;
+
+    .task-container {
+      width: 50%;
+    }
+
+    .record-container {
+      width: 50%;
+    }
+  }
+
+  .captionContainer {
+    margin: 0;
+    padding: 40px 0 15px 0;
+    text-align: center;
+    color: #777;
+  }
+
+  mat-divider {
+    width: 80%;
+    margin: 0 auto;
+    border-top-width: 1.5px;
+  }
+
   table {
-    width: 70%;
+    width: 80%;
   }
 
   tr:hover:not(.captionCompleted) {
-    filter: brightness(90%)
+    filter: brightness(90%);
   }
 }
 

@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import { Project } from '../../models/project';
 import { ProjectService } from '../../services/project.service';
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-projects',

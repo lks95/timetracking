@@ -1,0 +1,195 @@
+<header [style.background]="(this.selectedTask && this.selectedTask.completed)?'#bbb':this.project.color">
+  <div>
+    <button mat-icon-button class="back" (click)="goBack()">
+      <mat-icon class="back-button">keyboard_arrow_left</mat-icon>
+    </button>
+    <button *ngIf="!playButtonPressed" mat-icon-button class="edit" (click)="openProjectEditDialog()">
+      <mat-icon class="edit-button">edit</mat-icon>
+    </button>
+    <button mat-mini-fab class="completion" color="primary"
+            *ngIf="this.selectedTask && !this.playButtonPressed"
+            (click)="setCompletion()">
+      <mat-icon class="completion-button">{{this.selectedTask.completed?'swap_vert':'done'}}</mat-icon>
+    </button>
+    <div *ngIf="playButtonPressed" class="recordsDisplay"><p>{{recordDisplay}}</p></div>
+    <p class="headerProjectName">{{project.name}}</p>
+    <p class="headerTaskDescription" *ngIf="selectedTask">{{selectedTask.description}}</p>
+    <button mat-fab #playButton [disabled]="!this.selectedTask || this.selectedTask.completed"
+            class="play"
+            (click)="play()">
+      <mat-icon class="play-button">{{this.playButtonPressed?'stop':'play_arrow'}}</mat-icon>
+    </button>
+  </div>
+</header>
+
+<!-- Tabs for Mobile View -->
+<mat-tab-group id="#tabs" mat-align-tabs="center">
+  <mat-tab label="Aufgaben">
+    <button mat-icon-button class="addFirst"
+            (click)="openTaskCreationDialog()"
+            *ngIf="(getTasksNotCompleted().length === 0 && getTasksCompleted().length === 0)">
+      <mat-icon class="addFirst-button">playlist_add</mat-icon>
+    </button>
+    <table *ngIf="(getTasksNotCompleted().length > 0 || getTasksCompleted().length > 0)"
+           class="taskList">
+      <colgroup>
+        <col style="width:20%">
+        <col style="width:65%">
+        <col style="width:15%">
+      </colgroup>
+      <tr *ngFor="let task of getTasksNotCompleted()"
+          [class.selected]="task === selectedTask"
+          [style.background]="(task === this.selectedTask)?project.color:'#e8e8e8'">
+        <td></td>
+        <td (click)="onSelect(task)"><p class="taskDescription">{{task.description}}</p></td>
+        <td>
+          <a routerLink="/tasks/{{task.id}}">
+            <button mat-icon-button class="arrow">
+              <mat-icon class="arrow-button">keyboard_arrow_right</mat-icon>
+            </button>
+          </a>
+        </td>
+      </tr>
+      <tr *ngIf="getTasksCompleted().length > 0" class="captionCompleted"><td colspan="3">Abgeschlossene Aufgaben</td></tr>
+      <tr class="completed" *ngFor="let task of getTasksCompleted()"
+          [class.selected]="task === selectedTask"
+          [style.background]="(task === this.selectedTask)?'#bbb':'#d0d0d0'">
+        <td></td>
+        <td (click)="onSelect(task)"><p class="taskDescription">{{task.description}}</p></td>
+        <td>
+          <a routerLink="/tasks/{{task.id}}">
+            <button mat-icon-button class="arrow">
+              <mat-icon class="arrow-button">keyboard_arrow_right</mat-icon>
+            </button>
+          </a>
+        </td>
+      </tr>
+    </table>
+    <button *ngIf="getTasksCompleted().length > 0 || getTasksNotCompleted().length > 0"
+            [disabled]="playButtonPressed"
+            (click)="openTaskCreationDialog()" mat-flat-button class="new-taskOrRecord">Neue Aufgabe</button>
+  </mat-tab>
+  <mat-tab label="Records">
+    <button mat-icon-button class="addFirst"
+            (click)="openRecordCreationDialog()"
+            *ngIf="(this.recordsOfProject.length === 0)">
+      <mat-icon class="addFirst-button">playlist_add</mat-icon>
+    </button>
+    <table *ngIf="this.recordsOfProject.length > 0"
+      class="recordList">
+      <colgroup>
+        <col style="width:30%">
+        <col style="width:30%">
+        <col style="width:30%">
+        <col style="width:10%">
+      </colgroup>
+      <th>Datum</th>
+      <th>Start</th>
+      <th>Ende</th>
+      <tr *ngFor="let record of this.recordsOfProject">
+        <td>{{record.startTime | date:'dd.MM.yy'}}</td>
+        <td>{{record.startTime | date:'HH:mm:ss'}}</td>
+        <td>{{record.endTime | date:'HH:mm:ss'}}</td>
+        <td>
+          <a routerLink="/records/{{record.id}}">
+            <button mat-icon-button class="arrow">
+              <mat-icon class="arrow-button">keyboard_arrow_right</mat-icon>
+            </button>
+          </a>
+        </td>
+      </tr>
+    </table>
+    <button *ngIf="this.recordsOfProject.length > 0"
+            [disabled]="playButtonPressed"
+            (click)="openRecordCreationDialog()" mat-flat-button class="new-taskOrRecord">Neuer Record</button>
+  </mat-tab>
+</mat-tab-group>
+
+<!-- Divs for Desktop View -->
+<div class="tab-container">
+  <div class="task-container">
+    <p class="captionContainer">Aufgaben</p>
+    <mat-divider></mat-divider>
+    <button mat-icon-button class="addFirst"
+            (click)="openTaskCreationDialog()"
+            *ngIf="(getTasksNotCompleted().length === 0 && getTasksCompleted().length === 0)">
+      <mat-icon class="addFirst-button">playlist_add</mat-icon>
+    </button>
+    <table *ngIf="(getTasksNotCompleted().length > 0 || getTasksCompleted().length > 0)"
+           class="taskList">
+      <colgroup>
+        <col style="width:20%">
+        <col style="width:65%">
+        <col style="width:15%">
+      </colgroup>
+      <tr *ngFor="let task of getTasksNotCompleted()"
+          [class.selected]="task === selectedTask"
+          [style.background]="(task === this.selectedTask)?project.color:'#e8e8e8'">
+        <td></td>
+        <td (click)="onSelect(task)"><p class="taskDescription">{{task.description}}</p></td>
+        <td>
+          <a routerLink="/tasks/{{task.id}}">
+            <button mat-icon-button class="arrow">
+              <mat-icon class="arrow-button">keyboard_arrow_right</mat-icon>
+            </button>
+          </a>
+        </td>
+      </tr>
+      <tr *ngIf="getTasksCompleted().length > 0" class="captionCompleted"><td colspan="3">Abgeschlossene Aufgaben</td></tr>
+      <tr class="completed" *ngFor="let task of getTasksCompleted()"
+          [class.selected]="task === selectedTask"
+          [style.background]="(task === this.selectedTask)?'#bbb':'#d0d0d0'">
+        <td></td>
+        <td (click)="onSelect(task)"><p class="taskDescription">{{task.description}}</p></td>
+        <td>
+          <a routerLink="/tasks/{{task.id}}">
+            <button mat-icon-button class="arrow">
+              <mat-icon class="arrow-button">keyboard_arrow_right</mat-icon>
+            </button>
+          </a>
+        </td>
+      </tr>
+    </table>
+    <button *ngIf="getTasksCompleted().length > 0 || getTasksNotCompleted().length > 0"
+            [disabled]="playButtonPressed"
+            (click)="openTaskCreationDialog()" mat-flat-button class="new-taskOrRecord">Neue Aufgabe</button>
+  </div>
+  <div class="record-container">
+    <p class="captionContainer">Records</p>
+    <mat-divider></mat-divider>
+    <button mat-icon-button class="addFirst"
+            (click)="openRecordCreationDialog()"
+            *ngIf="(this.recordsOfProject.length === 0)">
+      <mat-icon class="addFirst-button">playlist_add</mat-icon>
+    </button>
+    <table *ngIf="this.recordsOfProject.length > 0"
+           class="recordList">
+      <colgroup>
+        <col style="width:30%">
+        <col style="width:30%">
+        <col style="width:30%">
+        <col style="width:10%">
+      </colgroup>
+      <th>Datum</th>
+      <th>Start</th>
+      <th>Ende</th>
+      <tr *ngFor="let record of this.recordsOfProject">
+        <td>{{record.startTime | date:'dd.MM.yy'}}</td>
+        <td>{{record.startTime | date:'HH:mm:ss'}}</td>
+        <td>{{record.endTime | date:'HH:mm:ss'}}</td>
+        <td>
+          <a routerLink="/records/{{record.id}}">
+            <button mat-icon-button class="arrow">
+              <mat-icon class="arrow-button">keyboard_arrow_right</mat-icon>
+            </button>
+          </a>
+        </td>
+      </tr>
+    </table>
+    <button *ngIf="this.recordsOfProject.length > 0"
+            [disabled]="playButtonPressed"
+            (click)="openRecordCreationDialog()" mat-flat-button class="new-taskOrRecord">Neuer Record</button>
+  </div>
+</div>
+
+
