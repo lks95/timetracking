@@ -4,6 +4,7 @@ import * as logger from 'morgan';
 import * as YAML from 'yamljs';
 import * as mongoose from 'mongoose';
 import { AddressInfo } from 'net';
+import * as cors from 'cors';
 import { Server } from 'http';
 
 const projectsRouter = require('./routes/projects');
@@ -25,6 +26,7 @@ app.use(express.urlencoded({
 
 // List of routers
 
+app.use(cors())
 app.use('/projects', projectsRouter);
 app.use('/tasks', tasksRouter);
 app.use('/records', recordsRouter);
