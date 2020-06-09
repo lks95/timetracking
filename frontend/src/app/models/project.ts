@@ -1,8 +1,10 @@
+import {Task} from './task';
+
 export interface Project {
-  id: number;
+  _id: string;
   name: string;
   color: string;
   completed?: boolean;
-  tasks?: number[];
-  records?: number[];
+  tasks?: string[] | Task[];
+  records?: string[] | Task[];
 }

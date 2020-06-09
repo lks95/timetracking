@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {Observable, ObservableInput, Observer, of, Subject, throwError} from 'rxjs';
+import {BehaviorSubject, Observable, ObservableInput, Observer, of, Subject, throwError} from 'rxjs';
 import {catchError, retry, share} from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 
@@ -16,15 +16,17 @@ export class ProjectService {
   private projectCreation = new Subject<Project>();
   onProjectCreation = this.projectCreation.asObservable();
 
+  private projectSelection = new BehaviorSubject<Project>(null);
+  onProjectSelection = this.projectSelection.asObservable();
+
   constructor(private httpClient: HttpClient) { }
 
   getProjects(): Observable<Project[]> {
-
     return this.httpClient.get<Project[]>(apiUrl + 'projects');
   }
 
-  getProject(id: number): Observable<Project> {
-    return of(null); // of(PROJECTS.find(project => project.id === id));
+  getProject(id: string): Observable<Project> {
+    return this.httpClient.get<Project>(apiUrl + 'projects/' + id);
   }
 
   createProject(project: string, colorValue?: string): Observable<Project> {
@@ -39,6 +41,41 @@ export class ProjectService {
 
     request.subscribe(result => {
       this.projectCreation.next(result);
+    });
+
+    return request;
+  }
+
+  setCompletionProject(project: Project, completedState: boolean): Observable<Project> {
+    const newProject = {
+      _id: project._id,
+      completed: completedState
+    };
+    return this.updateProject(newProject);
+  }
+
+  selectProject(project: Project) {
+    this.projectSelection.next(project);
+  }
+
+  updateProjectInfo(project: Project, projectName: string, colorValue: string): Observable<Project> {
+    console.log('Update project information of project ' + project._id);
+    const newProject = {
+      _id: project._id,
+      name: projectName,
+      color: colorValue
+    };
+    return this.updateProject(newProject);
+  }
+
+  updateProject(project: { _id: string, name?: string, color?: string, completed?: boolean }): Observable<Project> {
+    const request = this.httpClient.patch<Project>(apiUrl + 'projects/' + project._id, project).pipe(
+      share(),
+      catchError(this.handleError)
+    );
+
+    request.subscribe(result => {
+      this.projectSelection.next(result);
     });
 
     return request;

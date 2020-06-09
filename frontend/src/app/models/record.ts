@@ -1,7 +1,7 @@
 export interface Record {
-  id: number;
+  id: string;
   startTime: Date;
   endTime?: Date;
-  project: number;
-  task?: number;
+  project: string;
+  task?: string;
 }

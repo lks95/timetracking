@@ -7,7 +7,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AppRoutingModule} from './app-routing.module';
 import {ProjectsComponent} from './components/projects/projects.component';
 import {ProjectComponent} from './components/project/project.component';
+
 import {CreateProjectDialog} from './components/dialogs/create-project/create-project.dialog';
+import {EditProjectDialog} from './components/dialogs/edit-project/edit-project.dialog';
 
 import {MatIconModule} from '@angular/material/icon';
 import {MatDialogModule} from '@angular/material/dialog';
@@ -30,6 +32,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
     ProjectsComponent,
     ProjectComponent,
     CreateProjectDialog,
+    EditProjectDialog,
   ],
   imports: [
     BrowserModule,

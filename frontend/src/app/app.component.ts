@@ -1,11 +1,13 @@
 import {Component, ViewChild} from '@angular/core';
 import {CreateProjectDialog} from './components/dialogs/create-project/create-project.dialog';
+import {EditProjectDialog} from './components/dialogs/edit-project/edit-project.dialog';
 import {Project} from './models/project';
 import {Task} from './models/task';
 import {MatDialog} from '@angular/material/dialog';
 import {Router} from '@angular/router';
 import {ProjectsComponent} from './components/projects/projects.component';
-import {ProjectComponent} from './components/project/project.component';
+import {ProjectService} from './services/project.service';
+import {TaskService} from './services/task.service';
 
 
 @Component({
@@ -26,8 +28,22 @@ export class AppComponent {
 
   constructor(
     public dialog: MatDialog,
-    public router: Router
-  ) {}
+    public router: Router,
+    private projectService: ProjectService,
+    private taskService: TaskService
+  ) {
+    console.log('Constructor called');
+    this.subscribeToObservables();
+  }
+
+  subscribeToObservables() {
+    this.projectService.onProjectSelection.subscribe(project => {
+      this.selectedProject = project;
+    });
+    // this.taskService.onTaskSelection.subscribe(task => {
+    //   this.selectedTask = task;
+    // });
+  }
 
   play() {
     // TODO: Record starten oder stoppen
@@ -40,20 +56,8 @@ export class AppComponent {
   }
 
   onActivate(componentReference) {
+    console.log('on Activate called.');
     this.componentRef = componentReference;
-    this.componentRef.selectedProject = this.selectedProject;
-    if (this.componentRef instanceof ProjectsComponent) {
-      this.componentRef.projectEmitter.subscribe((project) => {
-        // TODO Handle project selection from projects component
-        this.selectedProject = project;
-      });
-    }
-    if (this.componentRef instanceof ProjectComponent) {
-      componentReference.taskEmitter.subscribe((task) => {
-        // TODO Handle task selection from tasks component
-        this.selectedTask = task;
-      });
-    }
   }
 
   onElementAction(): void {
@@ -62,15 +66,27 @@ export class AppComponent {
         minHeight: '256px',
         maxHeight: '100%',
         minWidth: '512px',
-        maxWidth: '100%',
-        // data: {name: this.name, animal: this.animal}
+        maxWidth: '90%'
       });
 
       dialogRef.afterClosed().subscribe(result => {
         console.log('The dialog was closed');
+        // TODO See if the result can be used somehow
         // this.animal = result;
       });
-    } else {}
+    } else {
+      const dialogRef = this.dialog.open(EditProjectDialog, {
+        minHeight: '256px',
+        maxHeight: '100%',
+        minWidth: '512px',
+        maxWidth: '90%',
+        data: this.selectedProject
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        // this.selectedProject = result;
+      });
+    }
   }
 
   setCompletion(): void {

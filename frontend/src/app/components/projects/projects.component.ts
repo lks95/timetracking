@@ -11,7 +11,6 @@ import {Router} from '@angular/router';
 export class ProjectsComponent implements OnInit {
 
   @ViewChild('playButton') playButton;
-  @Output() projectEmitter: EventEmitter<Project> = new EventEmitter();
 
   projects: Project[] = [];
   selectedProject: Project;
@@ -21,9 +20,16 @@ export class ProjectsComponent implements OnInit {
     private router: Router,
     private projectService: ProjectService
   ) {
-    projectService.onProjectCreation.subscribe(project => {
+    this.subscribeToObservables();
+  }
+
+  subscribeToObservables() {
+    this.projectService.onProjectCreation.subscribe(project => {
       this.projects.push(project);
       this.sortProjects();
+    });
+    this.projectService.onProjectSelection.subscribe(project => {
+      this.selectedProject = project;
     });
   }
 
@@ -33,11 +39,9 @@ export class ProjectsComponent implements OnInit {
 
   onSelect(project: Project): void {
     if (!this.playButtonPressed && this.selectedProject === project) {
-      this.selectedProject = null;
-      this.projectEmitter.emit(null);
+      this.projectService.selectProject(null);
     } else if (!this.playButtonPressed) {
-      this.selectedProject = project;
-      this.projectEmitter.emit(project);
+      this.projectService.selectProject(project);
     }
   }
 
@@ -71,7 +75,7 @@ export class ProjectsComponent implements OnInit {
 
   openDetails(project: Project, event: any): void {
     this.selectedProject !== project ? this.onSelect(project) : event.stopPropagation();
-    this.router.navigate(['/projects/' + project.id]);
+    this.router.navigate(['/projects/' + project._id]);
   }
 
   /**

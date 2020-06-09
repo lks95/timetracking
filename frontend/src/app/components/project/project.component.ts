@@ -19,12 +19,10 @@ export class ProjectComponent implements OnInit {
   @ViewChild('playButton') playButton;
   @Output() taskEmitter: EventEmitter<Task> = new EventEmitter();
 
-  tasks: Task[];
-  tasksOfProject = [];
+  currentProject?: Project;
   records: Record [];
   recordsOfProject = [];
   selectedTask: Task;
-  project: Project;
   playButtonPressed = false;
   recordDisplay = '00:00:23';
   displayedColumns = ['date', 'startTime', 'endTime'];
@@ -35,12 +33,18 @@ export class ProjectComponent implements OnInit {
     private recordService: RecordService,
     private route: ActivatedRoute,
     private location: Location
-  ) {}
+  ) {
+    this.subscribeToObservables();
+  }
 
   ngOnInit(): void {
     this.getProject();
-    this.getTasks();
-    this.getRecords();
+  }
+
+  subscribeToObservables() {
+    this.projectService.onProjectSelection.subscribe(project => {
+      this.currentProject = project;
+    });
   }
 
   onSelect(task: Task): void {
@@ -54,34 +58,27 @@ export class ProjectComponent implements OnInit {
   }
 
   getProject(): void {
-    const id = +this.route.snapshot.paramMap.get('id');
+    const id = this.route.snapshot.paramMap.get('id');
     this.projectService.getProject(id)
-      .subscribe(project => this.project = project);
-  }
-
-  getTasks(): void {
-    this.taskService.getTasks()
-      .subscribe(tasks => this.tasks = tasks);
-    this.tasks.forEach((task) => {
-      if (task.project === this.project.id) {
-        this.tasksOfProject.push(task);
-      }
-    });
+      .subscribe(project => {
+        this.projectService.selectProject(project);
+      });
   }
 
   getRecords(): void {
-    this.recordService.getRecords()
-      .subscribe(records => this.records = records);
-    this.records.forEach((record) => {
-      if (record.project === this.project.id && !record.task) {
-        this.recordsOfProject.push(record);
-      }
-    });
+    // TODO Implement me
+    // this.recordService.getRecords()
+    //   .subscribe(records => this.records = records);
+    // this.records.forEach((record) => {
+    //   if (record.project === this.currentProject._id && !record.task) {
+    //     this.recordsOfProject.push(record);
+    //   }
+    // });
   }
 
   getTasksNotCompleted(): Task[] {
     const tasksNotCompleted = [];
-    this.tasksOfProject.forEach((task) => {
+    this.currentProject?.tasks?.forEach(task => {
       if (!task.completed) {
         tasksNotCompleted.push(task);
       }
@@ -91,7 +88,7 @@ export class ProjectComponent implements OnInit {
 
   getTasksCompleted(): Task[] {
     const tasksCompleted = [];
-    this.tasksOfProject.forEach((task) => {
+    this.currentProject?.tasks?.forEach(task => {
       if (task.completed) {
         tasksCompleted.push(task);
       }

@@ -1,14 +1,8 @@
-import {Component, EventEmitter, Output} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {Component} from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {MatDialogRef} from '@angular/material/dialog';
 import {ProjectService} from '../../../services/project.service';
-import {Project} from '../../../models/project';
-import {share} from 'rxjs/operators';
 
-interface Color {
-  value: string;
-  viewValue: string;
-}
 
 @Component({
   selector: 'app-dialog-create-project',

@@ -9,8 +9,8 @@
     <col style="width:15%">
   </colgroup>
   <tr *ngFor="let project of getProjectsNotCompleted()"
-      [class.selected]="project === selectedProject"
-      [style.background]="(project === this.selectedProject)?selectedProject.color:'#e8e8e8'">
+      [class.selected]="project?._id === selectedProject?._id"
+      [style.background]="(selectedProject && project?._id === selectedProject?._id) ? selectedProject.color : '#e8e8e8'">
     <td>
       <div class="projectColorBox" [style.background-color]="project.color"></div>
     </td>
@@ -23,7 +23,7 @@
     </td>
   </tr>
   <tr *ngIf="getProjectsCompleted().length > 0" class="captionCompleted">
-    <td colspan="3">Abgeschlossene Projekte</td>
+    <td colspan="3">Completed Projects</td>
   </tr>
   <tr class="completed" *ngFor="let project of getProjectsCompleted()"
       [class.selected]="project === selectedProject"

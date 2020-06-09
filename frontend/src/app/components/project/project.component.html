@@ -14,7 +14,7 @@
       </colgroup>
       <tr *ngFor="let task of getTasksNotCompleted()"
           [class.selected]="task === selectedTask"
-          [style.background]="(task === this.selectedTask)?project.color:'#e8e8e8'">
+          [style.background]="(task === this.selectedTask && currentProject) ? currentProject.color : '#e8e8e8'">
         <td></td>
         <td (click)="onSelect(task)"><p class="taskDescription">{{task.description}}</p></td>
         <td>
@@ -103,7 +103,7 @@
       </colgroup>
       <tr *ngFor="let task of getTasksNotCompleted()"
           [class.selected]="task === selectedTask"
-          [style.background]="(task === this.selectedTask)?project.color:'#e8e8e8'">
+          [style.background]="(task === this.selectedTask)?currentProject.color:'#e8e8e8'">
         <td></td>
         <td (click)="onSelect(task)"><p class="taskDescription">{{task.description}}</p></td>
         <td>

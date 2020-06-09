@@ -1,7 +1,7 @@
 export interface Task {
-  id: number;
+  id: string;
   description: string;
   completed?: boolean;
-  project: number
-  records?: number[];
+  project?: string;
+  records?: string[];
 }
