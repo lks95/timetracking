@@ -17,11 +17,12 @@
     <button mat-fab #playButton [disabled]="!this.selectedProject || this.selectedProject.completed"
             class="play-button"
             (click)="play()">
-      <mat-icon class="scaled-icon-large">{{this.playButtonPressed ? 'stop' : 'play_arrow'}}</mat-icon>
+      <mat-icon class="scaled-icon-large">{{this.runningRecord ? 'stop' : 'play_arrow'}}</mat-icon>
     </button>
     <button mat-mini-fab class="action-button" color="primary"
-            *ngIf="this.selectedProject && !this.playButtonPressed"
-            (click)="setCompletion()">
+            *ngIf="this.selectedProject"
+            (click)="setCompletion()"
+            [disabled]="this.runningRecord != null">
       <mat-icon>{{this.selectedProject.completed ? 'swap_vert' : 'done'}}</mat-icon>
     </button>
     <!-- TODO Add button for completion of task to allow both actions from project view component -->

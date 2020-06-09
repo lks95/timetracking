@@ -3,11 +3,13 @@ import {CreateProjectDialog} from './components/dialogs/create-project/create-pr
 import {EditProjectDialog} from './components/dialogs/edit-project/edit-project.dialog';
 import {Project} from './models/project';
 import {Task} from './models/task';
+import {Record} from './models/record';
 import {MatDialog} from '@angular/material/dialog';
 import {Router} from '@angular/router';
 import {ProjectsComponent} from './components/projects/projects.component';
 import {ProjectService} from './services/project.service';
 import {TaskService} from './services/task.service';
+import {RecordService} from './services/record.service';
 
 
 @Component({
@@ -24,13 +26,15 @@ export class AppComponent {
   selectedProject: Project = null;
   selectedTask: Task = null;
   recordDisplay = '00:00:23';
+  runningRecord: Record;
   componentRef: any;
 
   constructor(
     public dialog: MatDialog,
     public router: Router,
     private projectService: ProjectService,
-    private taskService: TaskService
+    private taskService: TaskService,
+    private recordService: RecordService
   ) {
     console.log('Constructor called');
     this.subscribeToObservables();
@@ -46,12 +50,18 @@ export class AppComponent {
   }
 
   play() {
-    // TODO: Record starten oder stoppen
-    if (!this.playButtonPressed && !this.playButton.disabled) {
-      this.playButtonPressed = true;
-    } else if (this.playButtonPressed) {
-      this.playButtonPressed = false;
-      this.selectedProject = null;
+    if (this.runningRecord != null) {
+      this.recordService.stopRecord(this.runningRecord).subscribe(finalRecord => {
+        this.runningRecord = null;
+      });
+    } else if (this.selectedTask != null) {
+      this.recordService.startTaskRecording(this.selectedTask).subscribe(record => {
+        this.runningRecord = record;
+      });
+    } else if (this.selectedProject != null) {
+      this.recordService.startProjectRecording(this.selectedProject).subscribe(record => {
+        this.runningRecord = record;
+      });
     }
   }
 

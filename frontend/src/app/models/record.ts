@@ -1,5 +1,5 @@
 export interface Record {
-  id: string;
+  _id: string;
   startTime: Date;
   endTime?: Date;
   project: string;

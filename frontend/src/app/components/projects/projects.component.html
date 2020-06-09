@@ -9,12 +9,13 @@
     <col style="width:15%">
   </colgroup>
   <tr *ngFor="let project of getProjectsNotCompleted()"
+      (click)="onSelect(project)"
       [class.selected]="project?._id === selectedProject?._id"
       [style.background]="(selectedProject && project?._id === selectedProject?._id) ? selectedProject.color : '#e8e8e8'">
     <td>
       <div class="projectColorBox" [style.background-color]="project.color"></div>
     </td>
-    <td (click)="onSelect(project)"><p class="projectName">{{project.name}}</p></td>
+    <td><p class="projectName">{{project.name}}</p></td>
     <td>
       <button mat-icon-button class="arrow"
               (click)="openDetails(project, $event)">

@@ -20,6 +20,7 @@ export class ProjectsComponent implements OnInit {
     private router: Router,
     private projectService: ProjectService
   ) {
+    console.log('Constructor called.');
     this.subscribeToObservables();
   }
 
@@ -38,9 +39,9 @@ export class ProjectsComponent implements OnInit {
   }
 
   onSelect(project: Project): void {
-    if (!this.playButtonPressed && this.selectedProject === project) {
+    if (this.selectedProject?._id === project?._id) {
       this.projectService.selectProject(null);
-    } else if (!this.playButtonPressed) {
+    } else {
       this.projectService.selectProject(project);
     }
   }
