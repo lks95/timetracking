@@ -24,8 +24,6 @@ export class ProjectComponent implements OnInit {
   recordsOfProject = [];
   selectedTask: Task;
   playButtonPressed = false;
-  recordDisplay = '00:00:23';
-  displayedColumns = ['date', 'startTime', 'endTime'];
 
   constructor(
     private taskService: TaskService,
@@ -65,17 +63,6 @@ export class ProjectComponent implements OnInit {
       });
   }
 
-  getRecords(): void {
-    // TODO Implement me
-    // this.recordService.getRecords()
-    //   .subscribe(records => this.records = records);
-    // this.records.forEach((record) => {
-    //   if (record.project === this.currentProject._id && !record.task) {
-    //     this.recordsOfProject.push(record);
-    //   }
-    // });
-  }
-
   getTasksNotCompleted(): Task[] {
     const tasksNotCompleted = [];
     this.currentProject?.tasks?.forEach(task => {
@@ -96,46 +83,11 @@ export class ProjectComponent implements OnInit {
     return tasksCompleted;
   }
 
-  play(){
-    // TODO: Record starten oder stoppen
-    if (!this.playButtonPressed && !this.playButton.disabled){
-      this.playButtonPressed = true;
-    } else if (this.playButtonPressed) {
-      this.playButtonPressed = false;
-      this.selectedTask = null;
-    }
-  }
-
-  goBack(): void {
-    this.location.back();
-  }
-
   openTaskCreationDialog(): void {
     // TODO
   }
 
   openRecordCreationDialog(): void {
-    // TODO
-  }
-
-  openProjectEditDialog(): void {
-    // TODO
-  }
-
-  setCompletion(): void {
-    if (this.selectedTask.completed){
-      this.setTaskNotCompleted();
-    } else {
-      this.setTaskCompleted();
-    }
-  }
-  setTaskCompleted(): void {
-    this.selectedTask.completed = true;
-    // TODO
-  }
-
-  setTaskNotCompleted(): void {
-    this.selectedTask.completed = false;
     // TODO
   }
 }
