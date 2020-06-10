@@ -1,0 +1,46 @@
+<button (click)="openTaskCreationDialog()" *ngIf="!currentProject?.completed || tasks.length == 0"
+        class="addFirst"
+        mat-icon-button>
+  <mat-icon class="addFirst-button">playlist_add</mat-icon>
+</button>
+<table class="taskList">
+  <colgroup>
+    <col style="width:20%">
+    <col style="width:65%">
+    <col style="width:15%">
+  </colgroup>
+  <tr (click)="onSelect(task)"
+      *ngFor="let task of getIncompleteTasks()"
+      [class.selected]="task === selectedTask"
+      [style.background]="(task === selectedTask) ? currentProject.color : '#e8e8e8'">
+    <td></td>
+    <td><p class="taskDescription">{{task.description}}</p></td>
+    <td>
+      <button class="arrow" mat-icon-button>
+        <mat-icon class="arrow-button">keyboard_arrow_right</mat-icon>
+        <!-- TODO Replace arrow key with completion and deletion buttons -->
+      </button>
+    </td>
+  </tr>
+  <tr *ngIf="getCompleteTasks().length > 0" class="captionCompleted">
+    <td colspan="3">Completed Tasks</td>
+  </tr>
+  <tr (click)="onSelect(task)" *ngFor="let task of getCompleteTasks()"
+      [class.selected]="task === selectedTask"
+      [style.background]="(task === selectedTask) ? '#bbb' : '#d0d0d0'"
+      class="completed">
+    <td></td>
+    <td><p class="taskDescription">{{task.description}}</p></td>
+    <td>
+      <button class="arrow" mat-icon-button>
+        <mat-icon class="arrow-button">keyboard_arrow_right</mat-icon>
+        <!-- TODO Replace arrow key with incomplete and deletion buttons -->
+      </button>
+    </td>
+  </tr>
+</table>
+<button (click)="openTaskCreationDialog()"
+        *ngIf="getCompleteTasks().length > 0 || getIncompleteTasks().length > 0" class="new-taskOrRecord"
+        mat-flat-button>New Task
+  <!-- TODO Think about different function / visibility logic or fix this one -->
+</button>

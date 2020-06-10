@@ -1,4 +1,5 @@
 import {Task} from './task';
+import {Record} from './record';
 
 export interface Project {
   _id: string;
@@ -6,5 +7,5 @@ export interface Project {
   color: string;
   completed?: boolean;
   tasks?: string[] | Task[];
-  records?: string[] | Task[];
+  records?: string[] | Record[];
 }

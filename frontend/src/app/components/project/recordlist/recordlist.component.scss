@@ -1,14 +1,5 @@
 /* Mobile CSS*/
 @media screen and (min-width: 0px) {
-
-  .mobile-view {
-    display: initial;
-  }
-
-  .desktop-view {
-    display: none;
-  }
-
   .recordsDisplay {
     width: 50%;
     margin: 0 auto;
@@ -102,34 +93,15 @@
     color: white;
     margin: 40px auto;
   }
+
+  /*Tab-Container*/
+  div.tab-container {
+    display: none;
+  }
 }
 
 /*Desktop-CSS*/
-@media screen and (min-width: 641px){
-  .mobile-view {
-    display: none;
-  }
-
-  .desktop-view {
-    display: flex;
-    width: 100%;
-
-    .task-container {
-      width: 50%;
-    }
-
-    .record-container {
-      width: 50%;
-    }
-  }
-
-  .captionContainer {
-    margin: 0;
-    padding: 40px 0 15px 0;
-    text-align: center;
-    color: #777;
-  }
-
+@media screen and (min-width: 641px) {
   mat-divider {
     width: 80%;
     margin: 0 auto;

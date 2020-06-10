@@ -20,10 +20,10 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-import {CommonModule} from '@angular/common';
-
-import {DatePipe} from '@angular/common';
+import {CommonModule, DatePipe} from '@angular/common';
 import {MatGridListModule} from '@angular/material/grid-list';
+import {TasklistComponent} from './components/project/tasklist/tasklist.component';
+import {RecordlistComponent} from './components/project/recordlist/recordlist.component';
 
 
 @NgModule({
@@ -33,6 +33,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
     ProjectComponent,
     CreateProjectDialog,
     EditProjectDialog,
+    TasklistComponent,
+    RecordlistComponent,
   ],
   imports: [
     BrowserModule,

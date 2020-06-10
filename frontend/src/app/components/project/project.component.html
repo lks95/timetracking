@@ -1,178 +1,22 @@
-<mat-tab-group id="#tabs" mat-align-tabs="center">
+<mat-tab-group class="mobile-view" mat-align-tabs="center">
   <mat-tab label="Aufgaben">
-    <button mat-icon-button class="addFirst"
-            (click)="openTaskCreationDialog()"
-            *ngIf="(getTasksNotCompleted().length === 0 && getTasksCompleted().length === 0)">
-      <mat-icon class="addFirst-button">playlist_add</mat-icon>
-    </button>
-    <table *ngIf="(getTasksNotCompleted().length > 0 || getTasksCompleted().length > 0)"
-           class="taskList">
-      <colgroup>
-        <col style="width:20%">
-        <col style="width:65%">
-        <col style="width:15%">
-      </colgroup>
-      <tr *ngFor="let task of getTasksNotCompleted()"
-          [class.selected]="task === selectedTask"
-          [style.background]="(task === this.selectedTask && currentProject) ? currentProject.color : '#e8e8e8'">
-        <td></td>
-        <td (click)="onSelect(task)"><p class="taskDescription">{{task.description}}</p></td>
-        <td>
-          <a routerLink="/tasks/{{task._id}}">
-            <button mat-icon-button class="arrow">
-              <mat-icon class="arrow-button">keyboard_arrow_right</mat-icon>
-            </button>
-          </a>
-        </td>
-      </tr>
-      <tr *ngIf="getTasksCompleted().length > 0" class="captionCompleted">
-        <td colspan="3">Abgeschlossene Aufgaben</td>
-      </tr>
-      <tr class="completed" *ngFor="let task of getTasksCompleted()"
-          [class.selected]="task === selectedTask"
-          [style.background]="(task === this.selectedTask)?'#bbb':'#d0d0d0'">
-        <td></td>
-        <td (click)="onSelect(task)"><p class="taskDescription">{{task.description}}</p></td>
-        <td>
-          <a routerLink="/tasks/{{task._id}}">
-            <button mat-icon-button class="arrow">
-              <mat-icon class="arrow-button">keyboard_arrow_right</mat-icon>
-            </button>
-          </a>
-        </td>
-      </tr>
-    </table>
-    <button *ngIf="getTasksCompleted().length > 0 || getTasksNotCompleted().length > 0"
-            [disabled]="playButtonPressed"
-            (click)="openTaskCreationDialog()" mat-flat-button class="new-taskOrRecord">Neue Aufgabe
-    </button>
+    <app-tasklist [tasks]="getTasks()"></app-tasklist>
   </mat-tab>
   <mat-tab label="Records">
-    <button mat-icon-button class="addFirst"
-            (click)="openRecordCreationDialog()"
-            *ngIf="(this.recordsOfProject.length === 0)">
-      <mat-icon class="addFirst-button">playlist_add</mat-icon>
-    </button>
-    <table *ngIf="this.recordsOfProject.length > 0"
-           class="recordList">
-      <colgroup>
-        <col style="width:30%">
-        <col style="width:30%">
-        <col style="width:30%">
-        <col style="width:10%">
-      </colgroup>
-      <th>Datum</th>
-      <th>Start</th>
-      <th>Ende</th>
-      <tr *ngFor="let record of this.recordsOfProject">
-        <td>{{record.startTime | date:'dd.MM.yy'}}</td>
-        <td>{{record.startTime | date:'HH:mm:ss'}}</td>
-        <td>{{record.endTime | date:'HH:mm:ss'}}</td>
-        <td>
-          <a routerLink="/records/{{record.id}}">
-            <button mat-icon-button class="arrow">
-              <mat-icon class="arrow-button">keyboard_arrow_right</mat-icon>
-            </button>
-          </a>
-        </td>
-      </tr>
-    </table>
-    <button *ngIf="this.recordsOfProject.length > 0"
-            [disabled]="playButtonPressed"
-            (click)="openRecordCreationDialog()" mat-flat-button class="new-taskOrRecord">Neuer Record
-    </button>
+    <app-recordlist [records]="getRecords()"></app-recordlist>
   </mat-tab>
 </mat-tab-group>
 
 <!-- Divs for Desktop View -->
-<div class="tab-container">
+<div class="desktop-view tab-container">
   <div class="task-container">
-    <p class="captionContainer">Aufgaben</p>
-    <mat-divider></mat-divider>
-    <button mat-icon-button class="addFirst"
-            (click)="openTaskCreationDialog()"
-            *ngIf="(getTasksNotCompleted().length === 0 && getTasksCompleted().length === 0)">
-      <mat-icon class="addFirst-button">playlist_add</mat-icon>
-    </button>
-    <table *ngIf="(getTasksNotCompleted().length > 0 || getTasksCompleted().length > 0)"
-           class="taskList">
-      <colgroup>
-        <col style="width:20%">
-        <col style="width:65%">
-        <col style="width:15%">
-      </colgroup>
-      <tr *ngFor="let task of getTasksNotCompleted()"
-          [class.selected]="task === selectedTask"
-          [style.background]="(task === this.selectedTask)?currentProject.color:'#e8e8e8'">
-        <td></td>
-        <td (click)="onSelect(task)"><p class="taskDescription">{{task.description}}</p></td>
-        <td>
-          <a routerLink="/tasks/{{task._id}}">
-            <button mat-icon-button class="arrow">
-              <mat-icon class="arrow-button">keyboard_arrow_right</mat-icon>
-            </button>
-          </a>
-        </td>
-      </tr>
-      <tr *ngIf="getTasksCompleted().length > 0" class="captionCompleted">
-        <td colspan="3">Abgeschlossene Aufgaben</td>
-      </tr>
-      <tr class="completed" *ngFor="let task of getTasksCompleted()"
-          [class.selected]="task === selectedTask"
-          [style.background]="(task === this.selectedTask)?'#bbb':'#d0d0d0'">
-        <td></td>
-        <td (click)="onSelect(task)"><p class="taskDescription">{{task.description}}</p></td>
-        <td>
-          <a routerLink="/tasks/{{task._id}}">
-            <button mat-icon-button class="arrow">
-              <mat-icon class="arrow-button">keyboard_arrow_right</mat-icon>
-            </button>
-          </a>
-        </td>
-      </tr>
-    </table>
-    <button *ngIf="getTasksCompleted().length > 0 || getTasksNotCompleted().length > 0"
-            [disabled]="playButtonPressed"
-            (click)="openTaskCreationDialog()" mat-flat-button class="new-taskOrRecord">Neue Aufgabe
-    </button>
+    <p class="captionContainer">Tasks</p>
+    <mat-divider class="desktop-view "></mat-divider>
+    <app-tasklist [tasks]="getTasks()"></app-tasklist>
   </div>
   <div class="record-container">
     <p class="captionContainer">Records</p>
-    <mat-divider></mat-divider>
-    <button mat-icon-button class="addFirst"
-            (click)="openRecordCreationDialog()"
-            *ngIf="(this.recordsOfProject.length === 0)">
-      <mat-icon class="addFirst-button">playlist_add</mat-icon>
-    </button>
-    <table *ngIf="this.recordsOfProject.length > 0"
-           class="recordList">
-      <colgroup>
-        <col style="width:30%">
-        <col style="width:30%">
-        <col style="width:30%">
-        <col style="width:10%">
-      </colgroup>
-      <th>Datum</th>
-      <th>Start</th>
-      <th>Ende</th>
-      <tr *ngFor="let record of this.recordsOfProject">
-        <td>{{record.startTime | date:'dd.MM.yy'}}</td>
-        <td>{{record.startTime | date:'HH:mm:ss'}}</td>
-        <td>{{record.endTime | date:'HH:mm:ss'}}</td>
-        <td>
-          <a routerLink="/records/{{record.id}}">
-            <button mat-icon-button class="arrow">
-              <mat-icon class="arrow-button">keyboard_arrow_right</mat-icon>
-            </button>
-          </a>
-        </td>
-      </tr>
-    </table>
-    <button *ngIf="this.recordsOfProject.length > 0"
-            [disabled]="playButtonPressed"
-            (click)="openRecordCreationDialog()" mat-flat-button class="new-taskOrRecord">Neuer Record
-    </button>
+    <mat-divider class="desktop-view "></mat-divider>
+    <app-recordlist [records]="getRecords()"></app-recordlist>
   </div>
 </div>
-
-

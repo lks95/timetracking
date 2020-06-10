@@ -1,13 +1,13 @@
 import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
-import { Task } from '../../models/task';
-import { Project } from '../../models/project';
-import { Record } from '../../models/record';
-import { TaskService } from '../../services/task.service';
-import { ProjectService } from '../../services/project.service';
-import { RecordService } from '../../services/record.service';
+import {Task} from '../../models/task';
+import {Project} from '../../models/project';
+import {Record} from '../../models/record';
+import {TaskService} from '../../services/task.service';
+import {ProjectService} from '../../services/project.service';
+import {RecordService} from '../../services/record.service';
 
-import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
+import {ActivatedRoute} from '@angular/router';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-project',
@@ -81,6 +81,14 @@ export class ProjectComponent implements OnInit {
       }
     });
     return tasksCompleted;
+  }
+
+  getTasks(): Task[] {
+    return this.currentProject.tasks as Task[];
+  }
+
+  getRecords(): Record[] {
+    return this.currentProject.records as Record[];
   }
 
   openTaskCreationDialog(): void {
