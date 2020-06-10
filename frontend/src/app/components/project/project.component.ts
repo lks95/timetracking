@@ -20,8 +20,6 @@ export class ProjectComponent implements OnInit {
   @Output() taskEmitter: EventEmitter<Task> = new EventEmitter();
 
   currentProject?: Project;
-  records: Record [];
-  recordsOfProject = [];
   selectedTask: Task;
   playButtonPressed = false;
 
@@ -42,6 +40,17 @@ export class ProjectComponent implements OnInit {
   subscribeToObservables() {
     this.projectService.onProjectSelection.subscribe(project => {
       this.currentProject = project;
+    });
+
+    this.recordService.onRecordCreation.subscribe(record => {
+      console.log('Subscription of record creation triggered.');
+      (this.currentProject.records as Record[]).push(record);
+    });
+
+    this.recordService.onRecordCompletion.subscribe(record => {
+      console.log(record);
+      const index = (this.currentProject.records as Record[]).findIndex(r => r._id === record._id);
+      (this.currentProject.records as Record[])[index] = record;
     });
   }
 
@@ -88,7 +97,8 @@ export class ProjectComponent implements OnInit {
   }
 
   getRecords(): Record[] {
-    return this.currentProject.records as Record[];
+    return (this.currentProject.records as Record[])
+      .sort((r1, r2) => new Date(r2.startTime).getTime() - new Date(r1.startTime).valueOf());
   }
 
   openTaskCreationDialog(): void {

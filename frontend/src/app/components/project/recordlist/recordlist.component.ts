@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Record} from '../../../models/record';
-import {Project} from '../../../models/project';
 import {ProjectService} from '../../../services/project.service';
+import {RecordService} from '../../../services/record.service';
 
 @Component({
   selector: 'app-recordlist',
@@ -10,28 +10,18 @@ import {ProjectService} from '../../../services/project.service';
 })
 export class RecordlistComponent implements OnInit {
 
-  @Input() records: Record[];
-  currentProject: Project;
+  @Input() records: Record[] = [];
 
   constructor(
-    private projectService: ProjectService
+    private projectService: ProjectService,
+    private recordService: RecordService
   ) {
-    this.subscribeToObservables();
   }
 
   ngOnInit(): void {
-    console.log(this.records?.length);
-  }
-
-  subscribeToObservables(): void {
-    this.projectService.onProjectSelection.subscribe(project => {
-      this.currentProject = project;
-    });
   }
 
   openRecordCreationDialog(): void {
     // TODO Implement me
   }
-
-
 }
