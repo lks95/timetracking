@@ -1,8 +1,3 @@
-<button (click)="openRecordCreationDialog()" *ngIf="(records.length === 0)"
-        class="addFirst"
-        mat-icon-button>
-  <mat-icon class="addFirst-button">playlist_add</mat-icon>
-</button>
 <table *ngIf="records.length > 0"
        class="recordList">
   <colgroup>
@@ -27,6 +22,3 @@
     </td>
   </tr>
 </table>
-<button (click)="openRecordCreationDialog()"
-        *ngIf="records.length > 0" class="new-taskOrRecord" mat-flat-button>Neuer Record
-</button>

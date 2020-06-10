@@ -1,8 +1,3 @@
-<button (click)="openTaskCreationDialog()" *ngIf="!currentProject?.completed || tasks.length == 0"
-        class="addFirst"
-        mat-icon-button>
-  <mat-icon class="addFirst-button">playlist_add</mat-icon>
-</button>
 <table class="taskList">
   <colgroup>
     <col style="width:20%">
@@ -39,8 +34,3 @@
     </td>
   </tr>
 </table>
-<button (click)="openTaskCreationDialog()"
-        *ngIf="getCompleteTasks().length > 0 || getIncompleteTasks().length > 0" class="new-taskOrRecord"
-        mat-flat-button>New Task
-  <!-- TODO Think about different function / visibility logic or fix this one -->
-</button>

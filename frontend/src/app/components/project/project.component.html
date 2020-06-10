@@ -10,13 +10,21 @@
 <!-- Divs for Desktop View -->
 <div class="desktop-view tab-container">
   <div class="task-container">
-    <p class="captionContainer">Tasks</p>
-    <mat-divider class="desktop-view "></mat-divider>
+    <div class="caption-container">Tasks
+      <button (click)="openTaskCreationDialog()" class="creation-button" mat-icon-button>
+        <mat-icon>add</mat-icon>
+      </button>
+      <mat-divider class="desktop-view "></mat-divider>
+    </div>
     <app-tasklist [tasks]="getTasks()"></app-tasklist>
   </div>
   <div class="record-container">
-    <p class="captionContainer">Records</p>
-    <mat-divider class="desktop-view "></mat-divider>
+    <div class="caption-container">Records
+      <button (click)="openRecordCreationDialog()" class="creation-button" mat-icon-button>
+        <mat-icon>add</mat-icon>
+      </button>
+      <mat-divider class="desktop-view "></mat-divider>
+    </div>
     <app-recordlist [records]="getRecords()"></app-recordlist>
   </div>
 </div>
