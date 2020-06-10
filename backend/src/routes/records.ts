@@ -6,7 +6,7 @@ import Record from '../db/schemas/record';
 const router = express.Router();
 
 router.get('/running', async (req, res) => {
-  const runningRecords = await Record.find({ endTime: { $exists: false } });
+  const runningRecords = await Record.find({endTime: {$exists: false}});
   return res.status(200).json(runningRecords);
 });
 
@@ -28,7 +28,7 @@ router.post('/start', async (req, res) => {
     const runningRecord = await Record.findOne({
       project: parent.project || parent._id,
       task: req.body.task,
-      endTime: { $exists: false },
+      endTime: {$exists: false},
     });
 
     if (runningRecord) {
@@ -48,24 +48,27 @@ router.post('/start', async (req, res) => {
 });
 
 router.post('/stopAll', async (req, res) => {
-  const runningRecords = await Record.find({ endTime: { $exists: false } });
+  const runningRecords = await Record.find({endTime: {$exists: false}});
   const ids = runningRecords.map(record => record._id);
 
-  await Record.updateMany({ endTime: { $exists: false } }, { endTime: Date.now() });
+  await Record.updateMany({endTime: {$exists: false}}, {endTime: Date.now()});
 
-  const stoppedRecords = await Record.find({ _id: { $in: ids } });
+  const stoppedRecords = await Record.find({_id: {$in: ids}});
 
   res.status(200).json(stoppedRecords);
 });
 
 router.post('/:id/stop', async (req, res) => {
   try {
-    const record = await Record.findById(req.params.id);
-    record.endTime = Date.now();
-    const updated = await record.save();
+    const updated = await Record.findOneAndUpdate({
+      _id: req.params.id,
+      endTime: {$exists: false}
+    }, {$set: {endTime: Date.now()}}, {new: true});
+    console.log(updated);
+
     res.status(200).json(updated);
   } catch (error) {
-    res.status(404).send('Record not found.');
+    res.status(404).send('Record not found or already stopped.');
   }
 });
 
