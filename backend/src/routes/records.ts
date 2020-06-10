@@ -61,8 +61,12 @@ router.post('/stopAll', async (req, res) => {
 router.post('/:id/stop', async (req, res) => {
   try {
     const record = await Record.findById(req.params.id);
-    record.endTime = Date.now();
-    const updated = await record.save();
+
+    if (record.endTime) {
+      res.status(400).send('Record already stopped.');
+      return;
+    }
+    const updated = await record.update({endTime: Date.now()});
     res.status(200).json(updated);
   } catch (error) {
     res.status(404).send('Record not found.');
