@@ -8,6 +8,8 @@ import {RecordService} from '../../services/record.service';
 
 import {ActivatedRoute} from '@angular/router';
 import {Location} from '@angular/common';
+import {MatDialog} from '@angular/material/dialog';
+import {CreateTaskDialog} from '../dialogs/create-task/create-task.dialog';
 
 @Component({
   selector: 'app-project',
@@ -27,6 +29,7 @@ export class ProjectComponent implements OnInit {
     private taskService: TaskService,
     private projectService: ProjectService,
     private recordService: RecordService,
+    private dialog: MatDialog,
     private route: ActivatedRoute,
     private location: Location
   ) {
@@ -93,16 +96,29 @@ export class ProjectComponent implements OnInit {
   }
 
   getTasks(): Task[] {
-    return this.currentProject.tasks as Task[];
+    return this.currentProject?.tasks as Task[] ? this.currentProject.tasks as Task[] : [];
   }
 
   getRecords(): Record[] {
-    return (this.currentProject.records as Record[])
-      .sort((r1, r2) => new Date(r2.startTime).getTime() - new Date(r1.startTime).valueOf());
+    if (this.currentProject?.records) {
+      return (this.currentProject?.records as Record[])
+        .sort((r1, r2) => new Date(r2.startTime).getTime() - new Date(r1.startTime).valueOf());
+    }
+    return [];
   }
 
   openTaskCreationDialog(): void {
-    // TODO
+    const dialogRef = this.dialog.open(CreateTaskDialog, {
+      minHeight: '128px',
+      maxHeight: '100%',
+      minWidth: '512px',
+      maxWidth: '90%',
+      data: this.currentProject
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      // this.selectedProject = result;
+    });
   }
 
   openRecordCreationDialog(): void {
