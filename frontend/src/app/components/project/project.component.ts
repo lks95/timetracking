@@ -45,6 +45,10 @@ export class ProjectComponent implements OnInit {
       this.currentProject = project;
     });
 
+    this.taskService.onTaskCreation.subscribe(task => {
+      (this.currentProject.tasks as Task[]).push(task);
+    });
+
     this.recordService.onRecordCreation.subscribe(record => {
       console.log('Subscription of record creation triggered.');
       (this.currentProject.records as Record[]).push(record);
@@ -75,28 +79,10 @@ export class ProjectComponent implements OnInit {
       });
   }
 
-  getTasksNotCompleted(): Task[] {
-    const tasksNotCompleted = [];
-    this.currentProject?.tasks?.forEach(task => {
-      if (!task.completed) {
-        tasksNotCompleted.push(task);
-      }
-    });
-    return tasksNotCompleted;
-  }
-
-  getTasksCompleted(): Task[] {
-    const tasksCompleted = [];
-    this.currentProject?.tasks?.forEach(task => {
-      if (task.completed) {
-        tasksCompleted.push(task);
-      }
-    });
-    return tasksCompleted;
-  }
-
   getTasks(): Task[] {
-    return this.currentProject?.tasks as Task[] ? this.currentProject.tasks as Task[] : [];
+    return this.currentProject?.tasks as Task[]
+      ? (this.currentProject.tasks as Task[]).sort((t1, t2) => t1.description > t2.description ? 1 : -1)
+      : [];
   }
 
   getRecords(): Record[] {

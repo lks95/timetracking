@@ -1,13 +1,20 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable, of} from 'rxjs';
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {Task} from '../models/task';
 import {HttpClient} from '@angular/common/http';
 import {Project} from '../models/project';
+import {environment} from '../../environments/environment';
+import {share} from 'rxjs/operators';
+
+const apiUrl = environment.apiUrl;
 
 @Injectable({
   providedIn: 'root'
 })
 export class TaskService {
+
+  private taskCreation = new Subject<Task>();
+  onTaskCreation = this.taskCreation.asObservable();
 
   private taskSelection = new BehaviorSubject<Task>(null);
   onTaskSelection = this.taskSelection.asObservable();
@@ -19,8 +26,18 @@ export class TaskService {
     this.taskSelection.next(task);
   }
 
-  createTask(project: Project, description: Task): Observable<Task> {
-    return of(null);
+  createTask(project: Project, taskDescription: string): Observable<Task> {
+    const request = this.httpClient.post<Task>(apiUrl + 'projects/' + project._id + '/tasks', {
+      description: taskDescription
+    }).pipe(
+      share()
+    );
+
+    request.subscribe(task => {
+      this.taskCreation.next(task);
+    });
+
+    return request;
   }
 
 }
