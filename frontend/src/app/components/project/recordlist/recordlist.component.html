@@ -6,19 +6,17 @@
     <col style="width:30%">
     <col style="width:10%">
   </colgroup>
-  <th>Datum</th>
+  <th>Date</th>
   <th>Start</th>
-  <th>Ende</th>
+  <th>End</th>
   <tr *ngFor="let record of records">
-    <td>{{record.startTime | date:'dd.MM.yy'}}</td>
+    <td>{{record.startTime | date:'dd.MM.yyyy'}}</td>
     <td>{{record.startTime | date:'HH:mm:ss'}}</td>
     <td>{{record.endTime | date:'HH:mm:ss'}}</td>
     <td>
-      <a routerLink="/records/{{record._id}}">
-        <button class="arrow" mat-icon-button>
-          <mat-icon class="arrow-button">keyboard_arrow_right</mat-icon>
-        </button>
-      </a>
+      <button (click)="openEditRecordDialog(record)" class="arrow" mat-icon-button>
+        <mat-icon class="arrow-button">edit</mat-icon>
+      </button>
     </td>
   </tr>
 </table>

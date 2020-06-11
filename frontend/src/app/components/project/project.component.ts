@@ -55,7 +55,7 @@ export class ProjectComponent implements OnInit {
       (this.currentProject.records as Record[]).push(record);
     });
 
-    this.recordService.onRecordCompletion.subscribe(record => {
+    this.recordService.onRecordChanged.subscribe(record => {
       console.log(record);
       const index = (this.currentProject.records as Record[]).findIndex(r => r._id === record._id);
       (this.currentProject.records as Record[])[index] = record;

@@ -17,8 +17,8 @@ export class RecordService {
   private recordCreation = new Subject<Record>();
   onRecordCreation = this.recordCreation.asObservable().pipe(share());
 
-  private recordCompletion = new Subject<Record>();
-  onRecordCompletion = this.recordCompletion.asObservable().pipe(share());
+  private recordChanged = new Subject<Record>();
+  onRecordChanged = this.recordChanged.asObservable().pipe(share());
 
   private recordDeletion = new Subject<Record>();
   onRecordDeletion = this.recordDeletion.asObservable().pipe(share());
@@ -63,7 +63,7 @@ export class RecordService {
       );
     request.subscribe(value => {
       console.log(value);
-      this.recordCompletion.next(value);
+      this.recordChanged.next(value);
       console.log('Record completion triggered.');
     });
     return request;
@@ -85,6 +85,22 @@ export class RecordService {
 
     request.subscribe(record => {
       this.recordCreation.next(record);
+      console.log('Record creation triggered.');
+    });
+    return request;
+  }
+
+  editRecord(record: Record, startTime: string, endTime: string): Observable<Record> {
+
+    const request = this.httpClient.patch<Record>(apiUrl + 'records/' + record._id, {
+      startTime,
+      endTime
+    }).pipe(
+      share()
+    );
+
+    request.subscribe(result => {
+      this.recordChanged.next(result);
       console.log('Record creation triggered.');
     });
     return request;
