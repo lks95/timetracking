@@ -11,6 +11,7 @@ import {ProjectComponent} from './components/project/project.component';
 import {CreateProjectDialog} from './components/dialogs/create-project/create-project.dialog';
 import {EditProjectDialog} from './components/dialogs/edit-project/edit-project.dialog';
 import {CreateTaskDialog} from './components/dialogs/create-task/create-task.dialog';
+import {CreateRecordDialog} from './components/dialogs/create-record/create-record.dialog';
 
 import {MatIconModule} from '@angular/material/icon';
 import {MatDialogModule} from '@angular/material/dialog';
@@ -33,6 +34,7 @@ import {RecordlistComponent} from './components/project/recordlist/recordlist.co
     ProjectsComponent,
     ProjectComponent,
     CreateProjectDialog,
+    CreateRecordDialog,
     EditProjectDialog,
     CreateTaskDialog,
     TasklistComponent,

@@ -10,6 +10,7 @@ import {ActivatedRoute} from '@angular/router';
 import {Location} from '@angular/common';
 import {MatDialog} from '@angular/material/dialog';
 import {CreateTaskDialog} from '../dialogs/create-task/create-task.dialog';
+import {CreateRecordDialog} from '../dialogs/create-record/create-record.dialog';
 
 @Component({
   selector: 'app-project',
@@ -108,6 +109,19 @@ export class ProjectComponent implements OnInit {
   }
 
   openRecordCreationDialog(): void {
-    // TODO
+    const dialogRef = this.dialog.open(CreateRecordDialog, {
+      minHeight: '128px',
+      maxHeight: '100%',
+      minWidth: '512px',
+      maxWidth: '90%',
+      data: {
+        project: this.currentProject,
+        task: this.selectedTask
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      // this.selectedProject = result;
+    });
   }
 }

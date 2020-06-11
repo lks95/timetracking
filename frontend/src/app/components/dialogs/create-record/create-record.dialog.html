@@ -1,0 +1,21 @@
+<h2>Add new Record for {{ data.task ? 'task ' + data.task.description : 'project ' + data.project.name}}</h2>
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="recordForm">
+    <mat-form-field class="left">
+      <mat-label>Start time</mat-label>
+      <input formControlName="startTime" matInput required type="datetime-local">
+    </mat-form-field>
+    <mat-form-field class="right">
+      <mat-label>End time</mat-label>
+      <input formControlName="endTime" matInput required type="datetime-local">
+    </mat-form-field>
+  </form>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button (click)="createRecord()" [disabled]="!isValidInput()"
+          color="primary"
+          mat-flat-button>Add Record
+  </button>
+</mat-dialog-actions>

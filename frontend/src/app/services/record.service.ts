@@ -68,4 +68,25 @@ export class RecordService {
     });
     return request;
   }
+
+  createRecord(project: Project, task: Task, startTime: string, endTime: string): Observable<Record> {
+    const body = task ? {
+      task: task._id,
+      startTime,
+      endTime
+    } : {
+      project: project._id,
+      startTime,
+      endTime
+    };
+    const request = this.httpClient.post<Record>(apiUrl + 'records', body).pipe(
+      share()
+    );
+
+    request.subscribe(record => {
+      this.recordCreation.next(record);
+      console.log('Record creation triggered.');
+    });
+    return request;
+  }
 }
