@@ -93,7 +93,7 @@ router.patch('/:id', async (req, res) => {
     const startTime = req.body.startTime || record.startTime;
     const endTime = req.body.endTime || record.endTime;
 
-    if (startTime < endTime) {
+    if (startTime > endTime) {
       res.status(400).send('Start time cannot be before end time');
       return;
     }
@@ -120,7 +120,7 @@ router.post('/', async (req, res) => {
     res.status(400).send('Request body invalid. Please provide both start and end date-times');
     return;
   }
-  
+
   try {
     let parent;
 
