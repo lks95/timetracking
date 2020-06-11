@@ -109,6 +109,41 @@ router.patch('/:id', async (req, res) => {
   }
 });
 
+router.post('/', async (req, res) => {
+  console.log(req.body);
+  if ((!req.body.project && !req.body.task) || (req.body.project && req.body.task)) {
+    res.status(400).send('Request body invalid. Please provide exactly one id of project or task.');
+    return;
+  }
+
+  if ((!req.body.startTime || !req.body.endTime)) {
+    res.status(400).send('Request body invalid. Please provide both start and end date-times');
+    return;
+  }
+  
+  try {
+    let parent;
+
+    if (req.body.project) {
+      parent = await Project.findById(req.body.project);
+    } else {
+      parent = await Task.findById(req.body.task);
+    }
+
+    const record = await Record.create({
+      project: parent.project || parent._id,
+      task: req.body.task,
+      startTime: req.body.startTime,
+      endTime: req.body.endTime
+    });
+
+    res.status(200).json(record);
+  } catch (error) {
+    res.status(400).send('There was a problem while creating the record. ' +
+      'Please check the format of start and end time again.');
+  }
+});
+
 router.delete('/:id', async (req, res) => {
   try {
     await Record.findByIdAndRemove(req.params.id);
