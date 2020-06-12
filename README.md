@@ -1,26 +1,71 @@
 # Lisbon
-## Easy Time Tracking Application
 
-### Working Tools and Frameworks
-We are currently working with Webstorm IDE and using Node.js express for the 
-backend and Angular CLI for the backend. 
+## Abstract
 
-### Deadlines
-* Midterm Presentation Session: May 18-22, 2020
-* Final Presentation Session: June 19, 2020
+Easy Time Tracking Application
 
-### Branching Model
-We are working on the `dev` branch and push only stable releases to the `master`
-branch. Any issue / ticket is solved by a separate branch and merged at the 
-end to the `dev` branch with a merge request.
 
-### Application Content
-- Register new projects
-- Modify and delete projects
-- Track time for each project separately
-- Manually register time records for projects
-- Modify and delete time tracking records
-- Add, modify and delete tasks to and from projects
-- Track time for each task separately
-- Mark projects and tasks as completed
-- Visualize projects, tasks and time records
+## Team
+
+| Name                | Student ID |
+| ------------------- | ---------- |
+| Chritos Malliaridis | cm116      |
+| Lukas Klein         | lk104      |
+| Elisa Haijkens      | eh039      |
+
+
+## Milestones
+
+| Date       | Milestone                             |
+| ---------- | ------------------------------------- |
+| 24.04.2020 | Kick-Off (Online Webinar)             |
+| 22.05.2020 | Mid-Term-Session                      |
+| 26.05.2020 | Backend Implementation                |
+| 29.05.2020 | Frontend Preparation                  |
+| 16.06.2020 | Frontend Implementation               |
+| 16.06.2020 | Project Completion                    |
+| 19.06.2020 | Project Presentation (Online Webinar) |
+
+
+## Tech-Stack
+
+### Frontend
+
+* Angular CLI with Angular Material UI component library
+
+### Backend
+
+* NodeJS (with ExpressJS)
+* API: REST
+* Database: MongoDB
+
+### Testing
+
+* Integration-Tests: Mocha and Chai
+
+
+## Run project
+
+1. First start the project with `docker-compose up`
+2. Then open the web application in the browser at `http://localhost:4200`
+
+
+## Tests
+
+Run the tests:
+
+```
+npm run test
+```
+
+Run test coverage:
+
+```
+npm run coverage
+```
+
+Create HTML coverage:
+
+```
+npm run coverage:report
+```
