@@ -1,6 +1,6 @@
-import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
-import { Project } from '../../models/project';
-import { ProjectService } from '../../services/project.service';
+import {Component, OnInit} from '@angular/core';
+import {Project} from '../../models/project';
+import {ProjectService} from '../../services/project.service';
 import {Router} from '@angular/router';
 
 @Component({
@@ -10,11 +10,8 @@ import {Router} from '@angular/router';
 })
 export class ProjectsComponent implements OnInit {
 
-  @ViewChild('playButton') playButton;
-
   projects: Project[] = [];
   selectedProject: Project;
-  playButtonPressed = false;
 
   constructor(
     private router: Router,
