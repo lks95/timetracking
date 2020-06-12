@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {CreateProjectDialog} from './components/dialogs/create-project/create-project.dialog';
 import {EditProjectDialog} from './components/dialogs/edit-project/edit-project.dialog';
 import {Project} from './models/project';
@@ -10,6 +10,7 @@ import {ProjectsComponent} from './components/projects/projects.component';
 import {ProjectService} from './services/project.service';
 import {TaskService} from './services/task.service';
 import {RecordService} from './services/record.service';
+import {Subscription} from 'rxjs';
 
 
 @Component({
@@ -17,7 +18,7 @@ import {RecordService} from './services/record.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit, OnDestroy {
 
   @ViewChild('playButton') playButton;
 
@@ -29,6 +30,9 @@ export class AppComponent {
   runningRecord: Record;
   componentRef: any;
 
+  private projectSelectionSub: Subscription;
+  private taskSelectionSub: Subscription;
+
   constructor(
     public dialog: MatDialog,
     public router: Router,
@@ -36,17 +40,28 @@ export class AppComponent {
     private taskService: TaskService,
     private recordService: RecordService
   ) {
-    console.log('Constructor called');
+  }
+
+  ngOnInit(): void {
     this.subscribeToObservables();
   }
 
+  ngOnDestroy(): void {
+    this.unsubscribe();
+  }
+
   subscribeToObservables() {
-    this.projectService.onProjectSelection.subscribe(project => {
+    this.projectSelectionSub = this.projectService.onProjectSelection.subscribe(project => {
       this.selectedProject = project;
     });
-    this.taskService.onTaskSelection.subscribe(task => {
+    this.taskSelectionSub = this.taskService.onTaskSelection.subscribe(task => {
       this.selectedTask = task;
     });
+  }
+
+  unsubscribe() {
+    this.projectSelectionSub.unsubscribe();
+    this.taskSelectionSub.unsubscribe();
   }
 
   play() {

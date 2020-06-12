@@ -23,7 +23,6 @@ export class CreateTaskDialog {
     this.taskForm = this.fb.group({
       taskDescription: ''
     });
-    this.taskForm.valueChanges.subscribe(console.log);
   }
 
   createTask() {

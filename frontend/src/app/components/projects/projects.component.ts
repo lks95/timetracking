@@ -1,38 +1,51 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Project} from '../../models/project';
 import {ProjectService} from '../../services/project.service';
 import {Router} from '@angular/router';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-projects',
   templateUrl: './projects.component.html',
   styleUrls: ['./projects.component.scss']
 })
-export class ProjectsComponent implements OnInit {
+export class ProjectsComponent implements OnInit, OnDestroy {
 
   projects: Project[] = [];
   selectedProject: Project;
+
+  private projectCreationSub: Subscription;
+  private projectSelectionSub: Subscription;
 
   constructor(
     private router: Router,
     private projectService: ProjectService
   ) {
-    console.log('Constructor called.');
-    this.subscribeToObservables();
-  }
-
-  subscribeToObservables() {
-    this.projectService.onProjectCreation.subscribe(project => {
-      this.projects.push(project);
-      this.sortProjects();
-    });
-    this.projectService.onProjectSelection.subscribe(project => {
-      this.selectedProject = project;
-    });
   }
 
   ngOnInit() {
     this.getProjects();
+    this.subscribeToObservables();
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe();
+  }
+
+  subscribeToObservables() {
+    this.projectCreationSub = this.projectService.onProjectCreation.subscribe(project => {
+      this.projects.push(project);
+      this.sortProjects();
+    });
+
+    this.projectSelectionSub = this.projectService.onProjectSelection.subscribe(project => {
+      this.selectedProject = project;
+    });
+  }
+
+  private unsubscribe() {
+    this.projectSelectionSub.unsubscribe();
+    this.projectCreationSub.unsubscribe();
   }
 
   onSelect(project: Project): void {
