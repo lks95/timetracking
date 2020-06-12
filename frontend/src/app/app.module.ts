@@ -13,6 +13,7 @@ import {RecordlistComponent} from './components/project/recordlist/recordlist.co
 import {CreateProjectDialog} from './components/dialogs/create-project/create-project.dialog';
 import {EditProjectDialog} from './components/dialogs/edit-project/edit-project.dialog';
 import {CreateTaskDialog} from './components/dialogs/create-task/create-task.dialog';
+import {EditTaskDialog} from './components/dialogs/edit-task/edit-task.dialog';
 import {CreateRecordDialog} from './components/dialogs/create-record/create-record.dialog';
 import {EditRecordDialog} from './components/dialogs/edit-record/edit-record.dialog';
 
@@ -39,6 +40,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
     CreateProjectDialog,
     EditProjectDialog,
     CreateTaskDialog,
+    EditTaskDialog,
     CreateRecordDialog,
     EditRecordDialog,
   ],

@@ -1,0 +1,17 @@
+<h2>Edit task "{{data.description}}"</h2>
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="taskForm">
+    <mat-form-field>
+      <mat-label>Task Description</mat-label>
+      <input [placeholder]="data.description" formControlName="taskDescription" matInput required>
+    </mat-form-field>
+  </form>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button (click)="editTask()" [disabled]="!taskForm.valid"
+          color="primary"
+          mat-flat-button>Update Task
+  </button>
+</mat-dialog-actions>

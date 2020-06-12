@@ -1,103 +1,103 @@
-/* Mobile CSS*/
-@media screen and (min-width: 0px) {
-  .recordsDisplay {
+
+.recordsDisplay {
+  width: 50%;
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 35px;
+  font-size: 35px;
+  font-weight: lighter;
+}
+
+/*Tabs*/
+::ng-deep {
+  .mat-tab-label {
+    margin-top: 30px;
     width: 50%;
-    margin: 0 auto;
+  }
+
+  .mat-ink-bar {
+    background-color: lightseagreen !important;
+  }
+}
+
+/*Taskliste*/
+.addFirst {
+  display: block;
+  color: #ccc;
+  margin: 100px auto;
+  transform: scale(3);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 auto;
+}
+
+.recordList {
+  margin-top: 10px;
+
+  th {
+    color: #777;
+    font-weight: normal;
+  }
+
+  tr {
     text-align: center;
-    padding-top: 35px;
-    font-size: 35px;
-    font-weight: lighter;
+    background-color: #e8e8e8;
   }
 
-  /*Tabs*/
-  ::ng-deep {
-    .mat-tab-label {
-      margin-top: 30px;
-      width: 50%;
-    }
 
-    .mat-ink-bar {
-      background-color: lightseagreen !important;
-    }
-  }
+}
 
-  /*Taskliste*/
-  .addFirst {
-    display: block;
-    color: #ccc;
-    margin: 100px auto;
-    transform: scale(3);
-  }
+.action-button {
+  margin-right: 0;
+}
 
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 0 auto;
-  }
+td {
+  padding: 10px 5px;
+  border-bottom: 2px solid #fff;
+}
 
-  .recordList {
-    margin-top: 10px;
+p.taskDescription {
+  cursor: pointer;
+  display: inline-block;
+  margin: 0;
+}
 
-    th {
-      color: #777;
-      font-weight: normal;
-    }
+.action-button {
+  margin-right: 10px;
+  color: #aaa;
+}
 
-    tr {
-      text-align: center;
-      background-color: #e8e8e8;
-    }
+tr.selected .action-button {
+  color: #fff;
+}
 
-    button.arrow {
-      margin-right: 0;
-    }
-  }
+.captionCompleted {
+  background-color: #aaa;
+  color: #fff;
+  text-align: center;
+}
 
-  td {
-    padding: 10px 5px;
-    border-bottom: 2px solid #fff;
-  }
+.completed {
+  color: #aaa;
+}
 
-  p.taskDescription {
-    cursor: pointer;
-    display: inline-block;
-    margin: 0;
-  }
+.selected {
+  color: #fff;
+}
 
-  .arrow {
-    margin-right: 10px;
-    color: #aaa;
-  }
+.new-taskOrRecord {
+  display: block;
+  background-color: orange;
+  color: white;
+  margin: 40px auto;
+}
 
-  tr.selected .arrow {
-    color: #fff;
-  }
-
-  .captionCompleted {
-    background-color: #aaa;
-    color: #fff;
-    text-align: center;
-  }
-
-  .completed {
-    color: #aaa;
-  }
-
-  .selected {
-    color: #fff;
-  }
-
-  .new-taskOrRecord {
-    display: block;
-    background-color: orange;
-    color: white;
-    margin: 40px auto;
-  }
-
-  /*Tab-Container*/
-  div.tab-container {
-    display: none;
-  }
+/*Tab-Container*/
+div.tab-container {
+  display: none;
 }
 
 /*Desktop-CSS*/

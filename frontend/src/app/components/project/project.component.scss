@@ -75,10 +75,10 @@ table {
     text-align: center;
     background-color: #e8e8e8;
   }
+}
 
-  button.arrow {
-    margin-right: 0;
-  }
+.action-button {
+  margin-right: 0;
 }
 
 td {
@@ -92,12 +92,12 @@ p.taskDescription {
   margin: 0;
 }
 
-.arrow {
+.action-button {
   margin-right: 10px;
   color: #aaa;
 }
 
-tr.selected .arrow {
+tr.selected .action-button {
   color: #fff;
 }
 

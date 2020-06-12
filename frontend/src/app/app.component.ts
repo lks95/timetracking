@@ -44,9 +44,9 @@ export class AppComponent {
     this.projectService.onProjectSelection.subscribe(project => {
       this.selectedProject = project;
     });
-    // this.taskService.onTaskSelection.subscribe(task => {
-    //   this.selectedTask = task;
-    // });
+    this.taskService.onTaskSelection.subscribe(task => {
+      this.selectedTask = task;
+    });
   }
 
   play() {
@@ -115,10 +115,6 @@ export class AppComponent {
   setProjectNotCompleted(): void {
     this.selectedProject.completed = false;
     // TODO
-  }
-
-  public onTaskSelection(task: Task): void {
-    // TODO Implmement me
   }
 
   public onBackPressed(): void {

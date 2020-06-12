@@ -7,7 +7,6 @@ import {ProjectService} from '../../services/project.service';
 import {RecordService} from '../../services/record.service';
 
 import {ActivatedRoute} from '@angular/router';
-import {Location} from '@angular/common';
 import {MatDialog} from '@angular/material/dialog';
 import {CreateTaskDialog} from '../dialogs/create-task/create-task.dialog';
 import {CreateRecordDialog} from '../dialogs/create-record/create-record.dialog';
@@ -24,7 +23,6 @@ export class ProjectComponent implements OnInit {
 
   currentProject?: Project;
   selectedTask: Task;
-  playButtonPressed = false;
 
   constructor(
     private taskService: TaskService,
@@ -32,7 +30,6 @@ export class ProjectComponent implements OnInit {
     private recordService: RecordService,
     private dialog: MatDialog,
     private route: ActivatedRoute,
-    private location: Location
   ) {
     this.subscribeToObservables();
   }
@@ -46,6 +43,10 @@ export class ProjectComponent implements OnInit {
       this.currentProject = project;
     });
 
+    this.taskService.onTaskSelection.subscribe(task => {
+      this.selectedTask = task;
+    });
+
     this.taskService.onTaskCreation.subscribe(task => {
       (this.currentProject.tasks as Task[]).push(task);
     });
@@ -55,21 +56,16 @@ export class ProjectComponent implements OnInit {
       (this.currentProject.records as Record[]).push(record);
     });
 
+    this.taskService.onTaskUpdated.subscribe(task => {
+      const index = (this.currentProject.tasks as Task[]).findIndex(t => t._id === task._id);
+      (this.currentProject.tasks as Task[])[index] = task;
+    });
+
     this.recordService.onRecordChanged.subscribe(record => {
       console.log(record);
       const index = (this.currentProject.records as Record[]).findIndex(r => r._id === record._id);
       (this.currentProject.records as Record[])[index] = record;
     });
-  }
-
-  onSelect(task: Task): void {
-    if (!this.playButtonPressed && this.selectedTask === task) {
-      this.selectedTask = null;
-      this.taskEmitter.emit(null);
-    } else if (!this.playButtonPressed) {
-      this.selectedTask = task;
-      this.taskEmitter.emit(task);
-    }
   }
 
   getProject(): void {
@@ -103,9 +99,8 @@ export class ProjectComponent implements OnInit {
       data: this.currentProject
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      // this.selectedProject = result;
-    });
+    // dialogRef.afterClosed().subscribe(result => {
+    // });
   }
 
   openRecordCreationDialog(): void {
@@ -120,8 +115,7 @@ export class ProjectComponent implements OnInit {
       }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      // this.selectedProject = result;
-    });
+    // dialogRef.afterClosed().subscribe(result => {
+    // });
   }
 }
