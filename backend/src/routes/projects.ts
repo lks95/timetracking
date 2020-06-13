@@ -25,7 +25,7 @@ router.patch('/:id', async (req, res) => {
   let error;
   let project;
 
-  if (!req.body.name && !req.body.color && !req.body.completed) {
+  if (!req.body.name && !req.body.color && req.body.completed == undefined) {
     res.status(400).send('Request body invalid');
     return;
   }
@@ -45,7 +45,7 @@ router.patch('/:id', async (req, res) => {
 
   project.name = req.body.name ? req.body.name : project.name;
   project.color = req.body.color ? req.body.color : project.color;
-  project.completed = req.body.completed ? req.body.completed : project.completed;
+  project.completed = req.body.completed != undefined ? req.body.completed : project.completed;
 
   const updated = await project.save();
   res.status(200).send(updated);
