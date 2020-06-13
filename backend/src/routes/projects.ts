@@ -8,7 +8,7 @@ router.get('/:id', async (req, res) => {
   try {
     const project = await Project.findById(req.params.id)
       .populate('tasks', '_id description completed')
-      .populate('records', '_id startTime endTime');
+      .populate('records', '_id task startTime endTime');
 
     if (!project) {
       res.status(404).send('Project not found');

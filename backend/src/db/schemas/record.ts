@@ -30,14 +30,10 @@ const RecordSchema = new Schema(
 RecordSchema.post('save', async (record: IRecord, next) => {
   // Create reference in task or project when created
   if (record.task) {
-    const task = await Task.findById(record.task);
-    (task.records as Types.ObjectId[]).push(new Types.ObjectId(record._id));
-    await task.save();
-  } else {
-    const project = await Project.findById(record.project);
-    (project.records as Types.ObjectId[]).push(new Types.ObjectId(record._id));
-    await project.save();
+    await Task.findByIdAndUpdate(record.task, {$push: {records: new Types.ObjectId(record._id)}});
   }
+
+  await Project.findByIdAndUpdate(record.project, {$push: {records: new Types.ObjectId(record._id)}});
   next();
 });
 
