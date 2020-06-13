@@ -83,7 +83,7 @@ export class TasklistComponent implements OnInit, OnDestroy {
   }
 
   setTaskCompleted(task: Task, completed: boolean, event: any) {
-    // TODO Implement me
+    this.taskService.setTaskCompletion(task, completed);
     event.stopPropagation();
   }
 }

@@ -20,10 +20,10 @@
       <mat-icon class="scaled-icon-large">{{this.runningRecord ? 'stop' : 'play_arrow'}}</mat-icon>
     </button>
     <button mat-mini-fab class="action-button" color="primary"
-            *ngIf="this.selectedProject"
-            (click)="setCompletion()"
+            (click)="setCompletion(selectedProject, !selectedProject.completed)"
+            *ngIf="selectedProject"
             [disabled]="this.runningRecord != null">
-      <mat-icon>{{this.selectedProject.completed ? 'swap_vert' : 'done'}}</mat-icon>
+      <mat-icon>{{selectedProject.completed ? 'swap_vert' : 'done'}}</mat-icon>
     </button>
     <!-- TODO Add button for completion of task to allow both actions from project view component -->
   </div>

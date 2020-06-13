@@ -114,22 +114,8 @@ export class AppComponent implements OnInit, OnDestroy {
     }
   }
 
-  setCompletion(): void {
-    if (this.selectedProject.completed) {
-      this.setProjectNotCompleted();
-    } else {
-      this.setProjectCompleted();
-    }
-  }
-
-  setProjectCompleted(): void {
-    this.selectedProject.completed = true;
-    // TODO
-  }
-
-  setProjectNotCompleted(): void {
-    this.selectedProject.completed = false;
-    // TODO
+  setCompletion(project: Project, completed: boolean): void {
+    this.projectService.setCompletionProject(project, completed);
   }
 
   public onBackPressed(): void {

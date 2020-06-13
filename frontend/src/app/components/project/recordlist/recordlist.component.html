@@ -14,7 +14,9 @@
   </tr>
   <tr *ngFor="let record of records"
       [class.selected]="selectedTask?._id === record.task"
-      [style.background]="(selectedTask?._id === record.task) ? currentProject.color : '#e8e8e8'">
+      [style.background]="(selectedTask?._id === record.task)
+       ? !selectedTask.completed ? currentProject.color : '#bbb'
+       : '#e8e8e8'">
     <td>{{getTaskDescription(record)}}</td>
     <td>{{record.startTime | date:'dd.MM.yyyy'}}</td>
     <td>{{record.startTime | date:'HH:mm:ss'}}</td>

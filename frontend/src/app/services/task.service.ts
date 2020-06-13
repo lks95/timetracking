@@ -53,8 +53,17 @@ export class TaskService {
 
 
   editTask(task: Task, taskDescription: string): Observable<Task> {
+    return this.updateTask(task, taskDescription, task.completed);
+  }
+
+  setTaskCompletion(task: Task, completed: boolean): Observable<Task> {
+    return this.updateTask(task, task.description, completed);
+  }
+
+  updateTask(task: Task, taskDescription: string, completion: boolean): Observable<Task> {
     const request = this.httpClient.patch<Task>(apiUrl + 'tasks/' + task._id, {
-      description: taskDescription
+      description: taskDescription,
+      completed: completion
     }).pipe(
       share()
     );
@@ -65,5 +74,4 @@ export class TaskService {
 
     return request;
   }
-
 }

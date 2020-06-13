@@ -15,6 +15,7 @@ export class ProjectsComponent implements OnInit, OnDestroy {
   selectedProject: Project;
 
   private projectCreationSub: Subscription;
+  private projectUpdateSub: Subscription;
   private projectSelectionSub: Subscription;
 
   constructor(
@@ -40,6 +41,11 @@ export class ProjectsComponent implements OnInit, OnDestroy {
 
     this.projectSelectionSub = this.projectService.onProjectSelection.subscribe(project => {
       this.selectedProject = project;
+    });
+
+    this.projectUpdateSub = this.projectService.onProjectUpdate.subscribe(project => {
+      const index = this.projects.findIndex(t => t._id === project._id);
+      this.projects[index] = project;
     });
   }
 
