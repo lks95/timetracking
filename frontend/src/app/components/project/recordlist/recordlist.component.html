@@ -6,10 +6,16 @@
     <col style="width:30%">
     <col style="width:10%">
   </colgroup>
-  <th>Date</th>
-  <th>Start</th>
-  <th>End</th>
-  <tr *ngFor="let record of records">
+  <tr>
+    <th>Task</th>
+    <th>Date</th>
+    <th>Start</th>
+    <th>End</th>
+  </tr>
+  <tr *ngFor="let record of records"
+      [class.selected]="selectedTask?._id === record.task"
+      [style.background]="(selectedTask?._id === record.task) ? currentProject.color : '#e8e8e8'">
+    <td>{{getTaskDescription(record)}}</td>
     <td>{{record.startTime | date:'dd.MM.yyyy'}}</td>
     <td>{{record.startTime | date:'HH:mm:ss'}}</td>
     <td>{{record.endTime | date:'HH:mm:ss'}}</td>
