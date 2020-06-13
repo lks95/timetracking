@@ -22,7 +22,7 @@ router.patch('/:id', async (req, res) => {
   let error;
   let task;
 
-  if (!req.body.description && !req.body.completed) {
+  if (!req.body.description && req.body.completed == undefined) {
     res.status(400).send('Request body invalid');
     return;
   }
@@ -41,7 +41,7 @@ router.patch('/:id', async (req, res) => {
   }
 
   task.description = req.body.description ? req.body.description : task.description;
-  task.completed = req.body.completed ? req.body.completed : task.completed;
+  task.completed = req.body.completed != undefined ? req.body.completed : task.completed;
 
   const updated = await task.save();
   res.status(200).send(updated);
