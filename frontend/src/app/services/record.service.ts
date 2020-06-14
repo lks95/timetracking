@@ -105,4 +105,16 @@ export class RecordService {
     });
     return request;
   }
+
+  deleteRecord(record: Record): Observable<any> {
+    const request = this.httpClient.delete<Record>(apiUrl + 'records/' + record._id).pipe(
+      share()
+    );
+
+    request.subscribe(result => {
+      this.recordDeletion.next(record);
+      console.log('Record deletion triggered.');
+    });
+    return request;
+  }
 }

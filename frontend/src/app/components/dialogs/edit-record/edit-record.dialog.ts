@@ -44,6 +44,17 @@ export class EditRecordDialog {
     }
   }
 
+  deleteRecord() {
+    try {
+      this.service.deleteRecord(this.data)
+        .subscribe(result => {
+          this.dialogRef.close();
+        });
+    } catch (error) {
+      console.log('An error occurred.');
+    }
+  }
+
   isValidInput(): boolean {
     return this.recordForm.get('endTime').value && this.recordForm.get('startTime').value &&
       0 < new Date(this.recordForm.get('endTime').value).getTime() - new Date(this.recordForm.get('startTime').value).getTime();
