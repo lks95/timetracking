@@ -17,9 +17,13 @@
   </form>
 
 </mat-dialog-content>
-<mat-dialog-actions align="end">
+<mat-dialog-actions class="left">
+  <button (click)="deleteProject()" color="warn" mat-button>Delete Project</button>
+</mat-dialog-actions>
+<mat-dialog-actions class="right">
   <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-flat-button [ngStyle]="{'background-color': selectedColor  && projectForm.valid? selectedColor : ''}" color="primary"
+  <button [ngStyle]="{'background-color': selectedColor  && projectForm.valid? selectedColor : ''}" color="primary"
+          mat-flat-button
           (click)="updateProject()"
           [disabled]="!projectForm.valid">Update
   </button>

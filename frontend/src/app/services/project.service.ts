@@ -22,6 +22,9 @@ export class ProjectService {
   private projectUpdate = new Subject<Project>();
   onProjectUpdate = this.projectUpdate.asObservable().pipe(share());
 
+  private projectDeletion = new Subject<Project>();
+  onProjectDeleted = this.projectDeletion.asObservable().pipe(share());
+
   constructor(private httpClient: HttpClient) {
 
     this.onProjectUpdate.subscribe(project => {
@@ -95,6 +98,19 @@ export class ProjectService {
 
     request.subscribe(result => {
       this.projectUpdate.next(result);
+    });
+
+    return request;
+  }
+
+  deleteProject(project: Project): Observable<any> {
+    const request = this.httpClient.delete<Project>(apiUrl + 'projects/' + project._id).pipe(
+      share(),
+      catchError(this.handleError)
+    );
+
+    request.subscribe(result => {
+      this.projectDeletion.next(project);
     });
 
     return request;

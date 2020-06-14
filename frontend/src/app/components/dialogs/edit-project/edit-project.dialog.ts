@@ -1,5 +1,5 @@
-import {Component, Inject, Input} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {Component, Inject} from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {ProjectService} from '../../../services/project.service';
 import {Project} from '../../../models/project';
@@ -43,6 +43,18 @@ export class EditProjectDialog {
     try {
       this.service.updateProjectInfo(this.data, this.projectForm.get('projectName').value, this.selectedColor)
         .subscribe(project => {
+          this.dialogRef.close();
+        });
+    } catch (error) {
+      // TODO Add properly error handling
+      console.log('An error occurred.');
+    }
+  }
+
+  deleteProject() {
+    try {
+      this.service.deleteProject(this.data)
+        .subscribe(result => {
           this.dialogRef.close();
         });
     } catch (error) {

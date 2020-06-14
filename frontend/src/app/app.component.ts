@@ -31,6 +31,7 @@ export class AppComponent implements OnInit, OnDestroy {
   componentRef: any;
 
   private projectSelectionSub: Subscription;
+  private projectDeletionSub: Subscription;
   private taskSelectionSub: Subscription;
 
   constructor(
@@ -53,6 +54,14 @@ export class AppComponent implements OnInit, OnDestroy {
   subscribeToObservables() {
     this.projectSelectionSub = this.projectService.onProjectSelection.subscribe(project => {
       this.selectedProject = project;
+    });
+    this.projectDeletionSub = this.projectService.onProjectDeleted.subscribe(deletedProject => {
+      // TODO Navigate back and diselecte all elements
+      this.projectService.selectProject(null);
+      this.taskService.selectTask(null);
+      if (!this.isInstanceOfProjects()) {
+        this.router.navigate(['../']);
+      }
     });
     this.taskSelectionSub = this.taskService.onTaskSelection.subscribe(task => {
       this.selectedTask = task;
