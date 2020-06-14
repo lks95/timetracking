@@ -1,0 +1,119 @@
+
+.recordsDisplay {
+  width: 50%;
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 35px;
+  font-size: 35px;
+  font-weight: lighter;
+}
+
+/*Tabs*/
+::ng-deep {
+  .mat-tab-label {
+    margin-top: 30px;
+    width: 50%;
+  }
+
+  .mat-ink-bar {
+    background-color: lightseagreen !important;
+  }
+}
+
+/*Taskliste*/
+.addFirst {
+  display: block;
+  color: #ccc;
+  margin: 100px auto;
+  transform: scale(3);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 auto;
+}
+
+.recordList {
+  margin-top: 10px;
+
+  th {
+    color: #777;
+    font-weight: normal;
+  }
+
+  tr {
+    text-align: center;
+    background-color: #e8e8e8;
+  }
+
+
+}
+
+.action-button {
+  margin-right: 0;
+}
+
+td {
+  padding: 10px 5px;
+  border-bottom: 2px solid #fff;
+}
+
+p.taskDescription {
+  cursor: pointer;
+  display: inline-block;
+  margin: 0;
+}
+
+.action-button {
+  margin-right: 10px;
+  color: #aaa;
+}
+
+tr.selected .action-button {
+  color: #fff;
+}
+
+.captionCompleted {
+  background-color: #aaa;
+  color: #fff;
+  text-align: center;
+}
+
+.completed {
+  color: #aaa;
+}
+
+.selected {
+  color: #fff;
+}
+
+.new-taskOrRecord {
+  display: block;
+  background-color: orange;
+  color: white;
+  margin: 40px auto;
+}
+
+/*Tab-Container*/
+div.tab-container {
+  display: none;
+}
+
+/*Desktop-CSS*/
+@media screen and (min-width: 641px) {
+  mat-divider {
+    width: 80%;
+    margin: 0 auto;
+    border-top-width: 1.5px;
+  }
+
+  table {
+    width: 80%;
+  }
+
+  tr:hover:not(.captionCompleted) {
+    filter: brightness(90%);
+  }
+}
+

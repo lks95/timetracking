@@ -1,0 +1,30 @@
+<table *ngIf="records.length > 0"
+       class="recordList">
+  <colgroup>
+    <col style="width:30%">
+    <col style="width:30%">
+    <col style="width:30%">
+    <col style="width:10%">
+  </colgroup>
+  <tr>
+    <th>Task</th>
+    <th>Date</th>
+    <th>Start</th>
+    <th>End</th>
+  </tr>
+  <tr *ngFor="let record of records"
+      [class.selected]="selectedTask?._id === record.task"
+      [style.background]="(selectedTask?._id === record.task)
+       ? !selectedTask.completed ? currentProject.color : '#bbb'
+       : '#e8e8e8'">
+    <td>{{getTaskDescription(record)}}</td>
+    <td>{{record.startTime | date:'dd.MM.yyyy'}}</td>
+    <td>{{record.startTime | date:'HH:mm:ss'}}</td>
+    <td>{{record.endTime | date:'HH:mm:ss'}}</td>
+    <td>
+      <button (click)="openEditRecordDialog(record)" class="action-button" mat-icon-button>
+        <mat-icon class="arrow-button">edit</mat-icon>
+      </button>
+    </td>
+  </tr>
+</table>

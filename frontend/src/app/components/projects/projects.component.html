@@ -1,0 +1,43 @@
+<button mat-icon-button class="addFirst"
+        *ngIf="(getProjectsNotCompleted().length === 0 && getProjectsCompleted().length === 0)">
+  <mat-icon class="addFirst-button">playlist_add</mat-icon>
+</button>
+<table>
+  <colgroup>
+    <col style="width:20%">
+    <col style="width:65%">
+    <col style="width:15%">
+  </colgroup>
+  <tr *ngFor="let project of getProjectsNotCompleted()"
+      (click)="onSelect(project)"
+      [class.selected]="project?._id === selectedProject?._id"
+      [style.background]="(selectedProject && project?._id === selectedProject?._id) ? selectedProject.color : '#e8e8e8'">
+    <td>
+      <div class="projectColorBox" [style.background-color]="project.color"></div>
+    </td>
+    <td><p class="projectName">{{project.name}}</p></td>
+    <td>
+      <button class="action-button" mat-icon-button
+              (click)="openDetails(project, $event)">
+        <mat-icon class="arrow-button">keyboard_arrow_right</mat-icon>
+      </button>
+    </td>
+  </tr>
+  <tr *ngIf="getProjectsCompleted().length > 0" class="captionCompleted">
+    <td colspan="3">Completed Projects</td>
+  </tr>
+  <tr class="completed" *ngFor="let project of getProjectsCompleted()"
+      [class.selected]="project === selectedProject"
+      [style.background]="(project === this.selectedProject)?'#bbb':'#d0d0d0'">
+    <td>
+      <div class="projectColorBox completedBox"></div>
+    </td>
+    <td (click)="onSelect(project)"><p class="projectName">{{project.name}}</p></td>
+    <td>
+      <button (click)="openDetails(project, $event)" class="action-button" mat-icon-button>
+        <mat-icon class="arrow-button">keyboard_arrow_right</mat-icon>
+      </button>
+    </td>
+  </tr>
+</table>
+

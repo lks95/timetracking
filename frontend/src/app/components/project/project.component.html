@@ -1,0 +1,30 @@
+<mat-tab-group class="mobile-view" mat-align-tabs="center">
+  <mat-tab label="Aufgaben">
+    <app-tasklist [tasks]="getTasks()"></app-tasklist>
+  </mat-tab>
+  <mat-tab label="Records">
+    <app-recordlist [records]="getRecords()"></app-recordlist>
+  </mat-tab>
+</mat-tab-group>
+
+<!-- Divs for Desktop View -->
+<div class="desktop-view tab-container">
+  <div class="task-container">
+    <div class="caption-container">Tasks
+      <button (click)="openTaskCreationDialog()" class="creation-button" mat-icon-button>
+        <mat-icon>add</mat-icon>
+      </button>
+      <mat-divider class="desktop-view "></mat-divider>
+    </div>
+    <app-tasklist [tasks]="getTasks()"></app-tasklist>
+  </div>
+  <div class="record-container">
+    <div class="caption-container">Records
+      <button (click)="openRecordCreationDialog()" class="creation-button" mat-icon-button>
+        <mat-icon>add</mat-icon>
+      </button>
+      <mat-divider class="desktop-view "></mat-divider>
+    </div>
+    <app-recordlist [records]="getRecords()"></app-recordlist>
+  </div>
+</div>

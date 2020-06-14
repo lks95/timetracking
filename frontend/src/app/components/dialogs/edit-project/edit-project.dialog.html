@@ -1,0 +1,30 @@
+<h2>Edit Project</h2>
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="projectForm">
+    <mat-form-field>
+      <mat-label>Project name</mat-label>
+      <input matInput [placeholder]="data.name" formControlName="projectName" required>
+    </mat-form-field>
+
+    <mat-grid-list cols="4" rowHeight="1:1" gutterSize="8px">
+      <mat-grid-tile *ngFor="let color of colors">
+        <button mat-button class="color-button"
+                (click)="selectedColor == color ? selectedColor = null : selectedColor = color"
+                [ngStyle]="{'background-color': color}"
+                [ngClass]="{'color-button': selectedColor != color, 'color-button-pressed': selectedColor == color}"></button>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </form>
+
+</mat-dialog-content>
+<mat-dialog-actions class="left">
+  <button (click)="deleteProject()" color="warn" mat-button>Delete Project</button>
+</mat-dialog-actions>
+<mat-dialog-actions class="right">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button [ngStyle]="{'background-color': selectedColor  && projectForm.valid? selectedColor : ''}" color="primary"
+          mat-flat-button
+          (click)="updateProject()"
+          [disabled]="!projectForm.valid">Update
+  </button>
+</mat-dialog-actions>

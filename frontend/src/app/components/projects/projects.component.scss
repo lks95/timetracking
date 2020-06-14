@@ -1,0 +1,79 @@
+/* Mobile CSS*/
+@media screen and (min-width: 0px) {
+
+  /*Projekteliste*/
+
+  .addFirst {
+    display: block;
+    color: #ccc;
+    margin: 100px auto;
+    transform: scale(3);
+  }
+
+  table {
+    margin: 50px auto 0 auto;
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  td {
+    cursor: pointer;
+    padding: 10px 5px;
+    border-bottom: 2px solid #fff;
+  }
+
+  p.projectName {
+    display: inline-block;
+    margin: 0;
+  }
+
+  .action-button {
+    margin-right: 10px;
+    color: #aaa;
+  }
+
+  tr.selected .action-button {
+    color: #fff;
+  }
+
+  .captionCompleted {
+    background-color: #aaa;
+    color: #fff;
+    text-align: center;
+  }
+
+  .projectColorBox {
+    margin: auto;
+    width: 16px;
+    height: 16px;
+  }
+
+  .completedBox {
+    background-color: #aaa;
+  }
+
+  .completed {
+    color: #aaa;
+  }
+
+  .selected {
+    color: #fff;
+
+    .projectColorBox {
+      border: 1px solid white;
+    }
+  }
+
+}
+
+/*Desktop-CSS*/
+@media screen and (min-width: 641px){
+  table {
+    max-width: 780px;
+  }
+
+  tr:hover:not(.captionCompleted) {
+    filter: brightness(90%)
+  }
+}
+

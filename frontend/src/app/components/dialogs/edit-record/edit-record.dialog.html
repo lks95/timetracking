@@ -1,0 +1,24 @@
+<h2>Edit record with id {{ data._id }}</h2>
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="recordForm">
+    <mat-form-field class="left">
+      <mat-label>Start time</mat-label>
+      <input formControlName="startTime" matInput required type="datetime-local">
+    </mat-form-field>
+    <mat-form-field class="right">
+      <mat-label>End time</mat-label>
+      <input formControlName="endTime" matInput required type="datetime-local">
+    </mat-form-field>
+  </form>
+
+</mat-dialog-content>
+<mat-dialog-actions class="left">
+  <button (click)="deleteRecord()" color="warn" mat-button>Delete</button>
+</mat-dialog-actions>
+<mat-dialog-actions class="right">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button (click)="editRecord()" [disabled]="!isValidInput()"
+          color="primary"
+          mat-flat-button>Save
+  </button>
+</mat-dialog-actions>

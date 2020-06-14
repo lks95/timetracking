@@ -1,0 +1,40 @@
+<table class="taskList">
+  <colgroup>
+    <col>
+    <col>
+    <col style="width: 110px;">
+  </colgroup>
+  <tr (click)="onSelect(task)"
+      *ngFor="let task of getIncompleteTasks()"
+      [class.selected]="task._id === selectedTask?._id"
+      [style.background]="(task._id === selectedTask?._id) ? currentProject.color : '#e8e8e8'">
+    <td></td>
+    <td><p class="taskDescription">{{task.description}}</p></td>
+    <td>
+      <button (click)="openEditTaskDialog(task, $event)" class="action-button" mat-icon-button>
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button (click)="setTaskCompleted(task, true, $event)" class="action-button" mat-icon-button>
+        <mat-icon>done</mat-icon>
+      </button>
+    </td>
+  </tr>
+  <tr *ngIf="getCompleteTasks().length > 0" class="captionCompleted">
+    <td colspan="3">Completed Tasks</td>
+  </tr>
+  <tr (click)="onSelect(task)" *ngFor="let task of getCompleteTasks()"
+      [class.selected]="task._id === selectedTask?._id"
+      [style.background]="(task._id === selectedTask?._id) ? '#bbb' : '#d0d0d0'"
+      class="completed">
+    <td></td>
+    <td><p class="taskDescription">{{task.description}}</p></td>
+    <td>
+      <button (click)="openEditTaskDialog(task, $event)" class="action-button" mat-icon-button>
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button (click)="setTaskCompleted(task, false, $event)" class="action-button" mat-icon-button>
+        <mat-icon>swap_vert</mat-icon>
+      </button>
+    </td>
+  </tr>
+</table>
