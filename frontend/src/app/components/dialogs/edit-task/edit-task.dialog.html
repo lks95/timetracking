@@ -8,7 +8,10 @@
   </form>
 
 </mat-dialog-content>
-<mat-dialog-actions align="end">
+<mat-dialog-actions class="left">
+  <button (click)="deleteTask()" color="warn" mat-button>Delete</button>
+</mat-dialog-actions>
+<mat-dialog-actions class="right">
   <button mat-button mat-dialog-close>Cancel</button>
   <button (click)="editTask()" [disabled]="!taskForm.valid"
           color="primary"

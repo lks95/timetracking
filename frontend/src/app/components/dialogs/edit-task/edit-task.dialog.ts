@@ -36,5 +36,16 @@ export class EditTaskDialog {
       console.log('An error occurred.');
     }
   }
+
+  deleteTask() {
+    try {
+      this.service.deleteTask(this.data)
+        .subscribe(result => {
+          this.dialogRef.close();
+        });
+    } catch (error) {
+      console.log('An error occurred.');
+    }
+  }
 }
 

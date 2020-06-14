@@ -22,6 +22,9 @@ export class TaskService {
   private taskUpdate = new Subject<Task>();
   onTaskUpdated = this.taskUpdate.asObservable().pipe(share());
 
+  private taskDeletion = new Subject<Task>();
+  onTaskDeleted = this.taskDeletion.asObservable().pipe(share());
+
   constructor(private httpClient: HttpClient) {
     this.onTaskUpdated.subscribe(task => {
       const selectedTask = this.taskSelection.getValue();
@@ -70,6 +73,19 @@ export class TaskService {
 
     request.subscribe(result => {
       this.taskUpdate.next(result);
+    });
+
+    return request;
+  }
+
+  deleteTask(task: Task): Observable<any> {
+    const request = this.httpClient.delete<Task>(apiUrl + 'tasks/' + task._id).pipe(share());
+
+    request.subscribe(result => {
+      this.taskDeletion.next(task);
+      if (task._id === this.taskSelection.getValue()?._id) {
+        this.taskSelection.next(null);
+      }
     });
 
     return request;

@@ -28,8 +28,9 @@ export class ProjectComponent implements OnInit, OnDestroy {
   private projectSelectionSub: Subscription;
   private taskSelectionSub: Subscription;
   private taskCreationSub: Subscription;
-  private recordCreationSub: Subscription;
   private taskUpdatedSub: Subscription;
+  private taskDeletionSub: Subscription;
+  private recordCreationSub: Subscription;
   private recordChangedSub: Subscription;
   private recordDeletedSub: Subscription;
 
@@ -75,16 +76,18 @@ export class ProjectComponent implements OnInit, OnDestroy {
       (this.currentProject.tasks as Task[])[index] = task;
     });
 
+    this.taskDeletionSub = this.taskService.onTaskDeleted.subscribe(deletedTask => {
+      this.getProject();
+    });
+
     this.recordChangedSub = this.recordService.onRecordChanged.subscribe(record => {
       console.log(record);
       const index = (this.currentProject.records as Record[]).findIndex(r => r._id === record._id);
       (this.currentProject.records as Record[])[index] = record;
     });
 
-    this.recordDeletedSub = this.recordService.onRecordDeletion.subscribe(record => {
-      console.log('Subscription of record creation triggered.');
-      const index = (this.currentProject.records as Record[]).findIndex(r => r._id === record._id);
-      (this.currentProject.records as Record[]).splice(index, 1);
+    this.recordDeletedSub = this.recordService.onRecordDeletion.subscribe(deletedRecord => {
+      this.getProject();
     });
   }
 
@@ -94,6 +97,7 @@ export class ProjectComponent implements OnInit, OnDestroy {
     this.taskCreationSub.unsubscribe();
     this.recordCreationSub.unsubscribe();
     this.taskUpdatedSub.unsubscribe();
+    this.taskDeletionSub.unsubscribe();
     this.recordChangedSub.unsubscribe();
     this.recordDeletedSub.unsubscribe();
   }
