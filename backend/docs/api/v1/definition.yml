@@ -24,6 +24,8 @@ paths:
                     $ref: '#components/schemas/SimpleProject'
 
     post:
+      tags:
+        - projects
       summary: 'Register new project'
       requestBody:
         description: 'All necessary information for registering a new project.'
@@ -44,6 +46,8 @@ paths:
 
   /projects/{id}:
     get:
+      tags:
+        - projects
       summary: 'Endpoint for loading information of specific project'
       parameters:
         - in: path
@@ -62,6 +66,8 @@ paths:
         '404':
           description: 'If no project could be found under the given id.'
     patch:
+      tags:
+        - projects
       summary: 'Update project information'
       parameters:
         - in: path
@@ -89,6 +95,8 @@ paths:
         '404':
           description: 'If no project could be found under the given id.'
     delete:
+      tags:
+        - projects
       summary: 'Delete entire project'
       description: 'Delete project and all related tasks and records.'
       parameters:
@@ -106,6 +114,9 @@ paths:
 
   /projects/{id}/tasks:
     get:
+      tags:
+        - projects
+        - tasks
       summary: 'Endpoint for loading a list of tasks of a specific project'
       parameters:
         - in: path
@@ -127,6 +138,9 @@ paths:
                     items:
                       $ref: '#components/schemas/ExtendedTask'
     post:
+      tags:
+        - projects
+        - tasks
       summary: 'Register a task for a specific project'
       parameters:
         - in: path
@@ -157,6 +171,8 @@ paths:
 
   /records/start:
     post:
+      tags:
+        - records
       summary: 'Starts a new record'
       requestBody:
         description: 'The details for the record.'
@@ -179,6 +195,8 @@ paths:
 
   /records/{id}/stop:
     post:
+      tags:
+        - records
       summary: 'Stops the record under the given id'
       parameters:
         - in: path
@@ -202,6 +220,8 @@ paths:
 
   /records/stopAll:
     post:
+      tags:
+        - records
       summary: 'Stops all running records'
       responses:
         '200':
@@ -218,6 +238,8 @@ paths:
 
   /records/running:
     get:
+      tags:
+        - records
       summary: 'Returns a list of running records'
       responses:
         '200':
@@ -234,6 +256,8 @@ paths:
 
   /records/{id}:
     get:
+      tags:
+        - records
       summary: 'Returns the record with the given id'
       parameters:
         - in: path
@@ -253,6 +277,8 @@ paths:
 
   /tasks/{id}:
     get:
+      tags:
+        - tasks
       summary: 'Endpoint for loading details of a task'
       parameters:
         - in: path
@@ -269,6 +295,8 @@ paths:
               schema:
                 $ref: '#components/schemas/ExtendedTask'
     patch:
+      tags:
+        - tasks
       summary: 'Endpoint for updating the given task'
       parameters:
         - in: path
@@ -296,6 +324,8 @@ paths:
         '404':
           description: 'If the task with the given project and task id could not be found.'
     delete:
+      tags:
+        - tasks
       summary: 'Endpoint to delete a task'
       parameters:
         - name: id
