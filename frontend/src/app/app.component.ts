@@ -119,9 +119,9 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   public onBackPressed(): void {
-    // TODO Implement me
     this.router.navigate(['../']);
-    // TODO Remove project selection / task selection whenever necessary
+    // Remove task selection on projects overview
+    this.taskService.selectTask(null);
   }
 
   isInstanceOfProjects(): boolean {

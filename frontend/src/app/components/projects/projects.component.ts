@@ -39,6 +39,7 @@ export class ProjectsComponent implements OnInit, OnDestroy {
       this.sortProjects();
     });
 
+    this.selectedProject = this.projectService.getSelectedProject();
     this.projectSelectionSub = this.projectService.onProjectSelection.subscribe(project => {
       this.selectedProject = project;
     });
@@ -52,6 +53,7 @@ export class ProjectsComponent implements OnInit, OnDestroy {
   private unsubscribe() {
     this.projectSelectionSub.unsubscribe();
     this.projectCreationSub.unsubscribe();
+    this.projectUpdateSub.unsubscribe();
   }
 
   onSelect(project: Project): void {

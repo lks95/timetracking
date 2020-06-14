@@ -43,6 +43,10 @@ export class ProjectService {
     return this.httpClient.get<Project>(apiUrl + 'projects/' + id);
   }
 
+  getSelectedProject(): Project {
+    return this.projectSelection.getValue();
+  }
+
   createProject(project: string, colorValue?: string): Observable<Project> {
     console.log('Create project with ' + project + ' and  ' + colorValue);
     const request = this.httpClient.post<Project>(apiUrl + 'projects', {
