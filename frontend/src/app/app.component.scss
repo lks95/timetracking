@@ -45,6 +45,7 @@ html {
     margin-left: -28px;
     left: 50%;
     right: 50%;
+    z-index: 100;
   }
 
   .action-button {
@@ -52,6 +53,7 @@ html {
     margin-top: 8px;
     right: 64px;
     background-color: lightseagreen;
+    z-index: 100;
   }
 
   .element-button {
