@@ -105,9 +105,7 @@ export class AppComponent implements OnInit, OnDestroy {
       });
 
       dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed');
-        // TODO See if the result can be used somehow
-        // this.animal = result;
+        // this.selectedProject = result;
       });
     } else {
       const dialogRef = this.dialog.open(EditProjectDialog, {

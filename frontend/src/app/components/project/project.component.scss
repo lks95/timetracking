@@ -20,12 +20,8 @@
   }
 }
 
-.mobile-view {
-  display: initial;
-}
-
 .desktop-view {
-  display: none;
+  display: none !important;
 }
 
 .recordsDisplay {
@@ -50,11 +46,20 @@
 }
 
 /*Taskliste*/
-.addFirst {
-  display: block;
+.empty-list-button {
+  display: inline-block;
   color: #ccc;
-  margin: 100px auto;
+  margin: 64px auto;
   transform: scale(3);
+}
+
+.mat-tab-label-content {
+  width: 100%;
+}
+
+.tab-action {
+  position: absolute;
+  right: 8px;
 }
 
 table {
@@ -125,11 +130,11 @@ tr.selected .action-button {
 /*Desktop-CSS*/
 @media screen and (min-width: 641px){
   .mobile-view {
-    display: none;
+    display: none !important;
   }
 
   .desktop-view {
-    display: flex;
+    display: flex !important;
     width: 100%;
 
     .task-container {

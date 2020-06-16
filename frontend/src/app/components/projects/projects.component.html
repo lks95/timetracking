@@ -1,5 +1,6 @@
-<button mat-icon-button class="addFirst"
-        *ngIf="(getProjectsNotCompleted().length === 0 && getProjectsCompleted().length === 0)">
+<button (click)="createProject()" *ngIf="projects.length === 0"
+        class="empty-list-button"
+        mat-icon-button>
   <mat-icon class="addFirst-button">playlist_add</mat-icon>
 </button>
 <table>
