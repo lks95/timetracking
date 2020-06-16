@@ -1,4 +1,4 @@
-import {model, Schema, Types} from 'mongoose';
+import { Schema, Types, model } from 'mongoose';
 import IRecord from '../../model/Record';
 import Project from './project';
 import Task from './task';
@@ -27,29 +27,26 @@ const RecordSchema = new Schema(
   },
 );
 
-RecordSchema.post('save', async (record: IRecord, next) => {
+RecordSchema.post('save', async (record: IRecord) => {
   // Create reference in task or project when created
   if (record.task) {
-    await Task.findByIdAndUpdate(record.task, {$push: {records: new Types.ObjectId(record._id)}});
+    await Task.findByIdAndUpdate(record.task, {
+      $push: { records: new Types.ObjectId(record._id) },
+    });
   }
-
-  await Project.findByIdAndUpdate(record.project, {$push: {records: new Types.ObjectId(record._id)}});
-  next();
+  await Project.findByIdAndUpdate(record.project, {
+    $push: { records: new Types.ObjectId(record._id) },
+  });
 });
 
 RecordSchema.post('findOneAndRemove', async (removedRecord: IRecord) => {
   // Remove record from project or task too
   if (removedRecord.task) {
-    console.log(await Task.findById(removedRecord.task));
-    await Task.update(
-      {_id: removedRecord.task as string},
-      {$pull: {records: removedRecord._id}},
-    );
+    await Task.findByIdAndUpdate(removedRecord.task,
+      { $pull: { records: removedRecord._id } });
   }
-  await Project.update(
-    {_id: removedRecord.project as string},
-    {$pull: {records: removedRecord._id}},
-  );
+  await Project.findByIdAndUpdate(removedRecord.project,
+    { $pull: { records: removedRecord._id } });
 });
 
 export default model<IRecord>('record', RecordSchema);
