@@ -66,21 +66,21 @@ html {
     color: rgba(60, 60, 60, 0.25);
   }
 
-  .back-button{
+  .back-button {
     position: absolute;
     top: 24px;
     left: 24px;
   }
 
-  .recordsDisplay {
-    width: 50%;
+  .time-indicator {
+    position: absolute;
+    width: 100%;
     margin: 0 auto;
     text-align: center;
-    padding-top: 32px;
+    top: 64px;
     font-size: 32px;
     font-weight: lighter;
   }
-
 }
 
 /*Desktop-CSS*/

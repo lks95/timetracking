@@ -22,13 +22,15 @@ export class AppComponent implements OnInit, OnDestroy {
 
   @ViewChild('playButton') playButton;
 
-  playButtonPressed = false;
   title = 'frontend';
   selectedProject: Project = null;
   selectedTask: Task = null;
-  recordDisplay = '00:00:23';
   runningRecord: Record;
   componentRef: any;
+  currentTime: number;
+  recordTime: number;
+  timeDifference: number;
+
 
   private projectSelectionSub: Subscription;
   private projectDeletionSub: Subscription;
@@ -45,6 +47,12 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscribeToObservables();
+    setInterval(() => {
+      if (this.runningRecord) {
+        this.currentTime = new Date().getTime();
+        this.timeDifference = this.currentTime - this.recordTime;
+      }
+    }, 1000);
   }
 
   ngOnDestroy(): void {
@@ -56,7 +64,6 @@ export class AppComponent implements OnInit, OnDestroy {
       this.selectedProject = project;
     });
     this.projectDeletionSub = this.projectService.onProjectDeleted.subscribe(deletedProject => {
-      // TODO Navigate back and diselecte all elements
       this.projectService.selectProject(null);
       this.taskService.selectTask(null);
       if (!this.isInstanceOfProjects()) {
@@ -77,14 +84,17 @@ export class AppComponent implements OnInit, OnDestroy {
     if (this.runningRecord != null) {
       this.recordService.stopRecord(this.runningRecord).subscribe(finalRecord => {
         this.runningRecord = null;
+        this.recordTime = null;
       });
     } else if (this.selectedTask != null) {
       this.recordService.startTaskRecording(this.selectedTask).subscribe(record => {
         this.runningRecord = record;
+        this.recordTime = new Date(record.startTime).getTime();
       });
     } else if (this.selectedProject != null) {
       this.recordService.startProjectRecording(this.selectedProject).subscribe(record => {
         this.runningRecord = record;
+        this.recordTime = new Date(record.startTime).getTime();
       });
     }
   }
@@ -130,10 +140,17 @@ export class AppComponent implements OnInit, OnDestroy {
   public onBackPressed(): void {
     this.router.navigate(['../']);
     // Remove task selection on projects overview
-    this.taskService.selectTask(null);
+    if (!this.runningRecord || this.runningRecord.task !== this.selectedTask._id) {
+      this.taskService.selectTask(null);
+    }
   }
 
   isInstanceOfProjects(): boolean {
     return this.componentRef instanceof ProjectsComponent;
+  }
+
+  getTimeDifference(): void {
+    console.log(new Date());
+    console.log(new Date(this.runningRecord.startTime));
   }
 }
