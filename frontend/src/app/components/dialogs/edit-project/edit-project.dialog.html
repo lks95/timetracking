@@ -3,7 +3,7 @@
   <form [formGroup]="projectForm">
     <mat-form-field>
       <mat-label>Project name</mat-label>
-      <input matInput [placeholder]="data.name" formControlName="projectName" required>
+      <input [placeholder]="data.name" formControlName="projectName" matInput>
     </mat-form-field>
 
     <mat-grid-list cols="4" rowHeight="1:1" gutterSize="8px">

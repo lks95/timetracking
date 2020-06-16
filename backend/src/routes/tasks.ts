@@ -22,7 +22,7 @@ router.patch('/:id', async (req, res) => {
   let error;
   let task;
 
-  if (!req.body.description && req.body.completed == undefined) {
+  if (!req.body.description && req.body.completed === undefined) {
     res.status(400).send('Request body invalid');
     return;
   }
@@ -40,10 +40,13 @@ router.patch('/:id', async (req, res) => {
     res.status(404).send('Task not found');
   }
 
-  task.description = req.body.description ? req.body.description : task.description;
-  task.completed = req.body.completed != undefined ? req.body.completed : task.completed;
+  const desc = req.body.description ? req.body.description : task.description;
+  const comp = req.body.completed !== undefined ? req.body.completed : task.completed;
 
-  const updated = await task.save();
+  const updated = await Task.findOneAndUpdate({
+    _id: req.params.id,
+  }, { $set: { description: desc, completed: comp } }, { new: true });
+
   res.status(200).send(updated);
 });
 

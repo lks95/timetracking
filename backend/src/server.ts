@@ -26,12 +26,18 @@ app.use(express.urlencoded({
 
 // List of routers
 
-app.use(cors())
-app.use('/projects', projectsRouter);
-app.use('/tasks', tasksRouter);
-app.use('/records', recordsRouter);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(apiDoc));
-// TODO Add further routes here
+app.use(cors());
+const router = express.Router();
+router.use('/projects', projectsRouter);
+router.use('/tasks', tasksRouter);
+router.use('/records', recordsRouter);
+router.use('/api-docs', swaggerUi.serve, swaggerUi.setup(apiDoc));
+
+if (process.env.ENV === 'prod') {
+  app.use('/api', router);
+} else {
+  app.use('/', router);
+}
 
 // Connect to database and handle errors
 mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true, dbName: process.env.DATABASE_NAME || 'test', useFindAndModify: false })

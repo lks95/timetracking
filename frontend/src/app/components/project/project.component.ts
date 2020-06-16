@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild, ViewEncapsulation} from '@angular/core';
 import {Task} from '../../models/task';
 import {Project} from '../../models/project';
 import {Record} from '../../models/record';
@@ -15,7 +15,8 @@ import {Subscription} from 'rxjs';
 @Component({
   selector: 'app-project',
   templateUrl: './project.component.html',
-  styleUrls: ['./project.component.scss']
+  styleUrls: ['./project.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ProjectComponent implements OnInit, OnDestroy {
 
@@ -126,24 +127,25 @@ export class ProjectComponent implements OnInit, OnDestroy {
     return [];
   }
 
-  openTaskCreationDialog(): void {
+  openTaskCreationDialog(event?: any): void {
     const dialogRef = this.dialog.open(CreateTaskDialog, {
       minHeight: '128px',
-      maxHeight: '100%',
-      minWidth: '512px',
+      maxHeight: '70%',
+      minWidth: '320px',
+      width: '512px',
       maxWidth: '90%',
       data: this.currentProject
     });
 
-    // dialogRef.afterClosed().subscribe(result => {
-    // });
+    event?.stopPropagation();
   }
 
-  openRecordCreationDialog(): void {
-    const dialogRef = this.dialog.open(CreateRecordDialog, {
+  openRecordCreationDialog(event?: any): void {
+    this.dialog.open(CreateRecordDialog, {
       minHeight: '128px',
-      maxHeight: '100%',
-      minWidth: '512px',
+      maxHeight: '70%',
+      minWidth: '320px',
+      width: '512px',
       maxWidth: '90%',
       data: {
         project: this.currentProject,
@@ -151,7 +153,6 @@ export class ProjectComponent implements OnInit, OnDestroy {
       }
     });
 
-    // dialogRef.afterClosed().subscribe(result => {
-    // });
+    event?.stopPropagation();
   }
 }

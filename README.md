@@ -49,8 +49,9 @@ Easy Time Tracking Application
 1. First start the project with `docker-compose up`
 2. Then open the web application in the browser at `http://localhost:4200`
 
-
 ## Tests
+
+To run the tests or the backend separately a mongo database connection is required. To define a database location create a `.env` file in the `backend` directory with at least a database URL. See for options `.env.example`.
 
 Run the tests:
 

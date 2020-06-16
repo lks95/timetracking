@@ -1,8 +1,9 @@
 import {Component, Inject} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {Task} from '../../../models/task';
 import {TaskService} from '../../../services/task.service';
+import {noWhitespaceValidator} from '../../validators/Validators';
 
 
 @Component({
@@ -21,7 +22,7 @@ export class EditTaskDialog {
               private service: TaskService
   ) {
     this.taskForm = this.fb.group({
-      taskDescription: data.description
+      taskDescription: new FormControl(data.description, [Validators.required, noWhitespaceValidator])
     });
   }
 

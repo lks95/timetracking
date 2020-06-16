@@ -90,18 +90,20 @@ router.patch('/:id', async (req, res) => {
   try {
     const record = await Record.findById(req.params.id);
 
-    const startTime = req.body.startTime || record.startTime;
-    const endTime = req.body.endTime || record.endTime;
+    const start = req.body.startTime || record.startTime;
+    const end = req.body.endTime || record.endTime;
 
-    if (startTime > endTime) {
+    if (start > end) {
       res.status(400).send('Start time cannot be before end time');
       return;
     }
 
-    record.startTime = startTime;
-    record.endTime = endTime;
+    record.startTime = start;
+    record.endTime = end;
 
-    const updated = await record.save();
+    const updated = await Record.findOneAndUpdate({
+      _id: req.params.id,
+    }, { $set: { startTime: start, endTime: end } }, { new: true });
 
     res.status(200).json(updated);
   } catch (error) {

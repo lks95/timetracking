@@ -3,6 +3,8 @@ import {Project} from '../../models/project';
 import {ProjectService} from '../../services/project.service';
 import {Router} from '@angular/router';
 import {Subscription} from 'rxjs';
+import {CreateProjectDialog} from '../dialogs/create-project/create-project.dialog';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-projects',
@@ -19,6 +21,7 @@ export class ProjectsComponent implements OnInit, OnDestroy {
   private projectSelectionSub: Subscription;
 
   constructor(
+    public dialog: MatDialog,
     private router: Router,
     private projectService: ProjectService
   ) {
@@ -103,6 +106,20 @@ export class ProjectsComponent implements OnInit, OnDestroy {
   sortProjects(): void {
     this.projects.sort((a, b) => {
       return a.name > b.name ? 1 : a.name < b.name ? -1 : 0;
+    });
+  }
+
+  createProject(): void {
+    const dialogRef = this.dialog.open(CreateProjectDialog, {
+      minHeight: '256px',
+      maxHeight: '70%',
+      minWidth: '320px',
+      width: '512px',
+      maxWidth: '90%'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      // this.selectedProject = result;
     });
   }
 }

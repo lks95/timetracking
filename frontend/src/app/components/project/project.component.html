@@ -1,9 +1,35 @@
 <mat-tab-group class="mobile-view" mat-align-tabs="center">
-  <mat-tab label="Aufgaben">
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <div>Tasks</div>
+      <button (click)="openTaskCreationDialog($event)" class="tab-action" mat-icon-button>
+        <mat-icon>add</mat-icon>
+      </button>
+    </ng-template>
     <app-tasklist [tasks]="getTasks()"></app-tasklist>
+    <div style="text-align:center">
+      <button (click)="openTaskCreationDialog()" *ngIf="this.currentProject?.tasks.length === 0"
+              class="empty-list-button"
+              mat-icon-button>
+        <mat-icon>playlist_add</mat-icon>
+      </button>
+    </div>
   </mat-tab>
-  <mat-tab label="Records">
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <div>Records</div>
+      <button (click)="openRecordCreationDialog($event)" class="tab-action" mat-icon-button>
+        <mat-icon>add</mat-icon>
+      </button>
+    </ng-template>
     <app-recordlist [records]="getRecords()"></app-recordlist>
+    <div style="text-align:center">
+      <button (click)="openRecordCreationDialog()" *ngIf="this.currentProject?.records.length === 0"
+              class="empty-list-button"
+              mat-icon-button>
+        <mat-icon>playlist_add</mat-icon>
+      </button>
+    </div>
   </mat-tab>
 </mat-tab-group>
 
@@ -17,6 +43,13 @@
       <mat-divider class="desktop-view "></mat-divider>
     </div>
     <app-tasklist [tasks]="getTasks()"></app-tasklist>
+    <div style="text-align:center">
+      <button (click)="openTaskCreationDialog()" *ngIf="this.currentProject?.tasks.length === 0"
+              class="empty-list-button"
+              mat-icon-button>
+        <mat-icon>playlist_add</mat-icon>
+      </button>
+    </div>
   </div>
   <div class="record-container">
     <div class="caption-container">Records
@@ -26,5 +59,12 @@
       <mat-divider class="desktop-view "></mat-divider>
     </div>
     <app-recordlist [records]="getRecords()"></app-recordlist>
+    <div style="text-align:center">
+      <button (click)="openRecordCreationDialog()" *ngIf="this.currentProject?.records.length === 0"
+              class="empty-list-button"
+              mat-icon-button>
+        <mat-icon>playlist_add</mat-icon>
+      </button>
+    </div>
   </div>
 </div>

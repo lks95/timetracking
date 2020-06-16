@@ -3,19 +3,20 @@ version: '3.0'
 services:
  backend:
   build: backend
-  command: node build/server.js   
-  ports:
-  - "3000:3000"
+  command: node build/server.js
+  expose:
+  - "3000"
   networks:
   - backend
   - frontend
   environment:
     - DATABASE_URL=mongodb://database:27017
+    - ENV=prod
 
  database:
   image: mongo
-  ports:
-  - "27017:27017"
+  expose:
+  - "27017"
   networks:
   - backend
 

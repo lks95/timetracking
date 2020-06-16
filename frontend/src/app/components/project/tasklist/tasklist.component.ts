@@ -70,8 +70,9 @@ export class TasklistComponent implements OnInit, OnDestroy {
   openEditTaskDialog(task: Task, event: any): void {
     const dialogRef = this.dialog.open(EditTaskDialog, {
       minHeight: '128px',
-      maxHeight: '100%',
-      minWidth: '512px',
+      maxHeight: '70%',
+      minWidth: '320px',
+      width: '512px',
       maxWidth: '90%',
       data: task
     });

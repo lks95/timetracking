@@ -4,17 +4,19 @@
     <button *ngIf="!isInstanceOfProjects()" mat-icon-button class="back-button" (click)="onBackPressed()">
       <mat-icon class="scaled-icon">keyboard_arrow_left</mat-icon>
     </button>
-    <button *ngIf="!playButtonPressed" mat-icon-button class="element-button" (click)="onElementAction()">
+    <button (click)="onElementAction()" class="element-button" mat-icon-button>
       <mat-icon class="scaled-icon">{{isInstanceOfProjects() ? 'add' : 'edit'}}</mat-icon>
     </button>
 
-    <div *ngIf="playButtonPressed" class="recordsDisplay"><p>{{recordDisplay}}</p></div>
+    <p *ngIf="this.runningRecord" class="time-indicator">{{timeDifference | date: 'HH:mm:ss' : '+0000'}}</p>
     <p class="project-name" *ngIf="selectedProject">{{selectedProject.name}}</p>
     <p class="task-name" *ngIf="selectedTask">{{selectedTask.description}}</p>
   </div>
 
   <div class="action-bar">
-    <button mat-fab #playButton [disabled]="!this.selectedProject || this.selectedProject.completed"
+    <button #playButton
+            [disabled]="!this.selectedProject || this.selectedProject.completed || (this.selectedTask && this.selectedTask.completed)"
+            mat-fab
             class="play-button"
             (click)="play()">
       <mat-icon class="scaled-icon-large">{{this.runningRecord ? 'stop' : 'play_arrow'}}</mat-icon>
