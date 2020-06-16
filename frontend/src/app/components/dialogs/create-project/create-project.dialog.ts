@@ -1,7 +1,8 @@
 import {Component} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {MatDialogRef} from '@angular/material/dialog';
 import {ProjectService} from '../../../services/project.service';
+import {noWhitespaceValidator} from '../../validators/Validators';
 
 
 @Component({
@@ -31,7 +32,7 @@ export class CreateProjectDialog {
               private service: ProjectService
   ) {
     this.projectForm = this.fb.group({
-      projectName: '',
+      projectName: new FormControl('', [Validators.required, noWhitespaceValidator]),
       color: ''
     });
     this.projectForm.valueChanges.subscribe(console.log);

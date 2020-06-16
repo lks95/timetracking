@@ -1,8 +1,9 @@
 import {Component, Inject} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {ProjectService} from '../../../services/project.service';
 import {Project} from '../../../models/project';
+import {noWhitespaceValidator} from '../../validators/Validators';
 
 
 @Component({
@@ -33,7 +34,7 @@ export class EditProjectDialog {
               private service: ProjectService
   ) {
     this.projectForm = this.fb.group({
-      projectName: data.name
+      projectName: new FormControl(data.name, [Validators.required, noWhitespaceValidator])
     });
     this.projectForm.valueChanges.subscribe(console.log);
     this.selectedColor = data.color;
