@@ -26,7 +26,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-import {CommonModule, DatePipe} from '@angular/common';
+import {CommonModule, DatePipe, SlicePipe} from '@angular/common';
 import {MatGridListModule} from '@angular/material/grid-list';
 
 
@@ -61,7 +61,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
     CommonModule,
     MatGridListModule
   ],
-  providers: [DatePipe],
+  providers: [DatePipe, SlicePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule {

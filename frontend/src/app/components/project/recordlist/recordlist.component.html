@@ -17,7 +17,7 @@
       [style.background]="(selectedTask?._id === record.task)
        ? !selectedTask.completed ? currentProject.color : '#bbb'
        : '#e8e8e8'">
-    <td>{{getTaskDescription(record)}}</td>
+    <td>{{getTaskDescription(record) | slice:0:12}}{{getTaskDescription(record)?.length > 12 ? '...' : ''}}</td>
     <td>{{record.startTime | date:'dd.MM.yyyy'}}</td>
     <td>{{record.startTime | date:'HH:mm:ss'}}</td>
     <td>{{record.endTime | date:'HH:mm:ss'}}</td>
