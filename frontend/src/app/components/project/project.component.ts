@@ -129,8 +129,9 @@ export class ProjectComponent implements OnInit, OnDestroy {
   openTaskCreationDialog(): void {
     const dialogRef = this.dialog.open(CreateTaskDialog, {
       minHeight: '128px',
-      maxHeight: '100%',
-      minWidth: '512px',
+      maxHeight: '70%',
+      minWidth: '320px',
+      width: '512px',
       maxWidth: '90%',
       data: this.currentProject
     });
@@ -142,8 +143,9 @@ export class ProjectComponent implements OnInit, OnDestroy {
   openRecordCreationDialog(): void {
     const dialogRef = this.dialog.open(CreateRecordDialog, {
       minHeight: '128px',
-      maxHeight: '100%',
-      minWidth: '512px',
+      maxHeight: '70%',
+      minWidth: '320px',
+      width: '512px',
       maxWidth: '90%',
       data: {
         project: this.currentProject,

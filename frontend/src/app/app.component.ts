@@ -98,8 +98,9 @@ export class AppComponent implements OnInit, OnDestroy {
     if (this.isInstanceOfProjects()) {
       const dialogRef = this.dialog.open(CreateProjectDialog, {
         minHeight: '256px',
-        maxHeight: '100%',
-        minWidth: '512px',
+        maxHeight: '70%',
+        minWidth: '320px',
+        width: '512px',
         maxWidth: '90%'
       });
 
@@ -111,8 +112,9 @@ export class AppComponent implements OnInit, OnDestroy {
     } else {
       const dialogRef = this.dialog.open(EditProjectDialog, {
         minHeight: '256px',
-        maxHeight: '100%',
-        minWidth: '512px',
+        maxHeight: '70%',
+        minWidth: '320px',
+        width: '512px',
         maxWidth: '90%',
         data: this.selectedProject
       });

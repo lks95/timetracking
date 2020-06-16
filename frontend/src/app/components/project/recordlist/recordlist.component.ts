@@ -56,8 +56,9 @@ export class RecordlistComponent implements OnInit, OnDestroy {
   openEditRecordDialog(record: Record): void {
     const dialogRef = this.dialog.open(EditRecordDialog, {
       minHeight: '128px',
-      maxHeight: '100%',
-      minWidth: '512px',
+      maxHeight: '70%',
+      minWidth: '320px',
+      width: '512px',
       maxWidth: '90%',
       data: record
     });
