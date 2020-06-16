@@ -14,7 +14,9 @@
   </div>
 
   <div class="action-bar">
-    <button mat-fab #playButton [disabled]="!this.selectedProject || this.selectedProject.completed"
+    <button #playButton
+            [disabled]="!this.selectedProject || this.selectedProject.completed || (this.selectedTask && this.selectedTask.completed)"
+            mat-fab
             class="play-button"
             (click)="play()">
       <mat-icon class="scaled-icon-large">{{this.runningRecord ? 'stop' : 'play_arrow'}}</mat-icon>
