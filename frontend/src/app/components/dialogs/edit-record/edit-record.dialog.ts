@@ -24,10 +24,9 @@ export class EditRecordDialog {
   ) {
     this.start = new Date(data.startTime);
     this.end = new Date(data.endTime);
-    console.log(this.start);
     this.recordForm = this.fb.group({
-      startTime: this.start.toISOString().slice(0, 16),
-      endTime: this.end.toISOString().slice(0, 16)
+      startTime: '',
+      endTime: ''
     });
     this.recordForm.valueChanges.subscribe(console.log);
   }
@@ -58,6 +57,10 @@ export class EditRecordDialog {
   isValidInput(): boolean {
     return this.recordForm.get('endTime').value && this.recordForm.get('startTime').value &&
       0 < new Date(this.recordForm.get('endTime').value).getTime() - new Date(this.recordForm.get('startTime').value).getTime();
+  }
+
+  dateChanged(eventDate: string): Date | null {
+    return !!eventDate ? new Date(eventDate) : null;
   }
 }
 

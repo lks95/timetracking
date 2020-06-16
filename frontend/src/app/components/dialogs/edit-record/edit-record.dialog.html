@@ -3,11 +3,17 @@
   <form [formGroup]="recordForm">
     <mat-form-field class="left">
       <mat-label>Start time</mat-label>
-      <input formControlName="startTime" matInput required type="datetime-local">
+      <input (ngModelChange)="start = dateChanged($event)" [ngModel]="start | date:'yyyy-MM-ddTHH:mm'"
+             formControlName="startTime" matInput
+             required
+             type="datetime-local">
     </mat-form-field>
     <mat-form-field class="right">
       <mat-label>End time</mat-label>
-      <input formControlName="endTime" matInput required type="datetime-local">
+      <input (ngModelChange)="end = dateChanged($event)" [ngModel]="end | date:'yyyy-MM-ddTHH:mm'"
+             formControlName="endTime" matInput
+             required
+             type="datetime-local">
     </mat-form-field>
   </form>
 
