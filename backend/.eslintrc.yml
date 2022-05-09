@@ -1,0 +1,27 @@
+extends: airbnb-base
+env:
+  es6: true
+  mocha: true
+  node: true
+parser: typescript-eslint-parser
+parserOptions:
+  sourceType: module
+  ecmaVersion: 2018
+  ecmaFeatures:
+    modules: true
+rules:
+  no-unused-vars: "warn"
+  no-console: "off"
+  no-underscore-dangle: "off"
+  semi: [warn, always]
+  import/extensions: [error, ignorePackages, { js: never, ts: never, jsx: never, tsx: never }]
+settings:
+  import/resolver:
+    node:
+      paths: ["src", "src/log", "src/model"]
+      extensions: [".ts"]
+overrides:
+  - files:
+    - 'tests/**/*.test.ts'
+    rules:
+      no-unused-expressions: off

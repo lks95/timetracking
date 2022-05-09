@@ -1,0 +1,470 @@
+openapi: 3.0.0
+info:
+  title: Lisbon Time Tracking App API Documentation
+  description: This API Endpoint documentation provides all the necessary information required for consuming the API
+    endpoint of this project.
+  version: 1.0.0
+servers:
+  - url: /
+    description: 'Application API endpoint'
+paths:
+  /projects:
+    get:
+      tags:
+        - projects
+      summary: 'Endpoint for loading a list of projects'
+      responses:
+        '200':
+          description: 'If the list of projects was successfully transmitted.'
+          content:
+            appliction/json:
+              schema:
+                type: object
+                properties:
+                  projects:
+                    type: array
+                    items:
+                      $ref: '#components/schemas/SimpleProject'
+    post:
+      summary: 'Register new project'
+      requestBody:
+        description: 'All necessary information for registering a new project.'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#components/schemas/ProjectRegistrationRequest'
+      responses:
+        '200':
+          description: 'If the project has been created successfully.'
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/ExtendedProject'
+        '400':
+          description: 'If the project could not be created, because required information are missing or malformed.'
+
+  /projects/{id}:
+    get:
+      summary: 'Endpoint for loading information of specific project'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: 'ID of the project to get'
+      responses:
+        '200':
+          description: 'If the project exists and could be fetched.'
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/ExtendedProject'
+        '404':
+          description: 'If no project could be found under the given id.'
+    patch:
+      summary: 'Update project information'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: 'ID of the project to update'
+      requestBody:
+        description: 'The information of the project to update.'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#components/schemas/ProjectUpdateRequest'
+      responses:
+        '200':
+          description: 'If the project has been updated successfully.'
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/SimpleProject'
+        '400':
+          description: 'If the project could not be updated. This might be the case if no information were provided.'
+        '404':
+          description: 'If no project could be found under the given id.'
+    delete:
+      summary: 'Delete entire project'
+      description: 'Delete project and all related tasks and records.'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: 'ID of the project to delete'
+      responses:
+        '204':
+          description: 'If project has been deleted successfully.'
+        '404':
+          description: 'If no project could be found under the given id.'
+
+  /projects/{id}/tasks:
+    get:
+      summary: 'Endpoint for loading a list of tasks of a specific project'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: 'ID of the project'
+      responses:
+        '200':
+          description: 'If the list of tasks was successfully transmitted.'
+          content:
+            appliction/json:
+              schema:
+                type: object
+                properties:
+                  tasks:
+                    type: array
+                    items:
+                      $ref: '#components/schemas/ExtendedTask'
+    post:
+      summary: 'Register a task for a specific project'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: 'ID of the project'
+      requestBody:
+        description: 'All the task information required for creating a new task.'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#components/schemas/TaskRegistrationRequest'
+      responses:
+        '200':
+          description: 'If the task has been created successfully.'
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/ExtendedTask'
+        '400':
+          description: 'If the task could not be created, e.g. because of malformed request body or because the project
+            already marked as completed.'
+        '404':
+          description: 'If no project could be found with the given id.'
+
+  /records/start:
+    post:
+      summary: 'Starts a new record'
+      requestBody:
+        description: 'The details for the record.'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#components/schemas/StartRecordRequest'
+      responses:
+        '200':
+          description: 'If the record was successfully created and started.'
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/RunningRecord'
+        '400':
+          description: 'If the project or task is marked as completed and no new records can be started.'
+        '404':
+          description: 'If the id of the project or task provided was invalid.'
+
+  /records/{id}/stop:
+    post:
+      summary: 'Stops the record under the given id'
+      parameters:
+        - in: path
+          name: id
+          description: 'The id of the record to stop'
+          schema:
+            type: string
+            example: 'record-1927sas0'
+            required: true
+      responses:
+        '200':
+          description: 'If the record was found and successfully stopped.'
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Record'
+        '400':
+          description: 'If the record was found but already stopped.'
+        '404':
+          description: 'If the record with the specified id was not found.'
+
+  /records/stopAll:
+    post:
+      summary: 'Stops all running records'
+      responses:
+        '200':
+          description: 'If the request processed successfully and running records were stopped. Response contains a list of all records that were stopped.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  records:
+                    type: array
+                    items:
+                      $ref: '#components/schemas/Record'
+
+  /records/running:
+    get:
+      summary: 'Returns a list of running records'
+      responses:
+        '200':
+          description: 'If the request could be processed succefully and a list of records returned (the list might be empty however)'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  records:
+                    type: array
+                    items:
+                      $ref: '#components/schemas/RunningRecord'
+
+  /records/{id}:
+    get:
+      summary: 'Returns the record with the given id'
+      parameters:
+        - in: path
+          name: id
+          description: 'The id of the record'
+          schema:
+            type: string
+            example: 'record-1927sas0'
+            required: true
+      responses:
+        '200':
+          description: 'If the record was found and successfully returned.'
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Record'
+
+  /tasks/{id}:
+    get:
+      summary: 'Endpoint for loading details of a task'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            required: true
+          description: 'The id of the task to fetch'
+      responses:
+        '200':
+          description: 'If the task could be fetched successfully.'
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/ExtendedTask'
+    patch:
+      summary: 'Endpoint for updating the given task'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            required: true
+          description: 'The id of the task to update'
+      requestBody:
+        description: 'The information of the task to update.'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#components/schemas/TaskUpdateRequest'
+      responses:
+        '200':
+          description: 'If the task successfully updated.'
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/ExtendedTask'
+        '400':
+          description: 'If the request body for updating the task was malformed.'
+        '404':
+          description: 'If the task with the given project and task id could not be found.'
+    delete:
+      summary: 'Endpoint to delete a task'
+      parameters:
+        - name: id
+          in: path
+          description: 'ID of Task to delete'
+          schema:
+            type: string
+          required: true
+      responses:
+        '204':
+          description: 'If the task was successfully deleted.'
+        '404':
+          description: 'If the task was not found.'
+
+components:
+  schemas:
+    SimpleProject:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 'project-971na07sdnbap'
+        name:
+          type: string
+          example: 'My very first project'
+        color:
+          type: string
+          example: '#ffffff'
+        completed:
+          type: boolean
+          nullable: true
+
+    ExtendedProject:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 'project-971na07sdnbap'
+        name:
+          type: string
+          example: 'My very first project'
+        color:
+          type: string
+          example: '#ffffff'
+        completed:
+          type: boolean
+          nullable: true
+        tasks:
+          type: array
+          items:
+            $ref: '#components/schemas/SimpleTask'
+
+    SimpleTask:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 'task-971na07sdnbap'
+        name:
+          type: string
+
+    ExtendedTask:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 'task-971na07sdnbap'
+        description:
+          type: string
+          example: 'My Task'
+        records:
+          type: array
+          items:
+            $ref: '#components/schemas/Record'
+
+    RunningRecord:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 'record-7b0812n0a6c12'
+        startTime:
+          type: string
+          format: date-time
+        project:
+          type: string
+          description: 'The id of the project.'
+        task:
+          type: string
+          nullable: true
+          description: 'The id of the task if the record started for a specific task, null otherwise.'
+
+    Record:
+      allOf:
+      - $ref: '#components/schemas/RunningRecord'
+      - type: object
+        properties:
+          endTime:
+            type: string
+            format: date-time
+            nullable: true
+            description: 'This value is null or missing if the record is currently running.'
+
+
+    # # # # # # # # # # #
+    # API Request views #
+    # # # # # # # # # # #
+
+    ProjectRegistrationRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          example: 'My Project'
+          required: true
+        color:
+          type: string
+          example: '#ffffff'
+          default: '#ffffff'
+          required: false
+
+    StartRecordRequest:
+      type: object
+      properties:
+        project:
+          type: string
+          required: true
+          description: 'The id of the project to start the record in.'
+          example: 'project-a7dna7d6td'
+        taks:
+          type: string
+          required: false
+          description: 'The id of the task to start the record in.'
+          example: 'task-dd7a97d'
+
+    ProjectUpdateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          example: 'My New Project'
+          required: false
+        color:
+          type: string
+          example: '#ffffff'
+          required: false
+        completed:
+          type: boolean
+          example: true
+          required: false
+
+    TaskRegistrationRequest:
+      type: object
+      properties:
+        description:
+          type: string
+          example: 'My Task'
+          required: true
+
+    TaskUpdateRequest:
+      type: object
+      properties:
+        description:
+          type: string
+          example: 'My Task'
+          required: false
+        completed:
+          type: boolean
+          example: true
+          required: false

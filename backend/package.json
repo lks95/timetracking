@@ -1,0 +1,46 @@
+{
+  "name": "lisbon-backend",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "npm run build:live",
+    "build": "tsc -p .",
+    "build:live": "nodemon --watch 'src/**/*.ts' --exec ts-node src/server.ts",
+    "test": "mocha -r ts-node/register tests/**/*.test.ts --timeout 10000",
+    "coverage": "nyc -r text-summary npm run test",
+    "coverage:report": "nyc -r lcov npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.mi.hdm-stuttgart.de/mwa/mwa-ss20/lisbon.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/chai": "^4.2.11",
+    "@types/express": "^4.17.6",
+    "@types/mocha": "^5.2.6",
+    "@types/mongoose": "^5.7.20",
+    "@types/node": "^11.13.7",
+    "body-parser": "latest",
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mocha": "^7.1.2",
+    "mongoose": "^5.9.14",
+    "morgan": "^1.10.0",
+    "nodemon": "^1.18.11",
+    "nyc": "^15.0.1",
+    "swagger-ui-express": "^4.1.4",
+    "ts-node": "^8.10.1",
+    "typescript": "~3.2.1",
+    "typescript-eslint-parser": "^22.0.0",
+    "yamljs": "^0.3.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.17.2"
+  }
+}

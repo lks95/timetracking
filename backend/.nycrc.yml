@@ -1,0 +1,4 @@
+all: true
+exclude:
+  - 'node_modules/**'
+  - 'tests/**/*.test.ts'
