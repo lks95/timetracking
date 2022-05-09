@@ -21,12 +21,7 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a5766c72-1ade-44d7-bfbf-00ecccfe0e7d" name="Default Changelist" comment="added create-task component&#10;&#10;styles not done yet // services not implemented // button functions not implemented // view only// not responsive">
-      <change beforePath="$PROJECT_DIR$/backend/src/db/schemas/project.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/db/schemas/project.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/routes/projects.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/routes/projects.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
-    </list>
+    <list default="true" id="a5766c72-1ade-44d7-bfbf-00ecccfe0e7d" name="Default Changelist" comment="added create-task component&#10;&#10;styles not done yet // services not implemented // button functions not implemented // view only// not responsive" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -48,6 +43,9 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectId" id="1bnpVuqMRiryBxxVWlCKRMPPCOQ" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -61,7 +59,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../bachatbot" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
@@ -74,6 +72,7 @@
     <property name="nodejs.mocha.mocha_node_package_dir" value="$PROJECT_DIR$/backend/node_modules/mocha" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="ts.external.directory.path" value="C:\Users\lukas\Desktop\Mobile Web Applications\mwa20_project\backend\node_modules\typescript\lib" />
+    <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -144,6 +143,7 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -189,6 +189,7 @@
       <workItem from="1609683869854" duration="3849000" />
       <workItem from="1609774836093" duration="4735000" />
       <workItem from="1609853442256" duration="9134000" />
+      <workItem from="1652100273674" duration="315000" />
     </task>
     <task id="LOCAL-00001" summary="added test class&#10;&#10;for:&#10;/projects/{id}/tasks/{task-id}&#10;/projects/{id}/start&#10;/projects/{id}/stop">
       <created>1589976906017</created>
@@ -229,7 +230,7 @@
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="2" />
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -241,7 +242,6 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="added test class&#10;&#10;for:&#10;/projects/{id}/tasks/{task-id}&#10;/projects/{id}/start&#10;/projects/{id}/stop" />
