@@ -11,7 +11,7 @@ Easy Time Tracking Application
 | ------------------- | ---------- |
 | Chritos Malliaridis | cm116      |
 | Lukas Klein         | lk104      |
-| Elisa Haijkens      | eh039      |
+
 
 
 ## Milestones

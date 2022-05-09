@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </select>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="a5766c72-1ade-44d7-bfbf-00ecccfe0e7d" name="Default Changelist" comment="added create-task component&#10;&#10;styles not done yet // services not implemented // button functions not implemented // view only// not responsive">
+      <change beforePath="$PROJECT_DIR$/backend/src/db/schemas/project.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/db/schemas/project.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/routes/projects.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/routes/projects.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="CSS File" />
+        <option value="TypeScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="dev" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1bnpVuqMRiryBxxVWlCKRMPPCOQ" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="Git.Branch.Popup.ShowAllLocals" value="false" />
+    <property name="Git.Branch.Popup.ShowAllRemotes" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../bachatbot" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.standard" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.standard" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.standard" value="" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs.mocha.mocha_node_package_dir" value="$PROJECT_DIR$/backend/node_modules/mocha" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="ts.external.directory.path" value="C:\Users\lukas\Desktop\Mobile Web Applications\mwa20_project\backend\node_modules\typescript\lib" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\lukas\Desktop\Mobile Web Applications\mwa20_project\frontend\src\app\components" />
+    </key>
+  </component>
+  <component name="RunManager" selected="npm.build (1)">
+    <configuration name="docker-compose.yml.database: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="services">
+            <list>
+              <option value="database" />
+            </list>
+          </option>
+          <option name="sourceFilePath" value="docker-compose.yml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="build (1)" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/backend/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="build" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="coverage:report" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/backend/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="coverage:report" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="start (1)" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/backend/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="start" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/frontend/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.build (1)" />
+        <item itemvalue="npm.start (1)" />
+        <item itemvalue="npm.start" />
+        <item itemvalue="npm.coverage:report" />
+        <item itemvalue="Docker.docker-compose.yml.database: Compose Deployment" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a5766c72-1ade-44d7-bfbf-00ecccfe0e7d" name="Default Changelist" comment="moved scheme to right branch" />
+      <created>1589277739860</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1589277739860</updated>
+      <workItem from="1589277746958" duration="6517000" />
+      <workItem from="1589379425153" duration="1212000" />
+      <workItem from="1589381067119" duration="819000" />
+      <workItem from="1589438988364" duration="32000" />
+      <workItem from="1589533450699" duration="14317000" />
+      <workItem from="1589883713554" duration="571000" />
+      <workItem from="1589961001221" duration="3515000" />
+      <workItem from="1589965676002" duration="11409000" />
+      <workItem from="1589977711905" duration="207000" />
+      <workItem from="1590040886885" duration="3158000" />
+      <workItem from="1590061772416" duration="703000" />
+      <workItem from="1590142044842" duration="3706000" />
+      <workItem from="1590150667542" duration="4437000" />
+      <workItem from="1590399348076" duration="34000" />
+      <workItem from="1590480871649" duration="1427000" />
+      <workItem from="1590592117748" duration="16000" />
+      <workItem from="1591081191159" duration="9552000" />
+      <workItem from="1591182624273" duration="4488000" />
+      <workItem from="1591264917460" duration="6547000" />
+      <workItem from="1591272918393" duration="932000" />
+      <workItem from="1591273870913" duration="11125000" />
+      <workItem from="1591300400967" duration="342000" />
+      <workItem from="1591915166556" duration="23000" />
+      <workItem from="1591964424470" duration="1134000" />
+      <workItem from="1592294469519" duration="5745000" />
+      <workItem from="1592499991492" duration="1294000" />
+      <workItem from="1592555703697" duration="10457000" />
+      <workItem from="1593091939566" duration="55000" />
+      <workItem from="1594977525699" duration="1534000" />
+      <workItem from="1595324976908" duration="84000" />
+      <workItem from="1606670428119" duration="5486000" />
+      <workItem from="1607200705289" duration="625000" />
+      <workItem from="1609683869854" duration="3849000" />
+      <workItem from="1609774836093" duration="4735000" />
+      <workItem from="1609853442256" duration="9134000" />
+    </task>
+    <task id="LOCAL-00001" summary="added test class&#10;&#10;for:&#10;/projects/{id}/tasks/{task-id}&#10;/projects/{id}/start&#10;/projects/{id}/stop">
+      <created>1589976906017</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1589976906017</updated>
+    </task>
+    <task id="LOCAL-00002" summary="added test class&#10;&#10;for:&#10;/projects/{id}/tasks/{task-id}&#10;/projects/{id}/start&#10;/projects/{id}/stop">
+      <created>1589977158876</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1589977158876</updated>
+    </task>
+    <task id="LOCAL-00003" summary="added test class from &#10;&#10;for:&#10;/projects/{id}/tasks/{task-id}&#10;/projects/{id}/start&#10;/projects/{id}/stop">
+      <created>1590043846383</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1590043846383</updated>
+    </task>
+    <task id="LOCAL-00004" summary="added create-project component&#10;&#10;styles not done yet // services not implemented, mockup in // button functions not implemented // view only, mockups in create-project.component.ts // not responsive">
+      <created>1591284376565</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1591284376565</updated>
+    </task>
+    <task id="LOCAL-00005" summary="added create-task component&#10;&#10;styles not done yet // services not implemented // button functions not implemented // view only// not responsive">
+      <created>1591288593441</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1591288593441</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="added test class&#10;&#10;for:&#10;/projects/{id}/tasks/{task-id}&#10;/projects/{id}/start&#10;/projects/{id}/stop" />
+    <MESSAGE value="added test class from &#10;&#10;for:&#10;/projects/{id}/tasks/{task-id}&#10;/projects/{id}/start&#10;/projects/{id}/stop" />
+    <MESSAGE value="added create-project component&#10;&#10;styles not done yet // services not implemented, mockup in // button functions not implemented // view only, mockups in create-project.component.ts" />
+    <MESSAGE value="added create-project component&#10;&#10;styles not done yet // services not implemented, mockup in // button functions not implemented // view only, mockups in create-project.component.ts // not responsive" />
+    <MESSAGE value="added create-task component&#10;&#10;styles not done yet // services not implemented // button functions not implemented // view only// not responsive" />
+    <option name="LAST_COMMIT_MESSAGE" value="added create-task component&#10;&#10;styles not done yet // services not implemented // button functions not implemented // view only// not responsive" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="420" y="458" key="FileChooserDialogImpl" timestamp="1609855962646">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="420" y="458" key="FileChooserDialogImpl/0.0.2560.1400@0.0.2560.1400" timestamp="1609855962646" />
+    <state x="449" y="617" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1609779557209">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="449" y="617" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.2560.1400@0.0.2560.1400" timestamp="1609779557209" />
+  </component>
+</project>
